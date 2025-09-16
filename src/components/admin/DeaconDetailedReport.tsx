@@ -16,7 +16,8 @@ import {
   PhoneIcon,
   StarIcon,
   ArrowTrendingUpIcon,
-  ArrowTrendingDownIcon
+  ArrowTrendingDownIcon,
+  ChatBubbleLeftRightIcon
 } from '@heroicons/react/24/outline';
 import { User } from '../../types/user';
 import { DeaconBalance, DeaconRecord, PointsTransaction } from '../../types/approval';
@@ -43,7 +44,7 @@ const DeaconDetailedReport: React.FC<DeaconDetailedReportProps> = ({ deacon, onC
   const [transactions, setTransactions] = useState<PointsTransaction[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance' | 'notes'>('overview');
 
   useEffect(() => {
     loadDeaconData();
@@ -52,17 +53,15 @@ const DeaconDetailedReport: React.FC<DeaconDetailedReportProps> = ({ deacon, onC
   const loadDeaconData = async () => {
     try {
       setLoading(true);
-      const [recordsData, transactionsData, levelsData, notesData] = await Promise.all([
+      const [recordsData, transactionsData, levelsData] = await Promise.all([
         deaconRecordsApi.getByDeaconId(deacon.id),
         transactionsApi.getByDeaconId(deacon.id),
-        levelsApi.getAll(),
-        childNotesApi.getByDeaconId(deacon.id)
+        levelsApi.getAll()
       ]);
       
       setRecords(recordsData);
       setTransactions(transactionsData);
       setLevels(levelsData);
-      setChildNotes(notesData);
     } catch (error) {
       console.error('Error loading deacon data:', error);
     } finally {
@@ -268,6 +267,17 @@ const DeaconDetailedReport: React.FC<DeaconDetailedReportProps> = ({ deacon, onC
           >
             <CalendarIcon className="w-4 h-4" />
             <span>الحضور</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('notes')}
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
+              activeTab === 'notes'
+                ? 'bg-white text-amber-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <ChatBubbleLeftRightIcon className="w-4 h-4" />
+            <span>الملاحظات</span>
           </button>
         </div>
 
