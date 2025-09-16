@@ -230,84 +230,95 @@ const DeaconCalendar: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 space-x-reverse">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
             <button
               onClick={() => navigateMonth('next')}
-              className="p-3 hover:bg-gray-100 rounded-xl transition-colors hover:scale-110"
+              className="p-2 sm:p-3 hover:bg-gray-100 rounded-xl transition-colors hover:scale-110 order-2 sm:order-1"
             >
-              <ChevronLeftIcon className="w-6 h-6 text-gray-600" />
+              <ChevronLeftIcon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
             </button>
             <button
               onClick={() => navigateMonth('prev')}
-              className="p-3 hover:bg-gray-100 rounded-xl transition-colors hover:scale-110"
+              className="p-2 sm:p-3 hover:bg-gray-100 rounded-xl transition-colors hover:scale-110 order-3 sm:order-2"
             >
-              <ChevronRightIcon className="w-6 h-6 text-gray-600" />
+              <ChevronRightIcon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
             </button>
-            <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-xl p-4">
-              <h2 className="text-3xl font-bold text-amber-900 font-cairo">
+            <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-xl p-3 sm:p-4 order-1 sm:order-3">
+              <h2 className="text-xl sm:text-3xl font-bold text-amber-900 font-cairo text-center sm:text-right">
                 {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
               </h2>
             </div>
           </div>
           
           <div className="text-right">
-            <h1 className="text-3xl font-bold text-gray-900 font-cairo mb-2">تقويم الجلسات والفعاليات</h1>
-            <p className="text-gray-600 font-cairo text-lg">عرض جميع الجلسات والأنشطة المجدولة</p>
+            <h1 className="text-xl sm:text-3xl font-bold text-gray-900 font-cairo mb-1 sm:mb-2">تقويم الجلسات والفعاليات</h1>
+            <p className="text-gray-600 font-cairo text-sm sm:text-lg hidden sm:block">عرض جميع الجلسات والأنشطة المجدولة</p>
           </div>
         </div>
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <BookOpenIcon className="w-6 h-6 text-blue-600" />
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <BookOpenIcon className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-blue-600 mb-1">
             {sessions.filter(s => s.type === 'lesson').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">دروس</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">دروس</p>
         </div>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
             <span className="text-2xl">🎉</span>
           </div>
-          <div className="text-2xl font-bold text-green-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-green-600 mb-1">
             {sessions.filter(s => s.type === 'event').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">فعاليات</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">فعاليات</p>
         </div>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
             <span className="text-2xl">🚌</span>
           </div>
-          <div className="text-2xl font-bold text-purple-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-purple-600 mb-1">
             {sessions.filter(s => s.type === 'trip').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">رحلات</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">رحلات</p>
         </div>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <UsersIcon className="w-6 h-6 text-orange-600" />
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <UsersIcon className="w-4 h-4 sm:w-6 sm:h-6 text-orange-600" />
           </div>
-          <div className="text-2xl font-bold text-orange-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-orange-600 mb-1">
             {sessions.filter(s => s.type === 'meeting').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">اجتماعات</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">اجتماعات</p>
         </div>
       </div>
 
       {/* Calendar */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Calendar Header */}
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-gray-200">
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-gray-200 hidden sm:block">
           <div className="grid grid-cols-7 gap-0">
             {dayNames.map((day) => (
-              <div key={day} className="p-4 text-center border-r border-gray-200 last:border-r-0">
+              <div key={day} className="p-2 sm:p-4 text-center border-r border-gray-200 last:border-r-0">
                 <span className="text-sm font-bold text-gray-700 font-cairo">{day}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Calendar Header */}
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-gray-200 block sm:hidden">
+          <div className="grid grid-cols-7 gap-0">
+            {['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'].map((day, index) => (
+              <div key={index} className="p-2 text-center border-r border-gray-200 last:border-r-0">
+                <span className="text-xs font-bold text-gray-700 font-cairo">{day}</span>
               </div>
             ))}
           </div>
@@ -366,18 +377,18 @@ const DeaconCalendar: React.FC = () => {
 
       {/* Upcoming Sessions */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo flex items-center space-x-3 space-x-reverse">
-          <CalendarIcon className="w-6 h-6 text-amber-600" />
+        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6 text-right font-cairo flex items-center space-x-2 sm:space-x-3 space-x-reverse">
+          <CalendarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
           <span>الجلسات القادمة</span>
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {sessions
             .filter(s => new Date(s.date) >= new Date())
             .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
             .slice(0, 6)
             .map((session) => (
-              <div key={session.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-all duration-200 hover:scale-105">
+              <div key={session.id} className="border border-gray-200 rounded-xl p-3 sm:p-4 hover:shadow-md transition-all duration-200 hover:scale-105">
                 <div className="flex items-start justify-between mb-3">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg ${
                     session.type === 'lesson' ? 'bg-blue-100' :
@@ -395,25 +406,25 @@ const DeaconCalendar: React.FC = () => {
                 </div>
                 
                 <div className="text-right">
-                  <h4 className="font-bold text-gray-900 font-cairo mb-2 text-lg">
+                  <h4 className="font-bold text-gray-900 font-cairo mb-2 text-base sm:text-lg">
                     {session.name}
                   </h4>
                   
                   <div className="space-y-2 text-sm text-gray-600">
                     <div className="flex items-center space-x-2 space-x-reverse">
-                      <span className="font-cairo">{new Date(session.date).toLocaleDateString('ar-EG')}</span>
-                      <CalendarIcon className="w-4 h-4" />
+                      <span className="font-cairo text-xs sm:text-sm">{new Date(session.date).toLocaleDateString('ar-EG')}</span>
+                      <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                     </div>
                     
                     <div className="flex items-center space-x-2 space-x-reverse">
-                      <span className="font-cairo">{session.startTime} - {session.endTime}</span>
-                      <ClockIcon className="w-4 h-4" />
+                      <span className="font-cairo text-xs sm:text-sm">{session.startTime} - {session.endTime}</span>
+                      <ClockIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                     </div>
                     
                     {session.location && (
                       <div className="flex items-center space-x-2 space-x-reverse">
-                        <span className="font-cairo">{session.location}</span>
-                        <MapPinIcon className="w-4 h-4" />
+                        <span className="font-cairo text-xs sm:text-sm">{session.location}</span>
+                        <MapPinIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                       </div>
                     )}
                   </div>
@@ -424,40 +435,40 @@ const DeaconCalendar: React.FC = () => {
         
         {sessions.filter(s => new Date(s.date) >= new Date()).length === 0 && (
           <div className="text-center py-8">
-            <CalendarIcon className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500 font-cairo">لا توجد جلسات قادمة</p>
+            <CalendarIcon className="w-10 h-10 sm:w-12 sm:h-12 text-gray-300 mx-auto mb-3" />
+            <p className="text-gray-500 font-cairo text-sm sm:text-base">لا توجد جلسات قادمة</p>
           </div>
         )}
       </div>
 
       {/* Legend */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-4 text-right font-cairo">دليل الألوان والرموز</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 text-right font-cairo">دليل الألوان والرموز</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <span className="text-sm text-gray-700 font-cairo">دروس</span>
+              <span className="text-xs sm:text-sm text-gray-700 font-cairo">دروس</span>
               <span className="text-lg">📚</span>
             </div>
             <div className="w-4 h-4 bg-blue-500 rounded shadow-sm"></div>
           </div>
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <span className="text-sm text-gray-700 font-cairo">فعاليات</span>
+              <span className="text-xs sm:text-sm text-gray-700 font-cairo">فعاليات</span>
               <span className="text-lg">🎉</span>
             </div>
             <div className="w-4 h-4 bg-green-500 rounded shadow-sm"></div>
           </div>
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <span className="text-sm text-gray-700 font-cairo">رحلات</span>
+              <span className="text-xs sm:text-sm text-gray-700 font-cairo">رحلات</span>
               <span className="text-lg">🚌</span>
             </div>
             <div className="w-4 h-4 bg-purple-500 rounded shadow-sm"></div>
           </div>
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="flex items-center space-x-2 space-x-reverse">
-              <span className="text-sm text-gray-700 font-cairo">اجتماعات</span>
+              <span className="text-xs sm:text-sm text-gray-700 font-cairo">اجتماعات</span>
               <span className="text-lg">👥</span>
             </div>
             <div className="w-4 h-4 bg-orange-500 rounded shadow-sm"></div>
