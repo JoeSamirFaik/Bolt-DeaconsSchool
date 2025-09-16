@@ -395,7 +395,6 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
               <p className="text-gray-500 font-cairo">لا يوجد شمامسة مؤهلون لهذه الجلسة</p>
             </div>
           )}
-          </div>
 
           {/* Save Button */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
