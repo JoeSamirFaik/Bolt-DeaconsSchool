@@ -11,7 +11,8 @@ import {
   DocumentTextIcon,
   PhotoIcon,
   PhoneIcon,
-  TrophyIcon
+  TrophyIcon,
+  ClipboardDocumentCheckIcon
 } from '@heroicons/react/24/outline';
 import { DeaconRecord, DeaconBalance, ReviewRecordRequest } from '../../types/approval';
 import { User } from '../../types/user';
