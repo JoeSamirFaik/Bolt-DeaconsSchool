@@ -166,6 +166,7 @@ const Layout: React.FC = () => {
               <p className="text-gray-500 font-cairo">قريباً...</p>
             </div>
           </div>
+        );
     }
   };
 
