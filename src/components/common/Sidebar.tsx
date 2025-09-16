@@ -69,7 +69,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
           { id: 'records-approval', icon: ClipboardDocumentCheckIcon, label: 'مراجعة السجلات' },
           { id: 'child-notes', icon: ChatBubbleLeftRightIcon, label: 'ملاحظات الشمامسة' },
           { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
-          { id: 'analytics', icon: ChartBarIcon, label: 'التحليلات المتقدمة' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
           { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات' },
         ];

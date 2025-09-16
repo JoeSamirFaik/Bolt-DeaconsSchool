@@ -190,11 +190,6 @@ const Layout: React.FC = () => {
                 <SystemSettings /> : 
                 <NotAllowedPage title="هذه الصفحة متاحة للمديرين فقط" />
             } />
-            <Route path="/analytics" element={
-              user?.role === 'admin' ? 
-                <ComingSoonPage title="التحليلات المتقدمة" icon="📊" /> : 
-                <NotAllowedPage title="هذه الصفحة متاحة للمديرين فقط" />
-            } />
           </Routes>
         </main>
       </div>
