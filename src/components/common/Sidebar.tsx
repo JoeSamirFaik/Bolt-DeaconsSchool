@@ -95,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 px-4 py-6">
+      <div className="flex-1 px-4 py-6 overflow-hidden">
         <nav className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -123,9 +123,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
             );
           })}
         </nav>
-
       </div>
-
     </div>
   );
 };
