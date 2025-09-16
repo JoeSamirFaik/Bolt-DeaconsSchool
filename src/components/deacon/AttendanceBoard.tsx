@@ -647,7 +647,7 @@ const AttendanceBoard: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                   ملاحظات
                 </label>
                 <textarea
@@ -675,6 +675,39 @@ const AttendanceBoard: React.FC = () => {
                 </button>
               </div>
             </form>
+          </div>
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <span className="text-sm text-gray-700 font-cairo">قداسات</span>
+              <span className="text-lg">⛪</span>
+            </div>
+            <div className="w-4 h-4 bg-amber-500 rounded shadow-sm"></div>
+          </div>
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <span className="text-sm text-gray-700 font-cairo">صلوات</span>
+              <span className="text-lg">🙏</span>
+            </div>
+            <div className="w-4 h-4 bg-indigo-500 rounded shadow-sm"></div>
+          </div>
+        </div>
+        
+        {/* Points System Explanation */}
+        <div className="mt-6 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl p-4 border border-yellow-200">
+          <h4 className="text-md font-bold text-amber-900 mb-3 text-right font-cairo">نظام النقاط 🏆</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">+50 نقطة</span>
+              <span className="text-amber-800 font-cairo">⛪ حضور قداس</span>
+            </div>
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">+25 نقطة</span>
+              <span className="text-amber-800 font-cairo">🙏 صلاة شخصية</span>
+            </div>
+            <div className="flex items-center space-x-2 space-x-reverse">
+              <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full font-medium">+30 نقطة</span>
+              <span className="text-amber-800 font-cairo">📚 حضور جلسة</span>
+            </div>
           </div>
         </div>
       )}
