@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpenIcon, ClipboardDocumentCheckIcon, ChartBarIcon, TrophyIcon, FireIcon, StarIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, ClipboardDocumentCheckIcon, ChartBarIcon, TrophyIcon, FireIcon, StarIcon, BellIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../context/AuthContext';
 
 const DeaconDashboard: React.FC = () => {
