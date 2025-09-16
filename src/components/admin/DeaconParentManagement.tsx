@@ -77,6 +77,17 @@ const DeaconParentManagement: React.FC = () => {
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [editingAssignment, setEditingAssignment] = useState<LevelAssignment | null>(null);
 
+  // Bulk assignment state
+  const [showBulkAssignment, setShowBulkAssignment] = useState(false);
+  const [selectedDeacons, setSelectedDeacons] = useState<string[]>([]);
+  const [bulkAssignmentForm, setBulkAssignmentForm] = useState({
+    levelId: '',
+    academicYear: '',
+    startDate: '',
+    expectedEndDate: '',
+    notes: ''
+  });
+
   // Assignment form state
   const [assignmentForm, setAssignmentForm] = useState<CreateLevelAssignmentRequest>({
     deaconId: '',
@@ -156,6 +167,55 @@ const DeaconParentManagement: React.FC = () => {
     }
   };
 
+  const handleBulkAssignment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      // Create assignments for all selected deacons
+      const promises = selectedDeacons.map(deaconId => 
+        levelAssignmentsApi.create({
+          deaconId,
+          levelId: bulkAssignmentForm.levelId,
+          academicYear: bulkAssignmentForm.academicYear,
+          startDate: bulkAssignmentForm.startDate,
+          expectedEndDate: bulkAssignmentForm.expectedEndDate,
+          notes: bulkAssignmentForm.notes
+        })
+      );
+      
+      await Promise.all(promises);
+      
+      // Reset form and selections
+      setBulkAssignmentForm({
+        levelId: '',
+        academicYear: '',
+        startDate: '',
+        expectedEndDate: '',
+        notes: ''
+      });
+      setSelectedDeacons([]);
+      setShowBulkAssignment(false);
+      loadData();
+    } catch (error) {
+      console.error('Error creating bulk assignments:', error);
+    }
+  };
+
+  const handleSelectDeacon = (deaconId: string) => {
+    setSelectedDeacons(prev => 
+      prev.includes(deaconId) 
+        ? prev.filter(id => id !== deaconId)
+        : [...prev, deaconId]
+    );
+  };
+
+  const handleSelectAllDeacons = () => {
+    if (selectedDeacons.length === deacons.length) {
+      setSelectedDeacons([]);
+    } else {
+      setSelectedDeacons(deacons.map(d => d.id));
+    }
+  };
+
   const handleEditAssignment = (assignment: LevelAssignment) => {
     setEditingAssignment(assignment);
     setAssignmentForm({
@@ -226,6 +286,19 @@ const DeaconParentManagement: React.FC = () => {
           </div>
         </div>
 
+        {/* Bulk Assignment Button for Deacons */}
+        {activeTab === 'deacons' && (
+          <div className="mb-4">
+            <button
+              onClick={() => setShowBulkAssignment(!showBulkAssignment)}
+              className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-md hover:scale-105"
+            >
+              <UsersIcon className="w-4 h-4" />
+              <span>تكليف جماعي</span>
+            </button>
+          </div>
+        )}
+
         {/* Tabs */}
         <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-xl">
           <button
@@ -264,15 +337,193 @@ const DeaconParentManagement: React.FC = () => {
         </div>
       </div>
 
+      {/* Bulk Assignment Form */}
+      {showBulkAssignment && activeTab === 'deacons' && (
+        <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl shadow-sm border border-purple-200 p-6">
+          <div className="flex items-center space-x-3 space-x-reverse mb-6">
+            <UsersIcon className="w-6 h-6 text-purple-600" />
+            <h3 className="text-xl font-bold text-purple-900 font-cairo">تكليف جماعي للشمامسة</h3>
+          </div>
+          
+          <form onSubmit={handleBulkAssignment} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-purple-700 mb-2 text-right font-cairo">
+                  المستوى *
+                </label>
+                <Select
+                  value={bulkAssignmentForm.levelId ? 
+                    { value: bulkAssignmentForm.levelId, label: levels.find(l => l.id === bulkAssignmentForm.levelId)?.name } : 
+                    null
+                  }
+                  onChange={(option) => {
+                    setBulkAssignmentForm({ ...bulkAssignmentForm, levelId: option ? option.value : '' });
+                  }}
+                  options={levels.map(level => ({ 
+                    value: level.id, 
+                    label: level.name 
+                  }))}
+                  styles={customSelectStyles}
+                  placeholder="اختر المستوى"
+                  isSearchable={true}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-purple-700 mb-2 text-right font-cairo">
+                  السنة الأكاديمية *
+                </label>
+                <Select
+                  value={bulkAssignmentForm.academicYear ? 
+                    { value: bulkAssignmentForm.academicYear, label: bulkAssignmentForm.academicYear } : 
+                    null
+                  }
+                  onChange={(option) => {
+                    setBulkAssignmentForm({ ...bulkAssignmentForm, academicYear: option ? option.value : '' });
+                  }}
+                  options={academicYears.map(year => ({ 
+                    value: year.year, 
+                    label: year.year 
+                  }))}
+                  styles={customSelectStyles}
+                  placeholder="اختر السنة"
+                  isSearchable={false}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-purple-700 mb-2 text-right font-cairo">
+                    تاريخ البداية *
+                  </label>
+                  <input
+                    type="date"
+                    value={bulkAssignmentForm.startDate}
+                    onChange={(e) => setBulkAssignmentForm({ ...bulkAssignmentForm, startDate: e.target.value })}
+                    required
+                    className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo bg-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-purple-700 mb-2 text-right font-cairo">
+                    تاريخ الانتهاء *
+                  </label>
+                  <input
+                    type="date"
+                    value={bulkAssignmentForm.expectedEndDate}
+                    onChange={(e) => setBulkAssignmentForm({ ...bulkAssignmentForm, expectedEndDate: e.target.value })}
+                    required
+                    className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-purple-700 mb-2 text-right font-cairo">
+                  ملاحظات
+                </label>
+                <textarea
+                  value={bulkAssignmentForm.notes}
+                  onChange={(e) => setBulkAssignmentForm({ ...bulkAssignmentForm, notes: e.target.value })}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo resize-none bg-white"
+                  placeholder="ملاحظات إضافية..."
+                />
+              </div>
+
+              <div className="bg-white rounded-lg p-4 border border-purple-200">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-purple-600 font-cairo">
+                    تم اختيار {selectedDeacons.length} من {deacons.length} شماس
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleSelectAllDeacons}
+                    className="text-sm text-purple-600 hover:text-purple-800 font-cairo underline"
+                  >
+                    {selectedDeacons.length === deacons.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
+                  </button>
+                </div>
+                
+                <div className="max-h-32 overflow-y-auto space-y-2">
+                  {deacons.slice(0, 5).map((deacon) => (
+                    <label key={deacon.id} className="flex items-center space-x-3 space-x-reverse cursor-pointer hover:bg-purple-50 p-2 rounded">
+                      <span className="text-sm text-gray-700 font-cairo">{deacon.firstName} {deacon.lastName}</span>
+                      <input
+                        type="checkbox"
+                        checked={selectedDeacons.includes(deacon.id)}
+                        onChange={() => handleSelectDeacon(deacon.id)}
+                        className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                      />
+                    </label>
+                  ))}
+                  {deacons.length > 5 && (
+                    <p className="text-xs text-gray-500 font-cairo text-center">
+                      و {deacons.length - 5} شماس آخر...
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex space-x-3 space-x-reverse">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowBulkAssignment(false);
+                    setSelectedDeacons([]);
+                    setBulkAssignmentForm({
+                      levelId: '',
+                      academicYear: '',
+                      startDate: '',
+                      expectedEndDate: '',
+                      notes: ''
+                    });
+                  }}
+                  className="flex-1 px-4 py-2 border border-purple-300 text-purple-700 rounded-lg hover:bg-purple-50 transition-colors font-medium"
+                >
+                  إلغاء
+                </button>
+                <button
+                  type="submit"
+                  disabled={selectedDeacons.length === 0}
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg hover:from-purple-600 hover:to-indigo-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  تكليف {selectedDeacons.length} شماس
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+
       {/* Content */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
         {/* Deacons Tab */}
         {activeTab === 'deacons' && (
           <div className="p-6">
+            {showBulkAssignment && (
+              <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                <p className="text-sm text-purple-700 font-cairo text-center">
+                  اختر الشمامسة المراد تكليفهم من الجدول أدناه، ثم املأ نموذج التكليف الجماعي أعلاه
+                </p>
+              </div>
+            )}
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gradient-to-r from-amber-50 to-orange-50">
                   <tr>
+                    {showBulkAssignment && (
+                      <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                        <input
+                          type="checkbox"
+                          checked={selectedDeacons.length === deacons.length && deacons.length > 0}
+                          onChange={handleSelectAllDeacons}
+                          className="w-4 h-4 text-amber-600 border-gray-300 rounded focus:ring-amber-500"
+                        />
+                      </th>
+                    )}
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
                       الإجراءات
                     </th>
@@ -295,7 +546,17 @@ const DeaconParentManagement: React.FC = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {deacons.map((deacon, index) => (
-                    <tr key={deacon.id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
+                    <tr key={deacon.id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'} ${showBulkAssignment && selectedDeacons.includes(deacon.id) ? 'bg-purple-50' : ''}`}>
+                      {showBulkAssignment && (
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <input
+                            type="checkbox"
+                            checked={selectedDeacons.includes(deacon.id)}
+                            onChange={() => handleSelectDeacon(deacon.id)}
+                            className="w-4 h-4 text-amber-600 border-gray-300 rounded focus:ring-amber-500"
+                          />
+                        </td>
+                      )}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center space-x-2 space-x-reverse">
                           <button
