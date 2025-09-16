@@ -87,6 +87,7 @@ const DeaconParentManagement: React.FC = () => {
     expectedEndDate: '',
     notes: ''
   });
+  const [deaconSearchTerm, setDeaconSearchTerm] = useState('');
 
   // Assignment form state
   const [assignmentForm, setAssignmentForm] = useState<CreateLevelAssignmentRequest>({
@@ -208,11 +209,11 @@ const DeaconParentManagement: React.FC = () => {
     );
   };
 
-  const handleSelectAllDeacons = () => {
-    if (selectedDeacons.length === deacons.length) {
+  const handleSelectAllFilteredDeacons = () => {
+    if (selectedDeacons.length === filteredDeacons.length) {
       setSelectedDeacons([]);
     } else {
-      setSelectedDeacons(deacons.map(d => d.id));
+      setSelectedDeacons(filteredDeacons.map(d => d.id));
     }
   };
 
@@ -251,6 +252,12 @@ const DeaconParentManagement: React.FC = () => {
   const deacons = users.filter(user => user.role === 'deacon');
   const parents = users.filter(user => user.role === 'parent');
 
+  const filteredDeacons = deacons.filter(deacon => 
+    deacon.firstName.toLowerCase().includes(deaconSearchTerm.toLowerCase()) ||
+    deacon.lastName.toLowerCase().includes(deaconSearchTerm.toLowerCase()) ||
+    deacon.email.toLowerCase().includes(deaconSearchTerm.toLowerCase())
+  );
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -267,10 +274,6 @@ const DeaconParentManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
-            <p className="text-gray-600 font-cairo">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
-          </div>
           <button
             onClick={() => {
               setEditingUser(null);
@@ -284,20 +287,11 @@ const DeaconParentManagement: React.FC = () => {
                activeTab === 'parents' ? 'إضافة ولي أمر' : 'تكليف مستوى'}
             </span>
           </button>
-        </div>
-
-        {/* Bulk Assignment Button for Assignments */}
-        {activeTab === 'assignments' && (
-          <div className="mb-4">
-            <button
-              onClick={() => setShowBulkAssignment(!showBulkAssignment)}
-              className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-md hover:scale-105"
-            >
-              <UsersIcon className="w-4 h-4" />
-              <span>تكليف جماعي</span>
-            </button>
+          <div className="text-right">
+            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
+            <p className="text-gray-600 font-cairo">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
           </div>
-        )}
+        </div>
 
         {/* Tabs */}
         <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-xl">
@@ -337,8 +331,8 @@ const DeaconParentManagement: React.FC = () => {
         </div>
       </div>
 
-      {/* Bulk Assignment Form */}
-      {showBulkAssignment && activeTab === 'assignments' && (
+      {/* Bulk Assignment Form - Always Visible in Assignments */}
+      {activeTab === 'assignments' && (
         <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl shadow-sm border border-purple-200 p-6">
           <div className="flex items-center space-x-3 space-x-reverse mb-6">
             <UsersIcon className="w-6 h-6 text-purple-600" />
@@ -434,21 +428,31 @@ const DeaconParentManagement: React.FC = () => {
               </div>
 
               <div className="bg-white rounded-lg p-4 border border-purple-200">
+                <div className="mb-4">
+                  <input
+                    type="text"
+                    value={deaconSearchTerm}
+                    onChange={(e) => setDeaconSearchTerm(e.target.value)}
+                    placeholder="البحث عن شماس..."
+                    className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo bg-white"
+                  />
+                </div>
+                
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm text-purple-600 font-cairo">
-                    تم اختيار {selectedDeacons.length} من {deacons.length} شماس
+                    تم اختيار {selectedDeacons.length} من {filteredDeacons.length} شماس
                   </span>
                   <button
                     type="button"
-                    onClick={handleSelectAllDeacons}
+                    onClick={handleSelectAllFilteredDeacons}
                     className="text-sm text-purple-600 hover:text-purple-800 font-cairo underline"
                   >
-                    {selectedDeacons.length === deacons.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
+                    {selectedDeacons.length === filteredDeacons.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
                   </button>
                 </div>
                 
                 <div className="max-h-32 overflow-y-auto space-y-2">
-                  {deacons.slice(0, 5).map((deacon) => (
+                  {filteredDeacons.slice(0, 8).map((deacon) => (
                     <label key={deacon.id} className="flex items-center space-x-3 space-x-reverse cursor-pointer hover:bg-purple-50 p-2 rounded">
                       <span className="text-sm text-gray-700 font-cairo">{deacon.firstName} {deacon.lastName}</span>
                       <input
@@ -459,9 +463,14 @@ const DeaconParentManagement: React.FC = () => {
                       />
                     </label>
                   ))}
-                  {deacons.length > 5 && (
+                  {filteredDeacons.length > 8 && (
                     <p className="text-xs text-gray-500 font-cairo text-center">
-                      و {deacons.length - 5} شماس آخر...
+                      و {filteredDeacons.length - 8} شماس آخر...
+                    </p>
+                  )}
+                  {filteredDeacons.length === 0 && deaconSearchTerm && (
+                    <p className="text-sm text-gray-500 font-cairo text-center py-4">
+                      لا يوجد شمامسة تطابق البحث "{deaconSearchTerm}"
                     </p>
                   )}
                 </div>
@@ -471,8 +480,8 @@ const DeaconParentManagement: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    setShowBulkAssignment(false);
                     setSelectedDeacons([]);
+                    setDeaconSearchTerm('');
                     setBulkAssignmentForm({
                       levelId: '',
                       academicYear: '',
@@ -740,9 +749,7 @@ const DeaconParentManagement: React.FC = () => {
               {/* Assignment Form */}
               <div className="lg:col-span-1">
                 <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-200 sticky top-6">
-                  <h3 className="text-lg font-bold text-amber-900 mb-4 font-cairo">
-                    {editingAssignment ? 'تعديل التكليف' : 'تكليف جديد'}
-                  </h3>
+                  <h3 className="text-lg font-bold text-amber-900 mb-4 font-cairo">تكليف فردي</h3>
                   
                   <form onSubmit={handleAssignmentSubmit} className="space-y-4">
                     <div>
@@ -764,13 +771,7 @@ const DeaconParentManagement: React.FC = () => {
                         styles={customSelectStyles}
                         placeholder="اختر الشماس"
                         isSearchable={true}
-                        isDisabled={showBulkAssignment}
                       />
-                      {showBulkAssignment && (
-                        <p className="text-xs text-amber-600 mt-1 font-cairo">
-                          سيتم تطبيق التكليف على الشمامسة المختارين أعلاه
-                        </p>
-                      )}
                     </div>
 
                     <div>
@@ -882,42 +883,10 @@ const DeaconParentManagement: React.FC = () => {
                         disabled={showBulkAssignment && selectedDeacons.length === 0}
                         className="flex-1 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition-colors font-medium"
                       >
-                        {showBulkAssignment ? `تكليف ${selectedDeacons.length} شماس` : editingAssignment ? 'تحديث' : 'إضافة'}
+                        {editingAssignment ? 'تحديث' : 'إضافة'}
                       </button>
                     </div>
                   </form>
-                  
-                  {/* Deacon Selection for Bulk Assignment */}
-                  {showBulkAssignment && (
-                    <div className="mt-6 bg-white rounded-lg p-4 border border-purple-200">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-sm text-purple-600 font-cairo">
-                          تم اختيار {selectedDeacons.length} من {deacons.length} شماس
-                        </span>
-                        <button
-                          type="button"
-                          onClick={handleSelectAllDeacons}
-                          className="text-sm text-purple-600 hover:text-purple-800 font-cairo underline"
-                        >
-                          {selectedDeacons.length === deacons.length ? 'إلغاء تحديد الكل' : 'تحديد الكل'}
-                        </button>
-                      </div>
-                      
-                      <div className="max-h-48 overflow-y-auto space-y-2">
-                        {deacons.map((deacon) => (
-                          <label key={deacon.id} className="flex items-center space-x-3 space-x-reverse cursor-pointer hover:bg-purple-50 p-2 rounded">
-                            <span className="text-sm text-gray-700 font-cairo">{deacon.firstName} {deacon.lastName}</span>
-                            <input
-                              type="checkbox"
-                              checked={selectedDeacons.includes(deacon.id)}
-                              onChange={() => handleSelectDeacon(deacon.id)}
-                              className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
-                            />
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
 
