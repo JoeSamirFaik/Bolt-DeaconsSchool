@@ -85,10 +85,6 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm animate-pulse"></div>
               </div>
             </button>
-                  {user?.firstName?.[0]}{user?.lastName?.[0]}
-                </span>
-              </div>
-            </button>
 
             {/* Profile Dropdown Menu */}
             {showProfileMenu && (
