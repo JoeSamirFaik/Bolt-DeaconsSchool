@@ -35,41 +35,51 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'lessons', icon: BookOpenIcon, label: 'الدروس' },
+          { id: 'quizzes', icon: ClipboardDocumentCheckIcon, label: 'الاختبارات' },
           { id: 'calendar', icon: CalendarIcon, label: 'التقويم' },
           { id: 'attendance-board', icon: ClipboardDocumentCheckIcon, label: 'سجل الحضور' },
+          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
+          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       case 'servant':
         return [
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
-          { id: 'deacon-parent-mgmt', icon: UsersIcon, label: 'الشمامسة وأولياء الأمور' },
+          { id: 'users-mgmt', icon: UsersIcon, label: 'إدارة المستخدمين' },
           { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور' },
           { id: 'records-approval', icon: ClipboardDocumentCheckIcon, label: 'مراجعة السجلات' },
           { id: 'child-notes', icon: ChatBubbleLeftRightIcon, label: 'ملاحظات الشمامسة' },
-          { id: 'deacon-reports', icon: ChartBarIcon, label: 'تقارير الشمامسة' },
+          { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
+          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
+          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       case 'parent':
         return [
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'call-request', icon: ChatBubbleLeftRightIcon, label: 'طلب مكالمة' },
+          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
+          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       case 'admin':
         return [
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
-          { id: 'deacon-parent-mgmt', icon: UsersIcon, label: 'الشمامسة وأولياء الأمور' },
+          { id: 'users-mgmt', icon: UsersIcon, label: 'إدارة المستخدمين' },
           { id: 'servant-mgmt', icon: UserIcon, label: 'إدارة الخدام' },
-          { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
+          { id: 'content-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
           { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'إدارة الحضور' },
           { id: 'records-approval', icon: ClipboardDocumentCheckIcon, label: 'مراجعة السجلات' },
           { id: 'child-notes', icon: ChatBubbleLeftRightIcon, label: 'ملاحظات الشمامسة' },
-          { id: 'deacon-reports', icon: ChartBarIcon, label: 'تقارير الشمامسة' },
+          { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
+          { id: 'analytics', icon: ChartBarIcon, label: 'التحليلات المتقدمة' },
+          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
           { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات' },
+          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       default:
         return [

@@ -18,6 +18,7 @@ import RecordsApproval from './admin/RecordsApproval';
 import ReportsManagement from './admin/ReportsManagement';
 import SystemSettings from './admin/SystemSettings';
 import CallRequestManagement from './parent/CallRequestManagement';
+import ChildNotesManagement from './admin/ChildNotesManagement';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -81,6 +82,8 @@ const Layout: React.FC = () => {
         );
       case 'attendance-board':
         return <AttendanceBoard />;
+      case 'content-mgmt':
+        return <LMSManagement />;
       case 'lessons-mgmt':
         return <LMSManagement />;
       case 'attendance':
@@ -97,7 +100,7 @@ const Layout: React.FC = () => {
             </div>
           </div>
         );
-      case 'deacon-reports':
+      case 'reports':
         return user?.role === 'admin' || user?.role === 'servant' ? <ReportsManagement /> : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
@@ -106,6 +109,18 @@ const Layout: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">{currentPage}</h3>
               <p className="text-gray-500 font-cairo">قريباً...</p>
+            </div>
+          </div>
+        );
+      case 'deacon-reports':
+        return user?.role === 'admin' || user?.role === 'servant' ? <ReportsManagement /> : (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚧</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">تقارير الشمامسة</h3>
+              <p className="text-gray-500 font-cairo">عرض تقارير مفصلة لجميع الشمامسة</p>
             </div>
           </div>
         );
@@ -121,8 +136,44 @@ const Layout: React.FC = () => {
             </div>
           </div>
         );
+      case 'users-mgmt':
+        return user?.role === 'admin' || user?.role === 'servant' ? <DeaconParentManagement /> : (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚫</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
+              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
+            </div>
+          </div>
+        );
       case 'deacon-parent-mgmt':
         return user?.role === 'admin' || user?.role === 'servant' ? <DeaconParentManagement /> : (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚫</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
+              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
+            </div>
+          </div>
+        );
+      case 'child-notes':
+        return user?.role === 'admin' || user?.role === 'servant' ? <ChildNotesManagement /> : (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚫</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
+              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
+            </div>
+          </div>
+        );
+      case 'records-approval':
+        return user?.role === 'admin' || user?.role === 'servant' ? <RecordsApproval /> : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
               <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -151,6 +202,18 @@ const Layout: React.FC = () => {
             </div>
           </div>
         );
+      case 'profile':
+        return (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">👤</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الملف الشخصي</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
+            </div>
+          </div>
+        );
       case 'quizzes':
         return (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
@@ -163,6 +226,30 @@ const Layout: React.FC = () => {
             </div>
           </div>
         );
+      case 'help':
+        return (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">❓</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">المساعدة والدعم</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
+            </div>
+          </div>
+        );
+      case 'analytics':
+        return user?.role === 'admin' ? (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">📊</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">التحليلات المتقدمة</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
+            </div>
+          </div>
+        ) : null;
       default:
         return (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">

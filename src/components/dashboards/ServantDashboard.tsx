@@ -197,7 +197,7 @@ const ServantDashboard: React.FC = () => {
       description: 'عرض تقارير مفصلة لجميع الشمامسة',
       icon: DocumentChartBarIcon,
       color: 'from-purple-500 to-indigo-500',
-      route: 'deacon-reports',
+      route: 'reports',
       badge: '24 شماس'
     },
     {
@@ -205,7 +205,7 @@ const ServantDashboard: React.FC = () => {
       description: 'إضافة وتعديل بيانات الشمامسة',
       icon: UsersIcon,
       color: 'from-blue-500 to-cyan-500',
-      route: 'deacon-parent-mgmt',
+      route: 'users-mgmt',
       badge: 'إدارة كاملة'
     }
   ];

@@ -92,7 +92,7 @@ const AdminDashboard: React.FC = () => {
       description: 'إضافة وتعديل الشمامسة والخدام',
       icon: UsersIcon,
       color: 'from-blue-500 to-indigo-500',
-      route: 'deacon-parent-mgmt',
+      route: 'users-mgmt',
       badge: '148 مستخدم',
       priority: 'medium'
     },
@@ -101,7 +101,7 @@ const AdminDashboard: React.FC = () => {
       description: 'عرض تقارير مفصلة لجميع الشمامسة',
       icon: DocumentChartBarIcon,
       color: 'from-purple-500 to-indigo-500',
-      route: 'deacon-reports',
+      route: 'reports',
       badge: 'تحليلات متقدمة',
       priority: 'medium'
     },
@@ -110,7 +110,7 @@ const AdminDashboard: React.FC = () => {
       description: 'إدارة المستويات والمقررات والدروس',
       icon: BookOpenIcon,
       color: 'from-green-500 to-emerald-500',
-      route: 'lessons-mgmt',
+      route: 'content-mgmt',
       badge: '32 درس نشط',
       priority: 'low'
     },
