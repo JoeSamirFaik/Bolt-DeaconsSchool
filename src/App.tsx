@@ -4,31 +4,9 @@ import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
 import Layout from './components/Layout';
 import PWAInstallPrompt from './components/common/PWAInstallPrompt';
-import PWAInstallPrompt from './components/common/PWAInstallPrompt';
 
 const AuthWrapper: React.FC = () => {
   const { user, loading } = useAuth();
-
-  useEffect(() => {
-    // Handle PWA shortcuts
-    const urlParams = new URLSearchParams(window.location.search);
-    const shortcut = urlParams.get('shortcut');
-    
-    if (shortcut && user) {
-      // Handle shortcut navigation
-      switch (shortcut) {
-        case 'lessons':
-          // Navigate to lessons page
-          break;
-        case 'attendance':
-          // Navigate to attendance page
-          break;
-        case 'calendar':
-          // Navigate to calendar page
-          break;
-      }
-    }
-  }, []);
 
   useEffect(() => {
     // Handle PWA shortcuts
@@ -97,16 +75,11 @@ const AuthWrapper: React.FC = () => {
       
       {/* PWA Install Prompt */}
       <PWAInstallPrompt />
-      
-      {/* PWA Install Prompt */}
-      <PWAInstallPrompt />
     </>
   );
 };
 
 function App() {
-    }
-  )
   return (
     <AuthProvider>
       <AuthWrapper />
