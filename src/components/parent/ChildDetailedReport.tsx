@@ -42,9 +42,8 @@ const ChildDetailedReport: React.FC<ChildDetailedReportProps> = ({ child, onClos
   const [records, setRecords] = useState<DeaconRecord[]>([]);
   const [transactions, setTransactions] = useState<PointsTransaction[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
-  const [childNotes, setChildNotes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance' | 'notes'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance'>('overview');
 
   useEffect(() => {
     loadChildData();
@@ -53,15 +52,17 @@ const ChildDetailedReport: React.FC<ChildDetailedReportProps> = ({ child, onClos
   const loadChildData = async () => {
     try {
       setLoading(true);
-      const [recordsData, transactionsData, levelsData] = await Promise.all([
+      const [recordsData, transactionsData, levelsData, notesData] = await Promise.all([
         deaconRecordsApi.getByDeaconId(child.id),
         transactionsApi.getByDeaconId(child.id),
-        levelsApi.getAll()
+        levelsApi.getAll(),
+        childNotesApi.getByDeaconId(child.id)
       ]);
       
       setRecords(recordsData);
       setTransactions(transactionsData);
       setLevels(levelsData);
+      setChildNotes(notesData);
     } catch (error) {
       console.error('Error loading child data:', error);
     } finally {
