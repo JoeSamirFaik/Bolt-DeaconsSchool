@@ -73,6 +73,8 @@ const AuthWrapper: React.FC = () => {
         </div>
       </div>
       
+      </div>
+      
       {/* PWA Install Prompt */}
       <PWAInstallPrompt />
     </>
