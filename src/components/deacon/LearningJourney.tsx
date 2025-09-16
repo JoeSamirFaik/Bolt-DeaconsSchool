@@ -752,6 +752,8 @@ const LearningJourney: React.FC = () => {
                   );
                 })}
               </div>
+            </div>
+          </div>
         )}
 
       {/* Modals */}
