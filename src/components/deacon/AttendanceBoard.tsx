@@ -646,8 +646,7 @@ const AttendanceBoard: React.FC = () => {
                 />
               </div>
 
-              <div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                   ملاحظات
                 </label>
                 <textarea
