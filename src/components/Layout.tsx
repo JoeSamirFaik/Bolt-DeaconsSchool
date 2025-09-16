@@ -15,6 +15,7 @@ import DeaconCalendar from './deacon/DeaconCalendar';
 import AttendanceBoard from './deacon/AttendanceBoard';
 import NotificationLogs from './notifications/NotificationLogs';
 import RecordsApproval from './admin/RecordsApproval';
+import ReportsManagement from './admin/ReportsManagement';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -83,7 +84,29 @@ const Layout: React.FC = () => {
       case 'attendance':
         return <AttendanceManagement />;
       case 'records-approval':
-        return user?.role === 'admin' || user?.role === 'servant' ? <RecordsApproval /> : (
+        return user?.role === 'admin' || user?.role === 'servant' ? (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">📊</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">التقارير والإحصائيات</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚫</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
+              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
+            </div>
+          </div>
+        );
+      case 'deacon-reports':
+        return user?.role === 'admin' || user?.role === 'servant' ? <ReportsManagement /> : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
               <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">

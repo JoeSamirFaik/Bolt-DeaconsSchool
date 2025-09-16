@@ -46,6 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
           { id: 'deacon-parent-mgmt', icon: UsersIcon, label: 'الشمامسة وأولياء الأمور' },
           { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور' },
           { id: 'records-approval', icon: ClipboardDocumentCheckIcon, label: 'مراجعة السجلات' },
+          { id: 'reports', icon: ChartBarIcon, label: 'تقارير الشمامسة' },
           { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
         ];
@@ -66,6 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
           { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
           { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'إدارة الحضور' },
           { id: 'records-approval', icon: ClipboardDocumentCheckIcon, label: 'مراجعة السجلات' },
+          { id: 'deacon-reports', icon: ChartBarIcon, label: 'تقارير الشمامسة' },
           { id: 'reports', icon: ChartBarIcon, label: 'التحليلات' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
           { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات' },
