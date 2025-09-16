@@ -260,67 +260,105 @@ const DeaconParentManagement: React.FC = () => {
         {/* Deacons Tab */}
         {activeTab === 'deacons' && (
           <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {deacons.map((deacon) => (
-                <div key={deacon.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex space-x-2 space-x-reverse">
-                      <button
-                        onClick={() => {
-                          setEditingItem(deacon);
-                          setShowUserForm(true);
-                        }}
-                        className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                      >
-                        <PencilIcon className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteUser(deacon.id)}
-                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      >
-                        <TrashIcon className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <AcademicCapIcon className="w-6 h-6 text-amber-600" />
-                    </div>
-                  </div>
-                  
-                  <div className="text-right mb-4">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 font-cairo">
-                      {deacon.firstName} {deacon.lastName}
-                    </h3>
-                    <p className="text-gray-600 font-cairo text-sm mb-2">
-                      {deacon.email}
-                    </p>
-                    <span className="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-medium rounded-full">
-                      شماس
-                    </span>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    {deacon.deaconInfo && (
-                      <div className="bg-amber-50 rounded-lg p-3">
-                        <p className="text-sm text-gray-600 font-cairo mb-2">المستوى الحالي</p>
-                        <p className="font-medium text-amber-800 font-cairo">
-                          {levels.find(l => l.id === deacon.deaconInfo?.currentLevel)?.name || 'غير محدد'}
-                        </p>
-                      </div>
-                    )}
-                    
-                    <div className="flex justify-between items-center">
-                      <span className={`px-3 py-1 text-xs font-medium rounded-full flex items-center space-x-1 space-x-reverse ${
-                        deacon.isActive 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-red-100 text-red-800'
-                      }`}>
-                        {deacon.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
-                        <span>{deacon.isActive ? 'نشط' : 'غير نشط'}</span>
-                      </span>
-                    </div>
-                  </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gradient-to-r from-amber-50 to-orange-50">
+                  <tr>
+                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      الإجراءات
+                    </th>
+                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      الحالة
+                    </th>
+                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      المستوى الحالي
+                    </th>
+                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      تاريخ التسجيل
+                    </th>
+                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      البريد الإلكتروني
+                    </th>
+                    <th className="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      الاسم
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {deacons.map((deacon, index) => (
+                    <tr key={deacon.id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2 space-x-reverse">
+                          <button
+                            onClick={() => {
+                              setEditingItem(deacon);
+                              setShowUserForm(true);
+                            }}
+                            className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                            title="تعديل"
+                          >
+                            <PencilIcon className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteUser(deacon.id)}
+                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            title="حذف"
+                          >
+                            <TrashIcon className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium space-x-1 space-x-reverse ${
+                          deacon.isActive 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {deacon.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
+                          <span>{deacon.isActive ? 'نشط' : 'غير نشط'}</span>
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2 space-x-reverse">
+                          <AcademicCapIcon className="w-4 h-4 text-amber-500" />
+                          <span className="text-sm font-medium text-gray-900 font-cairo">
+                            {levels.find(l => l.id === deacon.deaconInfo?.currentLevel)?.name || 'غير محدد'}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900 font-cairo">
+                          {deacon.deaconInfo?.enrollmentDate ? new Date(deacon.deaconInfo.enrollmentDate).toLocaleDateString('ar-EG') : '-'}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900 font-cairo">{deacon.email}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-3 space-x-reverse">
+                          <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
+                            <AcademicCapIcon className="w-5 h-5 text-amber-600" />
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-medium text-gray-900 font-cairo">
+                              {deacon.firstName} {deacon.lastName}
+                            </div>
+                            <div className="text-xs text-gray-500 font-cairo">شماس</div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              
+              {deacons.length === 0 && (
+                <div className="text-center py-12">
+                  <AcademicCapIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا يوجد شمامسة</h3>
+                  <p className="text-gray-500 font-cairo">لم يتم إضافة أي شمامسة بعد</p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         )}

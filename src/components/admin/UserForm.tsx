@@ -139,38 +139,38 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
         <div className="flex items-center justify-between p-8 border-b border-gray-200">
           <button
             onClick={onClose}
-            className="p-3 hover:bg-gray-100 rounded-xl transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            <XMarkIcon className="w-6 h-6 text-gray-500" />
+            <XMarkIcon className="w-5 h-5 text-gray-500" />
           </button>
           <div className="flex items-center space-x-4 space-x-reverse">
             <div className="text-right">
-              <h2 className="text-2xl font-bold text-gray-900 font-cairo">
+              <h2 className="text-xl font-bold text-gray-900 font-cairo">
                 {user ? 'تعديل المستخدم' : 'إضافة مستخدم جديد'}
               </h2>
-              <p className="text-gray-600 font-cairo text-lg">
+              <p className="text-gray-600 font-cairo">
                 {user ? 'قم بتعديل بيانات المستخدم' : 'أدخل بيانات المستخدم الجديد'}
               </p>
             </div>
-            <div className="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center shadow-lg">
-              <UserIcon className="w-6 h-6 text-amber-600" />
+            <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+              <UserIcon className="w-5 h-5 text-amber-600" />
             </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {error && (
-            <div className="p-6 bg-red-50 border border-red-200 rounded-2xl">
-              <p className="text-red-600 font-semibold text-right font-cairo">{error}</p>
+            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+              <p className="text-red-600 text-sm font-medium text-right font-cairo">{error}</p>
             </div>
           )}
 
           {/* Basic Information */}
-          <div className="bg-gray-50 rounded-2xl p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo">المعلومات الأساسية</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-gray-50 rounded-xl p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 text-right font-cairo">المعلومات الأساسية</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                   الاسم الأول *
                 </label>
                 <input
@@ -186,7 +186,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
               </div>
 
               <div>
-                <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                   اسم العائلة *
                 </label>
                 <input
@@ -202,7 +202,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                   البريد الإلكتروني *
                 </label>
                 <input
@@ -218,7 +218,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                   نوع المستخدم *
                 </label>
                 <Select
@@ -239,11 +239,11 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
 
           {/* Role-specific fields */}
           {formData.role === 'deacon' && (
-            <div className="bg-blue-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo">معلومات الشماس</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-blue-50 rounded-xl p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 text-right font-cairo">معلومات الشماس</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="deaconInfo.dateOfBirth" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="deaconInfo.dateOfBirth" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                     تاريخ الميلاد *
                   </label>
                   <input
@@ -258,7 +258,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                     ولي الأمر
                   </label>
                   <Select
@@ -287,7 +287,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
                 </div>
 
                 <div>
-                  <label htmlFor="deaconInfo.enrollmentDate" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="deaconInfo.enrollmentDate" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                     تاريخ التسجيل *
                   </label>
                   <input
@@ -302,7 +302,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
                 </div>
 
                 <div>
-                  <label htmlFor="deaconInfo.notes" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="deaconInfo.notes" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                     ملاحظات
                   </label>
                   <textarea
@@ -320,11 +320,11 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
           )}
 
           {formData.role === 'parent' && (
-            <div className="bg-green-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo">معلومات ولي الأمر</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-green-50 rounded-xl p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 text-right font-cairo">معلومات ولي الأمر</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="parentInfo.phone" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="parentInfo.phone" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                     رقم الهاتف *
                   </label>
                   <input
@@ -340,7 +340,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
                 </div>
 
                 <div>
-                  <label htmlFor="parentInfo.occupation" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="parentInfo.occupation" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                     المهنة
                   </label>
                   <input
@@ -355,7 +355,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
                 </div>
 
                 <div className="md:col-span-2">
-                  <label htmlFor="parentInfo.address" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="parentInfo.address" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                     العنوان *
                   </label>
                   <textarea
@@ -374,11 +374,11 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
           )}
 
           {formData.role === 'servant' && (
-            <div className="bg-purple-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo">معلومات الخادم</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border border-orange-200">
+              <h3 className="text-lg font-bold text-orange-900 mb-4 text-right font-cairo">معلومات الخادم</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="servantInfo.specialization" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="servantInfo.specialization" className="block text-sm font-medium text-orange-700 mb-2 text-right font-cairo">
                     التخصص *
                   </label>
                   <input
@@ -388,13 +388,13 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
                     value={formData.servantInfo?.specialization || ''}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo"
+                    className="w-full px-4 py-3 border border-orange-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-right font-cairo bg-white"
                     placeholder="مثال: تاريخ الكنيسة"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="servantInfo.phone" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
+                  <label htmlFor="servantInfo.phone" className="block text-sm font-medium text-orange-700 mb-2 text-right font-cairo">
                     رقم الهاتف *
                   </label>
                   <input
@@ -404,7 +404,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
                     value={formData.servantInfo?.phone || ''}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo"
+                    className="w-full px-4 py-3 border border-orange-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent text-right font-cairo bg-white"
                     placeholder="01234567890"
                   />
                 </div>
@@ -412,22 +412,22 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deaco
             </div>
           )}
 
-          <div className="flex space-x-4 space-x-reverse pt-8 border-t border-gray-200">
+          <div className="flex space-x-3 space-x-reverse pt-6 border-t border-gray-200">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-8 py-4 border border-gray-300 text-gray-700 rounded-2xl hover:bg-gray-50 transition-colors font-semibold text-lg"
+              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-8 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white rounded-2xl hover:from-amber-600 hover:via-orange-600 hover:to-red-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-lg shadow-lg hover:scale-105"
+              className="flex-1 px-6 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white rounded-xl hover:from-amber-600 hover:via-orange-600 hover:to-red-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-lg hover:scale-105"
             >
               {loading ? (
-                <div className="flex items-center justify-center space-x-3 space-x-reverse">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="flex items-center justify-center space-x-2 space-x-reverse">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   <span>جاري الحفظ...</span>
                 </div>
               ) : (
