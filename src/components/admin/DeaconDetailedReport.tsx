@@ -52,15 +52,17 @@ const DeaconDetailedReport: React.FC<DeaconDetailedReportProps> = ({ deacon, onC
   const loadDeaconData = async () => {
     try {
       setLoading(true);
-      const [recordsData, transactionsData, levelsData] = await Promise.all([
+      const [recordsData, transactionsData, levelsData, notesData] = await Promise.all([
         deaconRecordsApi.getByDeaconId(deacon.id),
         transactionsApi.getByDeaconId(deacon.id),
-        levelsApi.getAll()
+        levelsApi.getAll(),
+        childNotesApi.getByDeaconId(deacon.id)
       ]);
       
       setRecords(recordsData);
       setTransactions(transactionsData);
       setLevels(levelsData);
+      setChildNotes(notesData);
     } catch (error) {
       console.error('Error loading deacon data:', error);
     } finally {

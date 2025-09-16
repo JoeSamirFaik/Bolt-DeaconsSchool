@@ -16,7 +16,8 @@ import {
   PhoneIcon,
   StarIcon,
   ArrowTrendingUpIcon,
-  ArrowTrendingDownIcon
+  ArrowTrendingDownIcon,
+  ChatBubbleLeftRightIcon
 } from '@heroicons/react/24/outline';
 import { User } from '../../types/user';
 import { DeaconBalance, DeaconRecord, PointsTransaction } from '../../types/approval';
@@ -43,7 +44,38 @@ const ChildDetailedReport: React.FC<ChildDetailedReportProps> = ({ child, onClos
   const [transactions, setTransactions] = useState<PointsTransaction[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance' | 'notes'>('overview');
+
+  // Mock notes data
+  const childNotes = [
+    {
+      id: 1,
+      title: 'تحسن ملحوظ في الحضور',
+      content: 'أظهر الطالب تحسناً كبيراً في الحضور والمشاركة خلال الأسبوعين الماضيين. يشارك بفعالية في النقاشات ويظهر اهتماماً حقيقياً بالمواد الدراسية.',
+      category: 'behavioral',
+      priority: 'medium',
+      isPrivate: false,
+      createdAt: '2024-12-20T10:30:00Z'
+    },
+    {
+      id: 2,
+      title: 'يحتاج دعم إضافي في الألحان',
+      content: 'الطالب يواجه صعوبة في حفظ بعض الألحان الجديدة. أنصح بممارسة إضافية في المنزل والاستعانة بالتسجيلات الصوتية المتوفرة.',
+      category: 'academic',
+      priority: 'high',
+      isPrivate: false,
+      createdAt: '2024-12-18T14:15:00Z'
+    },
+    {
+      id: 3,
+      title: 'نمو روحي مميز',
+      content: 'يظهر الطالب نضجاً روحياً واضحاً من خلال أسئلته العميقة وتفاعله مع النصوص الكتابية. يشارك تجاربه الروحية بصدق وانفتاح.',
+      category: 'spiritual',
+      priority: 'low',
+      isPrivate: true,
+      createdAt: '2024-12-15T16:45:00Z'
+    }
+  ];
 
   useEffect(() => {
     loadChildData();
@@ -52,17 +84,15 @@ const ChildDetailedReport: React.FC<ChildDetailedReportProps> = ({ child, onClos
   const loadChildData = async () => {
     try {
       setLoading(true);
-      const [recordsData, transactionsData, levelsData, notesData] = await Promise.all([
+      const [recordsData, transactionsData, levelsData] = await Promise.all([
         deaconRecordsApi.getByDeaconId(child.id),
         transactionsApi.getByDeaconId(child.id),
-        levelsApi.getAll(),
-        childNotesApi.getByDeaconId(child.id)
+        levelsApi.getAll()
       ]);
       
       setRecords(recordsData);
       setTransactions(transactionsData);
       setLevels(levelsData);
-      setChildNotes(notesData);
     } catch (error) {
       console.error('Error loading child data:', error);
     } finally {
@@ -268,6 +298,17 @@ const ChildDetailedReport: React.FC<ChildDetailedReportProps> = ({ child, onClos
           >
             <CalendarIcon className="w-4 h-4" />
             <span>الحضور</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('notes')}
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
+              activeTab === 'notes'
+                ? 'bg-white text-purple-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <ChatBubbleLeftRightIcon className="w-4 h-4" />
+            <span>ملاحظات المعلم</span>
           </button>
         </div>
 
@@ -564,6 +605,114 @@ const ChildDetailedReport: React.FC<ChildDetailedReportProps> = ({ child, onClos
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* Notes Tab */}
+          {activeTab === 'notes' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo">ملاحظات وتعليقات المعلم</h3>
+                <div className="space-y-4">
+                  {childNotes.map((note) => {
+                    const getCategoryIcon = (category: string) => {
+                      switch (category) {
+                        case 'academic': return '📚';
+                        case 'behavioral': return '👤';
+                        case 'spiritual': return '🙏';
+                        case 'general': return '💬';
+                        default: return '📝';
+                      }
+                    };
+
+                    const getCategoryLabel = (category: string) => {
+                      switch (category) {
+                        case 'academic': return 'أكاديمي';
+                        case 'behavioral': return 'سلوكي';
+                        case 'spiritual': return 'روحي';
+                        case 'general': return 'عام';
+                        default: return category;
+                      }
+                    };
+
+                    const getCategoryColor = (category: string) => {
+                      switch (category) {
+                        case 'academic': return 'bg-blue-100 text-blue-800';
+                        case 'behavioral': return 'bg-orange-100 text-orange-800';
+                        case 'spiritual': return 'bg-purple-100 text-purple-800';
+                        case 'general': return 'bg-gray-100 text-gray-800';
+                        default: return 'bg-gray-100 text-gray-800';
+                      }
+                    };
+
+                    const getPriorityColor = (priority: string) => {
+                      switch (priority) {
+                        case 'high': return 'bg-red-100 text-red-800';
+                        case 'medium': return 'bg-yellow-100 text-yellow-800';
+                        case 'low': return 'bg-green-100 text-green-800';
+                        default: return 'bg-gray-100 text-gray-800';
+                      }
+                    };
+
+                    const getPriorityLabel = (priority: string) => {
+                      switch (priority) {
+                        case 'high': return 'مهم';
+                        case 'medium': return 'متوسط';
+                        case 'low': return 'عادي';
+                        default: return priority;
+                      }
+                    };
+
+                    return (
+                      <div key={note.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center space-x-3 space-x-reverse">
+                            <span className={`px-3 py-1 text-xs font-medium rounded-full ${getPriorityColor(note.priority)}`}>
+                              {getPriorityLabel(note.priority)}
+                            </span>
+                            <span className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(note.category)}`}>
+                              {getCategoryLabel(note.category)}
+                            </span>
+                            {note.isPrivate && (
+                              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                                ملاحظة خاصة
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex-1 text-right mx-6">
+                            <div className="flex items-center space-x-3 space-x-reverse mb-2">
+                              <span className="text-sm text-gray-500 font-cairo">
+                                {new Date(note.createdAt).toLocaleDateString('ar-EG')}
+                              </span>
+                              <h4 className="text-lg font-bold text-gray-900 font-cairo">
+                                {note.title}
+                              </h4>
+                            </div>
+                            <p className="text-gray-600 font-cairo mb-2 leading-relaxed">{note.content}</p>
+                            <div className="flex items-center space-x-2 space-x-reverse text-sm text-gray-500">
+                              <span className="font-cairo">👨‍🏫 المعلم: مريم يوسف</span>
+                              <span className="font-cairo">📝 {getCategoryLabel(note.category)}</span>
+                            </div>
+                          </div>
+
+                          <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center">
+                            <span className="text-3xl">{getCategoryIcon(note.category)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                {childNotes.length === 0 && (
+                  <div className="text-center py-12">
+                    <ChatBubbleLeftRightIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد ملاحظات</h3>
+                    <p className="text-gray-500 font-cairo">لم يترك المعلم أي ملاحظات بعد</p>
+                  </div>
+                )}
               </div>
             </div>
           )}
