@@ -315,7 +315,10 @@ const AttendanceManagement: React.FC = () => {
                 return (
                   <div key={session.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-4">
-                      <div className="flex space-x-2 space-x-reverse">
+                      <div className="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+                        <CalendarIcon className="w-6 h-6 text-amber-600" />
+                      </div>
+                      <div className="flex space-x-2">
                         <button
                           onClick={() => {
                             setEditingSession(session);
@@ -338,9 +341,6 @@ const AttendanceManagement: React.FC = () => {
                         >
                           <UsersIcon className="w-4 h-4" />
                         </button>
-                      </div>
-                      <div className="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
-                        <CalendarIcon className="w-6 h-6 text-amber-600" />
                       </div>
                     </div>
                     
