@@ -230,21 +230,21 @@ const LMSManagement: React.FC = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2 text-right">
                 المستوى الأكاديمي
               </label>
-              <select
+              <Select
                 value={selectedLevel}
                 onChange={(e) => {
-                  setSelectedLevel(e.target.value);
+                  setSelectedLevel(e ? e.value : '');
                   setSelectedSubject('');
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo bg-white"
-              >
-                <option value="">-- اختر المستوى --</option>
-                {levels.map((level) => (
-                  <option key={level.id} value={level.id}>
-                    {level.name}
-                  </option>
-                ))}
-              </select>
+                options={[
+                  { value: '', label: '-- اختر المستوى --' },
+                  ...levels.map(level => ({ value: level.id, label: level.name }))
+                ]}
+                styles={customSelectStyles}
+                placeholder="-- اختر المستوى --"
+                isSearchable={false}
+                isClearable
+              />
             </div>
             
             {activeTab === 'lessons' && (
@@ -252,19 +252,19 @@ const LMSManagement: React.FC = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2 text-right">
                   المقرر الدراسي
                 </label>
-                <select
+                <Select
                   value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo bg-white"
-                  disabled={!selectedLevel}
-                >
-                  <option value="">-- اختر المقرر --</option>
-                  {subjects.map((subject) => (
-                    <option key={subject.id} value={subject.id}>
-                      {subject.name}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(e) => setSelectedSubject(e ? e.value : '')}
+                  options={[
+                    { value: '', label: '-- اختر المقرر --' },
+                    ...subjects.map(subject => ({ value: subject.id, label: subject.name }))
+                  ]}
+                  styles={customSelectStyles}
+                  placeholder="-- اختر المقرر --"
+                  isSearchable={false}
+                  isDisabled={!selectedLevel}
+                  isClearable
+                />
               </div>
             )}
           </div>
