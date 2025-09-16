@@ -25,6 +25,8 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
   const { user, logout } = useAuth();
 
+  const common: any[] = [];
+
   const getMenuItems = () => {
     switch (user?.role) {
       case 'deacon':
