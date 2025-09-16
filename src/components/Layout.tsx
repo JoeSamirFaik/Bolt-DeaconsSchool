@@ -8,7 +8,7 @@ import ServantDashboard from './dashboards/ServantDashboard';
 import ParentDashboard from './dashboards/ParentDashboard';
 import AdminDashboard from './dashboards/AdminDashboard';
 import LMSManagement from './admin/LMSManagement';
-import DeaconParentManagement from './admin/DeaconParentManagement';
+import UserManagement from './admin/UserManagement';
 import ServantManagement from './admin/ServantManagement';
 import AttendanceManagement from './admin/AttendanceManagement';
 import LearningJourney from './deacon/LearningJourney';
@@ -167,12 +167,7 @@ const Layout: React.FC = () => {
             } />
             <Route path="/users-mgmt" element={
               user?.role === 'admin' || user?.role === 'servant' ? 
-                <DeaconParentManagement /> : 
-                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
-            } />
-            <Route path="/deacon-parent-mgmt" element={
-              user?.role === 'admin' || user?.role === 'servant' ? 
-                <DeaconParentManagement /> : 
+                <UserManagement /> : 
                 <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
             } />
             <Route path="/child-notes" element={

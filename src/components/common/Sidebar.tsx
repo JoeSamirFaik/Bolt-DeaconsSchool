@@ -62,8 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
         return [
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
-          { id: 'users-mgmt', icon: UsersIcon, label: 'إدارة المستخدمين' },
-          { id: 'servant-mgmt', icon: UserIcon, label: 'إدارة الخدام' },
+          { id: 'users-mgmt', icon: UsersIcon, label: 'إدارة جميع المستخدمين' },
           { id: 'content-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
           { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'إدارة الحضور' },
           { id: 'records-approval', icon: ClipboardDocumentCheckIcon, label: 'مراجعة السجلات' },
