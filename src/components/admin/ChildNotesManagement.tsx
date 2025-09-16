@@ -207,27 +207,28 @@ const ChildNotesManagement: React.FC = () => {
           {/* Left side - Action Button */}
           <button
             onClick={() => setShowNoteForm(true)}
-            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
+            className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-3 py-2 sm:px-6 sm:py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
           >
-            <PlusIcon className="w-5 h-5" />
-            <span>إضافة ملاحظة</span>
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">إضافة ملاحظة</span>
+            <span className="sm:hidden">إضافة</span>
           </button>
           
           {/* Right side - Title & Description */}
           <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">ملاحظات الشمامسة</h1>
-            <p className="text-gray-600 font-cairo">إدارة الملاحظات والتعليقات حول الشمامسة</p>
+            <h1 className="text-lg sm:text-2xl font-bold text-gray-900 font-cairo">ملاحظات الشمامسة</h1>
+            <p className="text-gray-600 font-cairo text-sm sm:text-base hidden sm:block">إدارة الملاحظات والتعليقات حول الشمامسة</p>
           </div>
         </div>
       </div>
 
       {/* Filters */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center space-x-3 space-x-reverse mb-4">
-          <FunnelIcon className="w-5 h-5 text-gray-400" />
-          <h3 className="text-lg font-semibold text-gray-900 font-cairo">تصفية الملاحظات</h3>
+        <div className="flex items-center space-x-2 sm:space-x-3 space-x-reverse mb-4">
+          <FunnelIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 font-cairo">تصفية الملاحظات</h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
               الشماس
@@ -297,16 +298,16 @@ const ChildNotesManagement: React.FC = () => {
 
       {/* Notes List */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="space-y-4">
             {filteredNotes.map((note) => {
               const deacon = deacons.find(d => d.id === note.deaconId);
               
               return (
-                <div key={note.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                  <div className="flex items-start justify-between">
+                <div key={note.id} className="border border-gray-200 rounded-xl p-4 sm:p-6 hover:shadow-md transition-shadow">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between space-y-4 sm:space-y-0">
                     {/* Left side - Actions */}
-                    <div className="flex items-center space-x-3 space-x-reverse">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 sm:space-x-reverse order-3 sm:order-1">
                       <button
                         onClick={() => handleDeleteNote(note.id)}
                         className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -315,7 +316,7 @@ const ChildNotesManagement: React.FC = () => {
                         <TrashIcon className="w-4 h-4" />
                       </button>
                       
-                      <div className="flex items-center space-x-2 space-x-reverse">
+                      <div className="flex flex-wrap items-center gap-2 justify-end sm:justify-start">
                         <span className={`px-3 py-1 text-xs font-medium rounded-full ${getPriorityColor(note.priority)}`}>
                           {getPriorityLabel(note.priority)}
                         </span>
@@ -331,21 +332,21 @@ const ChildNotesManagement: React.FC = () => {
                     </div>
 
                     {/* Center - Note Content */}
-                    <div className="flex-1 text-right mx-6">
-                      <div className="flex items-center space-x-3 space-x-reverse mb-2">
+                    <div className="flex-1 text-right order-1 sm:order-2 sm:mx-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 sm:space-x-reverse mb-3">
                         <span className="text-sm text-gray-500 font-cairo">
                           {new Date(note.createdAt).toLocaleDateString('ar-EG')}
                         </span>
-                        <h3 className="text-lg font-bold text-gray-900 font-cairo">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 font-cairo">
                           {note.title}
                         </h3>
                       </div>
                       
-                      <p className="text-gray-600 font-cairo mb-3 leading-relaxed">
+                      <p className="text-gray-600 font-cairo mb-3 leading-relaxed text-sm sm:text-base">
                         {note.content}
                       </p>
                       
-                      <div className="flex items-center space-x-4 space-x-reverse text-sm text-gray-500">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 sm:space-x-reverse text-xs sm:text-sm text-gray-500">
                         <span className="font-cairo">
                           👤 {deacon?.firstName} {deacon?.lastName}
                         </span>
@@ -361,7 +362,7 @@ const ChildNotesManagement: React.FC = () => {
                     </div>
 
                     {/* Right side - Category Icon */}
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mx-auto sm:mx-0 order-2 sm:order-3">
                       <span className="text-3xl">{getCategoryIcon(note.category)}</span>
                     </div>
                   </div>
@@ -372,52 +373,52 @@ const ChildNotesManagement: React.FC = () => {
 
           {filteredNotes.length === 0 && (
             <div className="text-center py-12">
-              <DocumentTextIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد ملاحظات</h3>
-              <p className="text-gray-500 font-cairo">لم يتم إضافة أي ملاحظات بعد</p>
+              <DocumentTextIcon className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد ملاحظات</h3>
+              <p className="text-gray-500 font-cairo text-sm sm:text-base">لم يتم إضافة أي ملاحظات بعد</p>
             </div>
           )}
         </div>
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <DocumentTextIcon className="w-6 h-6 text-green-600" />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-4">
+            <DocumentTextIcon className="w-4 h-4 sm:w-6 sm:h-6 text-green-600" />
           </div>
-          <div className="text-2xl font-bold text-green-600 mb-1">{notes.length}</div>
-          <p className="text-sm text-gray-600 font-cairo">إجمالي الملاحظات</p>
+          <div className="text-lg sm:text-2xl font-bold text-green-600 mb-1">{notes.length}</div>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">إجمالي الملاحظات</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <ExclamationTriangleIcon className="w-6 h-6 text-red-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-4">
+            <ExclamationTriangleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-red-600" />
           </div>
-          <div className="text-2xl font-bold text-red-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-red-600 mb-1">
             {notes.filter(n => n.priority === 'high').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">ملاحظات مهمة</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">ملاحظات مهمة</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <InformationCircleIcon className="w-6 h-6 text-blue-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-4">
+            <InformationCircleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-blue-600 mb-1">
             {notes.filter(n => n.isPrivate).length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">ملاحظات خاصة</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">ملاحظات خاصة</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <UserIcon className="w-6 h-6 text-purple-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-4">
+            <UserIcon className="w-4 h-4 sm:w-6 sm:h-6 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-purple-600 mb-1">
             {new Set(notes.map(n => n.deaconId)).size}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">شمامسة لديهم ملاحظات</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">شمامسة لديهم ملاحظات</p>
         </div>
       </div>
 
