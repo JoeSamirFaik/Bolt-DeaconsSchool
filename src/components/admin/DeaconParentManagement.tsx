@@ -75,10 +75,8 @@ const DeaconParentManagement: React.FC = () => {
   // Modal states
   const [showUserForm, setShowUserForm] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [editingAssignment, setEditingAssignment] = useState<LevelAssignment | null>(null);
 
   // Bulk assignment state
-  const [showBulkAssignment, setShowBulkAssignment] = useState(false);
   const [selectedDeacons, setSelectedDeacons] = useState<string[]>([]);
   const [bulkAssignmentForm, setBulkAssignmentForm] = useState({
     levelId: '',
@@ -88,16 +86,6 @@ const DeaconParentManagement: React.FC = () => {
     notes: ''
   });
   const [deaconSearchTerm, setDeaconSearchTerm] = useState('');
-
-  // Assignment form state
-  const [assignmentForm, setAssignmentForm] = useState<CreateLevelAssignmentRequest>({
-    deaconId: '',
-    levelId: '',
-    academicYear: '',
-    startDate: '',
-    expectedEndDate: '',
-    notes: ''
-  });
 
   useEffect(() => {
     loadData();
@@ -145,29 +133,6 @@ const DeaconParentManagement: React.FC = () => {
     }
   };
 
-  const handleAssignmentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      if (editingAssignment) {
-        await levelAssignmentsApi.update(editingAssignment.id, assignmentForm);
-      } else {
-        await levelAssignmentsApi.create(assignmentForm);
-      }
-      setAssignmentForm({
-        deaconId: '',
-        levelId: '',
-        academicYear: '',
-        startDate: '',
-        expectedEndDate: '',
-        notes: ''
-      });
-      setEditingAssignment(null);
-      loadData();
-    } catch (error) {
-      console.error('Error saving assignment:', error);
-    }
-  };
-
   const handleBulkAssignment = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -194,7 +159,6 @@ const DeaconParentManagement: React.FC = () => {
         notes: ''
       });
       setSelectedDeacons([]);
-      setShowBulkAssignment(false);
       loadData();
     } catch (error) {
       console.error('Error creating bulk assignments:', error);
@@ -215,18 +179,6 @@ const DeaconParentManagement: React.FC = () => {
     } else {
       setSelectedDeacons(filteredDeacons.map(d => d.id));
     }
-  };
-
-  const handleEditAssignment = (assignment: LevelAssignment) => {
-    setEditingAssignment(assignment);
-    setAssignmentForm({
-      deaconId: assignment.deaconId,
-      levelId: assignment.levelId,
-      academicYear: assignment.academicYear,
-      startDate: assignment.startDate,
-      expectedEndDate: assignment.expectedEndDate,
-      notes: assignment.notes || ''
-    });
   };
 
   const getStatusLabel = (status: string) => {
@@ -274,7 +226,7 @@ const DeaconParentManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          {/* Left side - Buttons */}
+          {/* Left side - Action Buttons */}
           <div className="flex items-center space-x-3 space-x-reverse">
             {(activeTab === 'deacons' || activeTab === 'parents') && (
               <button
@@ -292,7 +244,7 @@ const DeaconParentManagement: React.FC = () => {
             )}
           </div>
           
-          {/* Right side - Title */}
+          {/* Right side - Title and Description */}
           <div className="text-right">
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
             <p className="text-gray-600 font-cairo">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
@@ -523,67 +475,28 @@ const DeaconParentManagement: React.FC = () => {
                 <thead className="bg-gradient-to-r from-amber-50 to-orange-50">
                   <tr>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      الاسم
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      البريد الإلكتروني
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      تاريخ التسجيل
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      المستوى الحالي
+                      الإجراءات
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
                       الحالة
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      الإجراءات
+                      المستوى الحالي
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      تاريخ التسجيل
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      البريد الإلكتروني
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      الاسم
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {deacons.map((deacon, index) => (
                     <tr key={deacon.id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-3 space-x-reverse">
-                          <div className="w-8 h-8 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
-                            <AcademicCapIcon className="w-4 h-4 text-amber-600" />
-                          </div>
-                          <div className="text-right">
-                            <div className="text-sm font-medium text-gray-900 font-cairo">
-                              {deacon.firstName} {deacon.lastName}
-                            </div>
-                            <div className="text-xs text-gray-500 font-cairo">شماس</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 font-cairo">{deacon.email}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 font-cairo">
-                          {deacon.deaconInfo?.enrollmentDate ? new Date(deacon.deaconInfo.enrollmentDate).toLocaleDateString('ar-EG') : '-'}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-2 space-x-reverse">
-                          <AcademicCapIcon className="w-4 h-4 text-amber-500" />
-                          <span className="text-sm font-medium text-gray-900 font-cairo">
-                            {levels.find(l => l.id === deacon.deaconInfo?.currentLevel)?.name || 'غير محدد'}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium space-x-1 space-x-reverse ${
-                          deacon.isActive 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-red-100 text-red-800'
-                        }`}>
-                          {deacon.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
-                          <span>{deacon.isActive ? 'نشط' : 'غير نشط'}</span>
-                        </span>
-                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center space-x-2 space-x-reverse">
                           <button
@@ -603,6 +516,45 @@ const DeaconParentManagement: React.FC = () => {
                           >
                             <TrashIcon className="w-4 h-4" />
                           </button>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium space-x-1 space-x-reverse ${
+                          deacon.isActive 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {deacon.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
+                          <span>{deacon.isActive ? 'نشط' : 'غير نشط'}</span>
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2 space-x-reverse">
+                          <AcademicCapIcon className="w-4 h-4 text-amber-500" />
+                          <span className="text-sm font-medium text-gray-900 font-cairo">
+                            {levels.find(l => l.id === deacon.deaconInfo?.currentLevel)?.name || 'غير محدد'}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900 font-cairo">
+                          {deacon.deaconInfo?.enrollmentDate ? new Date(deacon.deaconInfo.enrollmentDate).toLocaleDateString('ar-EG') : '-'}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900 font-cairo">{deacon.email}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-3 space-x-reverse">
+                          <div className="w-8 h-8 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full flex items-center justify-center">
+                            <AcademicCapIcon className="w-4 h-4 text-amber-600" />
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-medium text-gray-900 font-cairo">
+                              {deacon.firstName} {deacon.lastName}
+                            </div>
+                            <div className="text-xs text-gray-500 font-cairo">شماس</div>
+                          </div>
                         </div>
                       </td>
                     </tr>
@@ -629,81 +581,31 @@ const DeaconParentManagement: React.FC = () => {
                 <thead className="bg-gradient-to-r from-green-50 to-emerald-50">
                   <tr>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      الاسم
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      البريد الإلكتروني
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      رقم الهاتف
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      المهنة
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      عدد الأطفال
+                      الإجراءات
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
                       الحالة
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
-                      الإجراءات
+                      عدد الأطفال
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      المهنة
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      رقم الهاتف
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      البريد الإلكتروني
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider font-cairo">
+                      الاسم
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {parents.map((parent, index) => (
                     <tr key={parent.id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-3 space-x-reverse">
-                          <div className="w-8 h-8 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
-                            <UserIcon className="w-4 h-4 text-green-600" />
-                          </div>
-                          <div className="text-right">
-                            <div className="text-sm font-medium text-gray-900 font-cairo">
-                              {parent.firstName} {parent.lastName}
-                            </div>
-                            <div className="text-xs text-gray-500 font-cairo">ولي أمر</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900 font-cairo">{parent.email}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-2 space-x-reverse">
-                          <PhoneIcon className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-900 font-cairo">
-                            {parent.parentInfo?.phone || '-'}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-2 space-x-reverse">
-                          <BriefcaseIcon className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-900 font-cairo">
-                            {parent.parentInfo?.occupation || '-'}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center space-x-2 space-x-reverse">
-                          <UsersIcon className="w-4 h-4 text-green-500" />
-                          <span className="text-sm font-medium text-gray-900 font-cairo">
-                            {parent.parentInfo?.children.length || 0} طفل
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium space-x-1 space-x-reverse ${
-                          parent.isActive 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-red-100 text-red-800'
-                        }`}>
-                          {parent.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
-                          <span>{parent.isActive ? 'نشط' : 'غير نشط'}</span>
-                        </span>
-                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center space-x-2 space-x-reverse">
                           <button
@@ -725,6 +627,56 @@ const DeaconParentManagement: React.FC = () => {
                           </button>
                         </div>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium space-x-1 space-x-reverse ${
+                          parent.isActive 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {parent.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
+                          <span>{parent.isActive ? 'نشط' : 'غير نشط'}</span>
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2 space-x-reverse">
+                          <UsersIcon className="w-4 h-4 text-green-500" />
+                          <span className="text-sm font-medium text-gray-900 font-cairo">
+                            {parent.parentInfo?.children.length || 0} طفل
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2 space-x-reverse">
+                          <BriefcaseIcon className="w-4 h-4 text-gray-400" />
+                          <span className="text-sm text-gray-900 font-cairo">
+                            {parent.parentInfo?.occupation || '-'}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-2 space-x-reverse">
+                          <PhoneIcon className="w-4 h-4 text-gray-400" />
+                          <span className="text-sm text-gray-900 font-cairo">
+                            {parent.parentInfo?.phone || '-'}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900 font-cairo">{parent.email}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center space-x-3 space-x-reverse">
+                          <div className="w-8 h-8 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center">
+                            <UserIcon className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-medium text-gray-900 font-cairo">
+                              {parent.firstName} {parent.lastName}
+                            </div>
+                            <div className="text-xs text-gray-500 font-cairo">ولي أمر</div>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -744,18 +696,10 @@ const DeaconParentManagement: React.FC = () => {
         {/* Assignments Tab */}
         {activeTab === 'assignments' && (
           <div className="p-6">
-            {showBulkAssignment && (
-              <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
-                <p className="text-sm text-purple-700 font-cairo text-center">
-                  اختر الشمامسة المراد تكليفهم من القائمة أدناه، ثم املأ نموذج التكليف الجماعي أعلاه
-                </p>
-              </div>
-            )}
             {/* Assignments by Level */}
             <div className="space-y-6">
               {levels.map((level) => {
                 const levelAssignments = assignments.filter(a => a.levelId === level.id);
-                const assignedDeacons = levelAssignments.map(a => users.find(u => u.id === a.deaconId)).filter(Boolean);
                 const averageProgress = levelAssignments.length > 0 
                   ? Math.round(levelAssignments.reduce((sum, a) => sum + a.progress, 0) / levelAssignments.length)
                   : 0;
