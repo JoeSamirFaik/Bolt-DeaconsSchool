@@ -4,3 +4,4 @@ import DeaconCalendar from './deacon/DeaconCalendar';
 +import AttendanceBoard from './deacon/AttendanceBoard';
 
 const Layout: React.FC = () => {
+}
