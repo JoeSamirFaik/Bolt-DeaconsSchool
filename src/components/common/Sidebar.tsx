@@ -53,8 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
         return [
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
-          { id: 'child-progress', icon: ChartBarIcon, label: 'تقدم الطفل' },
-          { id: 'reports', icon: ClipboardDocumentCheckIcon, label: 'التقارير' },
+          { id: 'call-request', icon: ChatBubbleLeftRightIcon, label: 'طلب مكالمة' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
         ];
       case 'admin':
