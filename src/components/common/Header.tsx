@@ -18,6 +18,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const { user, logout } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
+  const [unreadNotifications, setUnreadNotifications] = React.useState(3);
 
   return (
     <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
@@ -50,11 +51,19 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
           </button>
           
           {/* Notifications */}
-          <button className="p-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 hover:scale-110 relative">
+          <button 
+            onClick={() => {
+              // In a real app, this would navigate to notifications page
+              window.dispatchEvent(new CustomEvent('navigate-to-notifications'));
+            }}
+            className="p-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 hover:scale-110 relative"
+          >
             <BellIcon className="h-6 w-6" />
-            <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg animate-pulse">
-              3
-            </span>
+            {unreadNotifications > 0 && (
+              <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                {unreadNotifications}
+              </span>
+            )}
           </button>
 
           {/* User Profile Dropdown */}

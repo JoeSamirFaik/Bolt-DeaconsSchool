@@ -13,11 +13,25 @@ import AttendanceManagement from './admin/AttendanceManagement';
 import LearningJourney from './deacon/LearningJourney';
 import DeaconCalendar from './deacon/DeaconCalendar';
 import AttendanceBoard from './deacon/AttendanceBoard';
+import NotificationLogs from './notifications/NotificationLogs';
+import { useEffect } from 'react';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Listen for notification navigation events
+  useEffect(() => {
+    const handleNavigateToNotifications = () => {
+      setCurrentPage('notifications');
+    };
+
+    window.addEventListener('navigate-to-notifications', handleNavigateToNotifications);
+    return () => {
+      window.removeEventListener('navigate-to-notifications', handleNavigateToNotifications);
+    };
+  }, []);
 
   const renderDashboard = () => {
     switch (user?.role) {
@@ -63,17 +77,7 @@ const Layout: React.FC = () => {
           </div>
         );
       case 'attendance-board':
-        return user?.role === 'deacon' ? <AttendanceBoard /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">📊</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">سجل الحضور</h3>
-              <p className="text-gray-500 font-cairo">متاح للشمامسة فقط</p>
-            </div>
-          </div>
-        );
+        return <NotificationLogs />;
       case 'lessons-mgmt':
         return <LMSManagement />;
       case 'attendance':
