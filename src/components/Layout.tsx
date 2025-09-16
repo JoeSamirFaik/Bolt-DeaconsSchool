@@ -146,9 +146,9 @@ const Layout: React.FC = () => {
       )}
       
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 right-0 z-50 w-64 transform ${
+      <div className={`fixed inset-y-0 right-0 z-50 w-64 h-screen transform ${
         sidebarOpen ? 'translate-x-0' : 'translate-x-full'
-      } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex-shrink-0 lg:right-auto lg:left-0`}>
+      } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:sticky lg:top-0 lg:flex-shrink-0 lg:right-auto lg:left-0`}>
         <Sidebar 
           currentPage={currentPage} 
           onPageChange={setCurrentPage}
@@ -157,12 +157,14 @@ const Layout: React.FC = () => {
       </div>
       
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         {/* Header */}
-        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        <div className="sticky top-0 z-30">
+          <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+        </div>
         
         {/* Page content */}
-        <main className="flex-1 p-6 lg:ml-0">
+        <main className="flex-1 p-6 lg:ml-0 overflow-y-auto">
           {renderContent()}
         </main>
       </div>
