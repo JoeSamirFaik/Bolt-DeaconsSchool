@@ -207,6 +207,18 @@ const AttendanceManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
+          {/* Left side - Action Button */}
+          <button
+            onClick={() => {
+              setEditingSession(null);
+              setShowSessionForm(true);
+            }}
+            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
+          >
+            <PlusIcon className="w-5 h-5" />
+            <span>إضافة جلسة</span>
+          </button>
+          
           {/* Right side - Title & Description */}
           <div className="text-right">
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الحضور</h1>
