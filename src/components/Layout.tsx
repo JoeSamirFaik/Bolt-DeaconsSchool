@@ -134,6 +134,8 @@ const Layout: React.FC = () => {
               <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
             </div>
           </div>
+        );
+      case 'call-requests':
         return <CallRequestManagement />;
       case 'notifications':
         return <NotificationLogs />;
