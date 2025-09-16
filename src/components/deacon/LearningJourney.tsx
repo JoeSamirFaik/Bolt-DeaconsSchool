@@ -753,8 +753,9 @@ const LearningJourney: React.FC = () => {
                 })}
               </div>
             </div>
-          </div>
+          </>
         )}
+      </div>
 
       {/* Modals */}
       {showLessonViewer && selectedLesson && (
