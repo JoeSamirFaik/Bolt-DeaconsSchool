@@ -51,6 +51,7 @@ const LearningJourney: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [selectedLevel, setSelectedLevel] = useState<string>('');
   const [expandedSubjects, setExpandedSubjects] = useState<Set<string>>(new Set());
+  const [isMobile, setIsMobile] = useState(false);
   
   // Game state
   const [gameStats, setGameStats] = useState<GameStatsData>({
@@ -80,6 +81,16 @@ const LearningJourney: React.FC = () => {
   ];
 
   // Effects
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     if (user?.role === 'deacon') {
       loadDeaconData();
@@ -251,24 +262,24 @@ const LearningJourney: React.FC = () => {
   const currentLevel = levels.find(l => l.id === selectedLevel);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 p-4">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 p-2 sm:p-4">
+      <div className="max-w-6xl mx-auto space-y-3 sm:space-y-6">
         {/* Gamified Header Dashboard */}
-        <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-xl shadow-lg border border-purple-300 p-4 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-xl shadow-lg border border-purple-300 p-3 sm:p-4 text-white relative overflow-hidden">
           {/* Animated Background Elements */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full animate-pulse"></div>
-            <div className="absolute bottom-2 left-2 w-6 h-6 bg-white rounded-full animate-bounce"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full animate-pulse"></div>
+            <div className="absolute top-2 right-2 w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-full animate-pulse"></div>
+            <div className="absolute bottom-2 left-2 w-4 h-4 sm:w-6 sm:h-6 bg-white rounded-full animate-bounce"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full animate-pulse"></div>
           </div>
           
           <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0 mb-3 sm:mb-4">
               <GameStats {...gameStats} />
               
               {/* Player Avatar */}
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white hover:scale-110 transition-transform duration-300">
-                <span className="text-lg font-bold text-white">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
+                <span className="text-sm sm:text-lg font-bold text-white">
                   {user?.firstName?.charAt(0)}
                 </span>
               </div>
@@ -290,7 +301,7 @@ const LearningJourney: React.FC = () => {
 
         {/* Current Level Content */}
         {selectedLevel && currentLevel && (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {/* Level Overview */}
             <LevelOverview
               level={currentLevel}
@@ -302,12 +313,12 @@ const LearningJourney: React.FC = () => {
             />
 
             {/* Subjects Journey Path */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 text-right font-cairo flex items-center space-x-2 space-x-reverse">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-3 sm:p-4">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 text-right font-cairo flex items-center space-x-2 space-x-reverse">
                 <span>مسار المقررات</span>
               </h3>
               
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {subjects.map((subject, subjectIndex) => {
                   const subjectLessons = lessons.filter(l => l.subjectId === subject.id);
                   const subjectQuizzes = quizzes.filter(q => q.subjectId === subject.id);
@@ -326,6 +337,7 @@ const LearningJourney: React.FC = () => {
                       isUnlocked={isUnlocked}
                       isExpanded={isExpanded}
                       onToggleExpansion={() => toggleSubjectExpansion(subject.id)}
+                      isMobile={isMobile}
                     >
                       {/* Lessons Section */}
                       <LessonsGrid
@@ -334,6 +346,7 @@ const LearningJourney: React.FC = () => {
                         isLessonCompleted={isLessonCompleted}
                         getLessonScore={getLessonScore}
                         isLessonUnlocked={isLessonUnlocked}
+                        isMobile={isMobile}
                       />
 
                       {/* Quizzes Section */}
@@ -344,6 +357,7 @@ const LearningJourney: React.FC = () => {
                         getQuizScore={getQuizScore}
                         getQuizAttempts={getQuizAttempts}
                         isQuizUnlocked={isQuizUnlocked}
+                        isMobile={isMobile}
                       />
                     </SubjectCard>
                   );
