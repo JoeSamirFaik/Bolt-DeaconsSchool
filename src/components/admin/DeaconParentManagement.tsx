@@ -229,22 +229,22 @@ const DeaconParentManagement: React.FC = () => {
     <div className="space-y-6">
       {/* Page Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 mb-6">
-          {/* Right side - Title & Description */}
-          <div className="text-right order-2 sm:order-1">
+        <div className="mb-6">
+          {/* Title & Description */}
+          <div className="text-right mb-4">
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
             <p className="text-gray-600 font-cairo text-sm sm:text-base hidden sm:block">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
           </div>
           
-          {/* Left side - Action Buttons */}
-          <div className="flex items-center space-x-3 space-x-reverse w-full sm:w-auto order-1 sm:order-2">
+          {/* Action Buttons */}
+          <div className="flex items-center justify-center sm:justify-start space-x-3 space-x-reverse">
             {(activeTab === 'deacons' || activeTab === 'parents') && (
               <button
                 onClick={() => {
                   setEditingUser(null);
                   setShowUserForm(true);
                 }}
-                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-4 py-3 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
+                className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-4 py-3 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
               >
                 <PlusIcon className="w-5 h-5" />
                 <span>
