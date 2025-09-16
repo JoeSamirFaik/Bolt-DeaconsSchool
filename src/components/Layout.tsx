@@ -28,8 +28,16 @@ const Layout: React.FC = () => {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Get current page from URL
-  const currentPage = location.pathname.slice(1) || 'dashboard';
+  // Get current page from URL - handle both root and dashboard paths
+  const getCurrentPage = () => {
+    const path = location.pathname.slice(1);
+    if (path === '' || path === 'dashboard') {
+      return 'dashboard';
+    }
+    return path;
+  };
+  
+  const currentPage = getCurrentPage();
 
   // Listen for notification navigation events
   useEffect(() => {
@@ -83,7 +91,11 @@ const Layout: React.FC = () => {
   );
 
   const handlePageChange = (page: string) => {
-    navigate(`/${page === 'dashboard' ? '' : page}`);
+    if (page === 'dashboard') {
+      navigate('/');
+    } else {
+      navigate(`/${page}`);
+    }
   };
 
   return (
