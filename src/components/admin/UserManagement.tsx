@@ -179,13 +179,7 @@ const UserManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8">
         <div className="flex items-center justify-between mb-8">
-          {/* Left side - Title & Description */}
-          <div className="text-right">
-            <h1 className="text-3xl font-bold text-gray-900 font-cairo mb-2">إدارة المستخدمين</h1>
-            <p className="text-gray-600 font-cairo text-lg">إدارة الشمامسة وأولياء الأمور والخدام</p>
-          </div>
-          
-          {/* Right side - Action Button */}
+          {/* Left side - Action Button */}
           <button
             onClick={() => {
               setEditingItem(null);
@@ -199,6 +193,12 @@ const UserManagement: React.FC = () => {
               {activeTab === 'users' ? 'إضافة مستخدم' : 'تكليف مستوى'}
             </span>
           </button>
+          
+          {/* Right side - Title & Description */}
+          <div className="text-right">
+            <h1 className="text-3xl font-bold text-gray-900 font-cairo mb-2">إدارة المستخدمين</h1>
+            <p className="text-gray-600 font-cairo text-lg">إدارة الشمامسة وأولياء الأمور والخدام</p>
+          </div>
         </div>
 
         {/* Tabs */}

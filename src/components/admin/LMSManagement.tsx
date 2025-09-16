@@ -216,13 +216,7 @@ const LMSManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          {/* Left side - Title & Description */}
-          <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة المحتوى التعليمي</h1>
-            <p className="text-gray-600 font-cairo mt-1">إدارة المستويات والمقررات والدروس</p>
-          </div>
-          
-          {/* Right side - Action Button */}
+          {/* Left side - Action Button */}
           <button
             onClick={() => {
               setEditingItem(null);
@@ -234,10 +228,16 @@ const LMSManagement: React.FC = () => {
           >
             <PlusIcon className="w-5 h-5" />
             <span>
-          <div className="text-right">
+              {activeTab === 'levels' ? 'إضافة مستوى' : 
                activeTab === 'subjects' ? 'إضافة مقرر' : 'إضافة درس'}
             </span>
           </button>
+          
+          {/* Right side - Title & Description */}
+          <div className="text-right">
+            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة المحتوى التعليمي</h1>
+            <p className="text-gray-600 font-cairo mt-1">إدارة المستويات والمقررات والدروس</p>
+          </div>
         </div>
 
         {/* Tabs */}

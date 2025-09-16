@@ -244,11 +244,11 @@ const DeaconParentManagement: React.FC = () => {
             )}
           </div>
           
-          {/* Right side - Title and Description */}
-          <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
-            <p className="text-gray-600 font-cairo">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
-          </div>
+          {/* Left side - Action Buttons */}
+          <div className="flex items-center space-x-3 space-x-reverse">
+            {(activeTab === 'deacons' || activeTab === 'parents') && (
+              <button
+                onClick={() => {
         </div>
 
         {/* Tabs */}

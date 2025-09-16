@@ -62,13 +62,7 @@ const ServantManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between">
-          {/* Left side - Title & Description */}
-          <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الخدام</h1>
-            <p className="text-gray-600 font-cairo">إدارة الخدام والمعلمين في المدرسة</p>
-          </div>
-          
-          {/* Right side - Action Button */}
+          {/* Left side - Action Button */}
           <button
             onClick={() => {
               setEditingUser(null);
@@ -79,6 +73,12 @@ const ServantManagement: React.FC = () => {
             <PlusIcon className="w-5 h-5" />
             <span>إضافة خادم جديد</span>
           </button>
+          
+          {/* Right side - Title & Description */}
+          <div className="text-right">
+            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الخدام</h1>
+            <p className="text-gray-600 font-cairo">إدارة الخدام والمعلمين في المدرسة</p>
+          </div>
         </div>
       </div>
 
