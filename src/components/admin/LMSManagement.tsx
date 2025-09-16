@@ -10,7 +10,8 @@ import {
   VideoCameraIcon,
   ChartBarIcon,
   EyeIcon,
-  EyeSlashIcon
+  EyeSlashIcon,
+  FunnelIcon
 } from '@heroicons/react/24/outline';
 import { Level, Subject, Lesson } from '../../types/lms';
 import { levelsApi, subjectsApi, lessonsApi } from '../../services/lmsApi';
@@ -115,15 +116,15 @@ const LMSManagement: React.FC = () => {
   const getContentTypeIcon = (contentType: string) => {
     switch (contentType) {
       case 'text':
-        return <DocumentTextIcon className="w-5 h-5" />;
+        return <DocumentTextIcon className="w-4 h-4" />;
       case 'image':
-        return <PhotoIcon className="w-5 h-5" />;
+        return <PhotoIcon className="w-4 h-4" />;
       case 'video':
-        return <VideoCameraIcon className="w-5 h-5" />;
+        return <VideoCameraIcon className="w-4 h-4" />;
       case 'mixed':
-        return <BookOpenIcon className="w-5 h-5" />;
+        return <BookOpenIcon className="w-4 h-4" />;
       default:
-        return <DocumentTextIcon className="w-5 h-5" />;
+        return <DocumentTextIcon className="w-4 h-4" />;
     }
   };
 
@@ -146,18 +147,18 @@ const LMSManagement: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-amber-700 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-amber-800 font-cairo font-medium">جاري تحميل البيانات...</p>
+          <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600 font-cairo">جاري تحميل البيانات...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8 bg-gradient-to-br from-amber-50 to-orange-50 min-h-screen p-6">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-2xl shadow-lg border border-amber-200 p-8">
-        <div className="flex items-center justify-between mb-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => {
               setEditingItem(null);
@@ -165,70 +166,69 @@ const LMSManagement: React.FC = () => {
               else if (activeTab === 'subjects') setShowSubjectForm(true);
               else setShowLessonForm(true);
             }}
-            className="bg-gradient-to-r from-amber-700 to-orange-700 text-white px-8 py-4 rounded-xl hover:shadow-xl transition-all duration-300 flex items-center space-x-3 space-x-reverse font-bold text-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-colors flex items-center space-x-2 space-x-reverse font-medium"
           >
-            <PlusIcon className="w-6 h-6" />
+            <PlusIcon className="w-5 h-5" />
             <span>
-              {activeTab === 'levels' ? 'إضافة مستوى جديد' : 
-               activeTab === 'subjects' ? 'إضافة مقرر جديد' : 'إضافة درس جديد'}
+              {activeTab === 'levels' ? 'إضافة مستوى' : 
+               activeTab === 'subjects' ? 'إضافة مقرر' : 'إضافة درس'}
             </span>
           </button>
-          <div className="flex items-center space-x-4 space-x-reverse">
-            <div className="text-right">
-              <h1 className="text-3xl font-bold text-amber-900 font-cairo">نظام إدارة التعلم</h1>
-              <p className="text-amber-700 font-cairo mt-1">إدارة المستويات والمقررات والدروس</p>
-            </div>
-            <div className="w-16 h-16 bg-gradient-to-r from-amber-700 to-orange-700 rounded-2xl flex items-center justify-center shadow-lg">
-              <AcademicCapIcon className="w-8 h-8 text-white" />
-            </div>
+          <div className="text-right">
+            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة المحتوى التعليمي</h1>
+            <p className="text-gray-600 font-cairo mt-1">إدارة المستويات والمقررات والدروس</p>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex space-x-2 space-x-reverse bg-white/60 p-2 rounded-xl shadow-inner">
+        <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-xl">
           <button
             onClick={() => setActiveTab('levels')}
-            className={`flex-1 py-4 px-6 rounded-lg font-bold transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse ${
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'levels'
-                ? 'bg-gradient-to-r from-amber-700 to-orange-700 text-white shadow-lg'
-                : 'text-amber-800 hover:bg-white/80'
+                ? 'bg-white text-blue-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
-            <AcademicCapIcon className="w-5 h-5" />
-            <span>المستويات الأكاديمية</span>
+            <AcademicCapIcon className="w-4 h-4" />
+            <span>المستويات</span>
           </button>
           <button
             onClick={() => setActiveTab('subjects')}
-            className={`flex-1 py-4 px-6 rounded-lg font-bold transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse ${
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'subjects'
-                ? 'bg-gradient-to-r from-amber-700 to-orange-700 text-white shadow-lg'
-                : 'text-amber-800 hover:bg-white/80'
+                ? 'bg-white text-blue-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
-            <BookOpenIcon className="w-5 h-5" />
-            <span>المقررات الدراسية</span>
+            <BookOpenIcon className="w-4 h-4" />
+            <span>المقررات</span>
           </button>
           <button
             onClick={() => setActiveTab('lessons')}
-            className={`flex-1 py-4 px-6 rounded-lg font-bold transition-all duration-300 flex items-center justify-center space-x-2 space-x-reverse ${
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'lessons'
-                ? 'bg-gradient-to-r from-amber-700 to-orange-700 text-white shadow-lg'
-                : 'text-amber-800 hover:bg-white/80'
+                ? 'bg-white text-blue-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
-            <DocumentTextIcon className="w-5 h-5" />
-            <span>الدروس التعليمية</span>
+            <DocumentTextIcon className="w-4 h-4" />
+            <span>الدروس</span>
           </button>
         </div>
       </div>
 
       {/* Filters */}
       {(activeTab === 'subjects' || activeTab === 'lessons') && (
-        <div className="bg-white rounded-2xl shadow-lg border border-amber-200 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center space-x-3 space-x-reverse mb-4">
+            <FunnelIcon className="w-5 h-5 text-gray-400" />
+            <h3 className="text-lg font-semibold text-gray-900 font-cairo">تصفية المحتوى</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-bold text-amber-900 mb-3 text-right">
-                اختر المستوى الأكاديمي
+              <label className="block text-sm font-medium text-gray-700 mb-2 text-right">
+                المستوى الأكاديمي
               </label>
               <select
                 value={selectedLevel}
@@ -236,7 +236,7 @@ const LMSManagement: React.FC = () => {
                   setSelectedLevel(e.target.value);
                   setSelectedSubject('');
                 }}
-                className="w-full px-4 py-3 border-2 border-amber-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-200 focus:border-amber-600 transition-all duration-300 text-right font-cairo bg-white"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo bg-white"
               >
                 <option value="">-- اختر المستوى --</option>
                 {levels.map((level) => (
@@ -249,13 +249,13 @@ const LMSManagement: React.FC = () => {
             
             {activeTab === 'lessons' && (
               <div>
-                <label className="block text-sm font-bold text-amber-900 mb-3 text-right">
-                  اختر المقرر الدراسي
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">
+                  المقرر الدراسي
                 </label>
                 <select
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-amber-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-200 focus:border-amber-600 transition-all duration-300 text-right font-cairo bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo bg-white"
                   disabled={!selectedLevel}
                 >
                   <option value="">-- اختر المقرر --</option>
@@ -272,74 +272,66 @@ const LMSManagement: React.FC = () => {
       )}
 
       {/* Content */}
-      <div className="bg-white rounded-2xl shadow-lg border border-amber-200">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
         {/* Levels Tab */}
         {activeTab === 'levels' && (
-          <div className="p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {levels.map((level) => (
-                <div key={level.id} className="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-6 hover:border-amber-400 transition-all duration-300 hover:shadow-xl">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex space-x-3 space-x-reverse">
+                <div key={level.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex space-x-2 space-x-reverse">
                       <button
                         onClick={() => {
                           setEditingItem(level);
                           setShowLevelForm(true);
                         }}
-                        className="p-3 text-amber-700 hover:bg-amber-100 rounded-xl transition-colors"
-                        title="تعديل"
+                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                       >
-                        <PencilIcon className="w-5 h-5" />
+                        <PencilIcon className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDeleteLevel(level.id)}
-                        className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
-                        title="حذف"
+                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
-                        <TrashIcon className="w-5 h-5" />
+                        <TrashIcon className="w-4 h-4" />
                       </button>
                     </div>
-                    <div className="w-14 h-14 bg-gradient-to-r from-amber-700 to-orange-700 rounded-2xl flex items-center justify-center shadow-lg">
-                      <AcademicCapIcon className="w-7 h-7 text-white" />
+                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <AcademicCapIcon className="w-6 h-6 text-blue-600" />
                     </div>
                   </div>
                   
-                  <div className="text-right mb-6">
-                    <h3 className="text-xl font-bold text-amber-900 mb-2 font-cairo">
+                  <div className="text-right mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 font-cairo">
                       {level.name}
                     </h3>
-                    <p className="text-amber-700 text-sm leading-relaxed font-cairo">
+                    <p className="text-gray-600 text-sm font-cairo">
                       {level.description}
                     </p>
                   </div>
                   
-                  <div className="space-y-4">
-                    <div className="bg-white/80 rounded-xl p-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-2xl font-bold text-amber-700">{level.passPercentage}%</span>
-                        <span className="text-sm text-amber-800 font-medium">نسبة النجاح المطلوبة</span>
-                      </div>
-                      <div className="w-full bg-amber-200 rounded-full h-2">
-                        <div 
-                          className="bg-gradient-to-r from-amber-600 to-orange-600 h-2 rounded-full transition-all duration-500"
-                          style={{ width: `${level.passPercentage}%` }}
-                        ></div>
-                      </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="font-medium text-blue-600">{level.passPercentage}%</span>
+                      <span className="text-gray-600">نسبة النجاح</span>
                     </div>
-                    
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${level.passPercentage}%` }}
+                      ></div>
+                    </div>
                     <div className="flex justify-between items-center">
-                      <span className={`px-4 py-2 text-sm font-bold rounded-full flex items-center space-x-2 space-x-reverse ${
+                      <span className={`px-3 py-1 text-xs font-medium rounded-full flex items-center space-x-1 space-x-reverse ${
                         level.isActive 
                           ? 'bg-green-100 text-green-800' 
                           : 'bg-red-100 text-red-800'
                       }`}>
-                        {level.isActive ? <EyeIcon className="w-4 h-4" /> : <EyeSlashIcon className="w-4 h-4" />}
+                        {level.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
                         <span>{level.isActive ? 'نشط' : 'غير نشط'}</span>
                       </span>
-                      <div className="text-right">
-                        <span className="text-lg font-bold text-amber-800">#{level.order}</span>
-                        <p className="text-xs text-amber-600">ترتيب المستوى</p>
-                      </div>
+                      <span className="text-sm font-medium text-gray-500">#{level.order}</span>
                     </div>
                   </div>
                 </div>
@@ -350,78 +342,70 @@ const LMSManagement: React.FC = () => {
 
         {/* Subjects Tab */}
         {activeTab === 'subjects' && (
-          <div className="p-8">
+          <div className="p-6">
             {!selectedLevel ? (
-              <div className="text-center py-20">
-                <BookOpenIcon className="w-20 h-20 text-amber-400 mx-auto mb-6" />
-                <h3 className="text-xl font-bold text-amber-800 mb-2 font-cairo">اختر مستوى أكاديمي</h3>
-                <p className="text-amber-600 font-cairo">يرجى اختيار مستوى أكاديمي لعرض المقررات الدراسية</p>
+              <div className="text-center py-12">
+                <BookOpenIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">اختر مستوى أكاديمي</h3>
+                <p className="text-gray-500 font-cairo">يرجى اختيار مستوى أكاديمي لعرض المقررات</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {subjects.map((subject) => (
-                  <div key={subject.id} className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6 hover:border-blue-400 transition-all duration-300 hover:shadow-xl">
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex space-x-3 space-x-reverse">
+                  <div key={subject.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex space-x-2 space-x-reverse">
                         <button
                           onClick={() => {
                             setEditingItem(subject);
                             setShowSubjectForm(true);
                           }}
-                          className="p-3 text-blue-700 hover:bg-blue-100 rounded-xl transition-colors"
-                          title="تعديل"
+                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                         >
-                          <PencilIcon className="w-5 h-5" />
+                          <PencilIcon className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDeleteSubject(subject.id)}
-                          className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
-                          title="حذف"
+                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         >
-                          <TrashIcon className="w-5 h-5" />
+                          <TrashIcon className="w-4 h-4" />
                         </button>
                       </div>
-                      <div className="w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
-                        <BookOpenIcon className="w-7 h-7 text-white" />
+                      <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                        <BookOpenIcon className="w-6 h-6 text-green-600" />
                       </div>
                     </div>
                     
-                    <div className="text-right mb-6">
-                      <h3 className="text-xl font-bold text-blue-900 mb-2 font-cairo">
+                    <div className="text-right mb-4">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2 font-cairo">
                         {subject.name}
                       </h3>
-                      <p className="text-blue-700 text-sm leading-relaxed font-cairo">
+                      <p className="text-gray-600 text-sm font-cairo">
                         {subject.description}
                       </p>
                     </div>
                     
-                    <div className="space-y-4">
-                      <div className="bg-white/80 rounded-xl p-4">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-2xl font-bold text-blue-700">{subject.passPercentage}%</span>
-                          <span className="text-sm text-blue-800 font-medium">نسبة النجاح المطلوبة</span>
-                        </div>
-                        <div className="w-full bg-blue-200 rounded-full h-2">
-                          <div 
-                            className="bg-gradient-to-r from-blue-600 to-indigo-600 h-2 rounded-full transition-all duration-500"
-                            style={{ width: `${subject.passPercentage}%` }}
-                          ></div>
-                        </div>
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="font-medium text-green-600">{subject.passPercentage}%</span>
+                        <span className="text-gray-600">نسبة النجاح</span>
                       </div>
-                      
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div 
+                          className="bg-green-600 h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${subject.passPercentage}%` }}
+                        ></div>
+                      </div>
                       <div className="flex justify-between items-center">
-                        <span className={`px-4 py-2 text-sm font-bold rounded-full flex items-center space-x-2 space-x-reverse ${
+                        <span className={`px-3 py-1 text-xs font-medium rounded-full flex items-center space-x-1 space-x-reverse ${
                           subject.isActive 
                             ? 'bg-green-100 text-green-800' 
                             : 'bg-red-100 text-red-800'
                         }`}>
-                          {subject.isActive ? <EyeIcon className="w-4 h-4" /> : <EyeSlashIcon className="w-4 h-4" />}
+                          {subject.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
                           <span>{subject.isActive ? 'نشط' : 'غير نشط'}</span>
                         </span>
-                        <div className="text-right">
-                          <span className="text-lg font-bold text-blue-800">#{subject.order}</span>
-                          <p className="text-xs text-blue-600">ترتيب المقرر</p>
-                        </div>
+                        <span className="text-sm font-medium text-gray-500">#{subject.order}</span>
                       </div>
                     </div>
                   </div>
@@ -433,72 +417,71 @@ const LMSManagement: React.FC = () => {
 
         {/* Lessons Tab */}
         {activeTab === 'lessons' && (
-          <div className="p-8">
+          <div className="p-6">
             {!selectedSubject ? (
-              <div className="text-center py-20">
-                <DocumentTextIcon className="w-20 h-20 text-amber-400 mx-auto mb-6" />
-                <h3 className="text-xl font-bold text-amber-800 mb-2 font-cairo">اختر مقرر دراسي</h3>
-                <p className="text-amber-600 font-cairo">يرجى اختيار مقرر دراسي لعرض الدروس التعليمية</p>
+              <div className="text-center py-12">
+                <DocumentTextIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">اختر مقرر دراسي</h3>
+                <p className="text-gray-500 font-cairo">يرجى اختيار مقرر دراسي لعرض الدروس</p>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {lessons.map((lesson) => (
-                  <div key={lesson.id} className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-2xl p-6 hover:border-purple-400 transition-all duration-300 hover:shadow-xl">
+                  <div key={lesson.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-4 space-x-reverse">
-                        <div className="flex space-x-3 space-x-reverse">
+                        <div className="flex space-x-2 space-x-reverse">
                           <button
                             onClick={() => {
                               setEditingItem(lesson);
                               setShowLessonForm(true);
                             }}
-                            className="p-3 text-purple-700 hover:bg-purple-100 rounded-xl transition-colors"
-                            title="تعديل"
+                            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           >
-                            <PencilIcon className="w-5 h-5" />
+                            <PencilIcon className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDeleteLesson(lesson.id)}
-                            className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors"
-                            title="حذف"
+                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           >
-                            <TrashIcon className="w-5 h-5" />
+                            <TrashIcon className="w-4 h-4" />
                           </button>
                         </div>
                         
                         <div className="text-right">
                           <div className="flex items-center space-x-3 space-x-reverse mb-2">
-                            <span className={`px-3 py-1 text-xs font-bold rounded-full ${
+                            <span className={`px-2 py-1 text-xs font-medium rounded-full flex items-center space-x-1 space-x-reverse ${
                               lesson.contentType === 'text' ? 'bg-blue-100 text-blue-800' :
                               lesson.contentType === 'image' ? 'bg-green-100 text-green-800' :
                               lesson.contentType === 'video' ? 'bg-red-100 text-red-800' :
                               'bg-purple-100 text-purple-800'
                             }`}>
-                              {getContentTypeLabel(lesson.contentType)}
+                              {getContentTypeIcon(lesson.contentType)}
+                              <span>{getContentTypeLabel(lesson.contentType)}</span>
                             </span>
-                            <span className="text-sm text-purple-600 font-medium">{lesson.duration} دقيقة</span>
-                            <span className="text-sm text-purple-500">•</span>
-                            <span className="text-sm text-purple-600 font-medium">#{lesson.order}</span>
+                            <span className="text-sm text-gray-500">{lesson.duration} دقيقة</span>
+                            <span className="text-sm text-gray-400">•</span>
+                            <span className="text-sm text-gray-500">#{lesson.order}</span>
                           </div>
-                          <h3 className="text-xl font-bold text-purple-900 font-cairo mb-1">
+                          <h3 className="text-lg font-semibold text-gray-900 font-cairo mb-1">
                             {lesson.title}
                           </h3>
-                          <p className="text-purple-700 text-sm font-cairo">
+                          <p className="text-gray-600 text-sm font-cairo">
                             {lesson.description}
                           </p>
                         </div>
                       </div>
                       
                       <div className="flex items-center space-x-4 space-x-reverse">
-                        <span className={`px-4 py-2 text-sm font-bold rounded-full flex items-center space-x-2 space-x-reverse ${
+                        <span className={`px-3 py-1 text-xs font-medium rounded-full flex items-center space-x-1 space-x-reverse ${
                           lesson.isActive 
                             ? 'bg-green-100 text-green-800' 
                             : 'bg-red-100 text-red-800'
                         }`}>
-                          {lesson.isActive ? <EyeIcon className="w-4 h-4" /> : <EyeSlashIcon className="w-4 h-4" />}
+                          {lesson.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
                           <span>{lesson.isActive ? 'نشط' : 'غير نشط'}</span>
                         </span>
-                        <div className="w-14 h-14 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg">
+                        <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
                           {getContentTypeIcon(lesson.contentType)}
                         </div>
                       </div>

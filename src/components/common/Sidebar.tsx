@@ -27,45 +27,45 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
 
   const getMenuItems = () => {
     const common = [
-      { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية', emoji: '🏠', color: 'from-purple-400 to-pink-400' },
-      { id: 'calendar', icon: CalendarIcon, label: 'التقويم', emoji: '📅', color: 'from-blue-400 to-cyan-400' },
-      { id: 'notifications', icon: BellIcon, label: 'الرسائل', emoji: '💌', color: 'from-yellow-400 to-orange-400' },
-      { id: 'library', icon: BuildingLibraryIcon, label: 'المكتبة', emoji: '📚', color: 'from-green-400 to-emerald-400' },
+      { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية', color: 'text-blue-600' },
+      { id: 'calendar', icon: CalendarIcon, label: 'التقويم', color: 'text-purple-600' },
+      { id: 'notifications', icon: BellIcon, label: 'الإشعارات', color: 'text-yellow-600' },
+      { id: 'library', icon: BuildingLibraryIcon, label: 'المكتبة', color: 'text-green-600' },
     ];
 
     switch (user?.role) {
       case 'deacon':
         return [
           ...common,
-          { id: 'lessons', icon: BookOpenIcon, label: 'الدروس', emoji: '📖', color: 'from-indigo-400 to-purple-400' },
-          { id: 'quizzes', icon: ClipboardDocumentCheckIcon, label: 'الاختبارات', emoji: '🎯', color: 'from-red-400 to-pink-400' },
-          { id: 'progress', icon: ChartBarIcon, label: 'التقدم', emoji: '📊', color: 'from-teal-400 to-blue-400' },
-          { id: 'certificates', icon: AcademicCapIcon, label: 'الشهادات', emoji: '🏆', color: 'from-yellow-400 to-amber-400' },
-          { id: 'achievements', icon: TrophyIcon, label: 'الإنجازات', emoji: '⭐', color: 'from-orange-400 to-red-400' },
+          { id: 'lessons', icon: BookOpenIcon, label: 'الدروس', color: 'text-indigo-600' },
+          { id: 'quizzes', icon: ClipboardDocumentCheckIcon, label: 'الاختبارات', color: 'text-red-600' },
+          { id: 'progress', icon: ChartBarIcon, label: 'التقدم', color: 'text-teal-600' },
+          { id: 'certificates', icon: AcademicCapIcon, label: 'الشهادات', color: 'text-amber-600' },
+          { id: 'achievements', icon: TrophyIcon, label: 'الإنجازات', color: 'text-orange-600' },
         ];
       case 'servant':
         return [
           ...common,
-          { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور', emoji: '✅', color: 'from-blue-600 to-indigo-600' },
-          { id: 'deacons', icon: UsersIcon, label: 'الشمامسة', emoji: '👥', color: 'from-slate-600 to-gray-600' },
-          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات', emoji: '💬', color: 'from-teal-600 to-cyan-600' },
-          { id: 'reports', icon: ChartBarIcon, label: 'التقارير', emoji: '📈', color: 'from-indigo-600 to-purple-600' },
+          { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور', color: 'text-blue-600' },
+          { id: 'deacons', icon: UsersIcon, label: 'الشمامسة', color: 'text-gray-600' },
+          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات', color: 'text-teal-600' },
+          { id: 'reports', icon: ChartBarIcon, label: 'التقارير', color: 'text-indigo-600' },
         ];
       case 'parent':
         return [
           ...common,
-          { id: 'child-progress', icon: ChartBarIcon, label: 'تقدم الطفل', emoji: '🌟', color: 'from-blue-600 to-teal-600' },
-          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات', emoji: '💬', color: 'from-slate-600 to-gray-600' },
-          { id: 'reports', icon: ClipboardDocumentCheckIcon, label: 'التقارير', emoji: '📋', color: 'from-indigo-600 to-blue-600' },
+          { id: 'child-progress', icon: ChartBarIcon, label: 'تقدم الطفل', color: 'text-blue-600' },
+          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات', color: 'text-gray-600' },
+          { id: 'reports', icon: ClipboardDocumentCheckIcon, label: 'التقارير', color: 'text-indigo-600' },
         ];
       case 'admin':
         return [
           ...common,
-          { id: 'users', icon: UsersIcon, label: 'المستخدمون', emoji: '👨‍👩‍👧‍👦', color: 'from-slate-600 to-gray-600' },
-          { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة الدروس', emoji: '📚', color: 'from-blue-600 to-indigo-600' },
-          { id: 'quizzes-mgmt', icon: ClipboardDocumentCheckIcon, label: 'إدارة الاختبارات', emoji: '🎮', color: 'from-teal-600 to-cyan-600' },
-          { id: 'reports', icon: ChartBarIcon, label: 'التحليلات', emoji: '📊', color: 'from-indigo-600 to-purple-600' },
-          { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات', emoji: '⚙️', color: 'from-gray-600 to-slate-600' },
+          { id: 'users', icon: UsersIcon, label: 'المستخدمون', color: 'text-gray-600' },
+          { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى', color: 'text-blue-600' },
+          { id: 'quizzes-mgmt', icon: ClipboardDocumentCheckIcon, label: 'إدارة الاختبارات', color: 'text-teal-600' },
+          { id: 'reports', icon: ChartBarIcon, label: 'التحليلات', color: 'text-indigo-600' },
+          { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات', color: 'text-gray-600' },
         ];
       default:
         return common;
@@ -73,54 +73,29 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
   };
 
   const menuItems = getMenuItems();
-  const isDeacon = user?.role === 'deacon';
-  const isProfessionalRole = ['servant', 'parent', 'admin'].includes(user?.role || '');
 
   return (
-    <div className={`h-full flex flex-col relative overflow-hidden ${
-      isDeacon 
-        ? 'bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900' 
-        : 'bg-gradient-to-br from-slate-800 via-gray-800 to-slate-900'
-    }`}>
-      {/* Animated background elements - only for deacons */}
-      {isDeacon && (
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-4 -right-4 w-24 h-24 bg-yellow-400 rounded-full opacity-10 animate-pulse"></div>
-          <div className="absolute top-1/3 -left-8 w-32 h-32 bg-pink-400 rounded-full opacity-10 animate-bounce"></div>
-          <div className="absolute bottom-1/4 -right-6 w-20 h-20 bg-blue-400 rounded-full opacity-10 animate-pulse"></div>
-        </div>
-      )}
-
-      <div className="relative z-10 p-6 border-b border-white/10">
+    <div className="h-full flex flex-col bg-white border-r border-gray-200">
+      {/* Header */}
+      <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3 space-x-reverse">
-          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg transition-transform duration-300 ${
-            isDeacon 
-              ? 'bg-gradient-to-r from-yellow-400 to-orange-500 transform rotate-12 hover:rotate-0' 
-              : 'bg-gradient-to-r from-blue-600 to-indigo-600'
-          }`}>
-            <span className="text-2xl">⛪</span>
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-sm">
+            <span className="text-white text-lg">⛪</span>
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-white">مدرسة الشمامسة</h1>
-            <div className="flex items-center space-x-2 space-x-reverse">
-              <span className="text-sm text-purple-200">
-                {user?.role === 'deacon' ? 'شماس' : 
-                 user?.role === 'servant' ? 'خادم' : 
-                 user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
-              </span>
-              {user?.role === 'deacon' && (
-                <div className="flex items-center space-x-1 space-x-reverse">
-                  <StarIcon className="w-3 h-3 text-yellow-400 fill-current" />
-                  <span className="text-xs text-yellow-400">المستوى {user?.level}</span>
-                </div>
-              )}
-            </div>
+          <div className="text-right">
+            <h1 className="text-lg font-bold text-gray-900 font-cairo">مدرسة الشمامسة</h1>
+            <p className="text-sm text-gray-500 font-cairo">
+              {user?.role === 'deacon' ? 'شماس' : 
+               user?.role === 'servant' ? 'خادم' : 
+               user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
+            </p>
           </div>
         </div>
       </div>
 
-      <div className="flex-1 px-4 py-6 relative z-10">
-        <nav className="space-y-3">
+      {/* Navigation */}
+      <div className="flex-1 px-4 py-6">
+        <nav className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentPage === item.id;
@@ -129,71 +104,45 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
               <button
                 key={item.id}
                 onClick={() => onPageChange(item.id)}
-                className={`w-full group relative overflow-hidden rounded-2xl transition-all duration-300 ${
-                  isDeacon ? 'transform hover:scale-105' : 'hover:scale-102'
-                } ${
+                className={`w-full group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-white/20 shadow-lg scale-105'
-                    : 'hover:bg-white/10'
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
-                <div className={`absolute inset-0 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
-                <div className="relative flex items-center px-4 py-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ml-3 shadow-lg ${
-                    isProfessionalRole 
-                      ? `bg-gradient-to-r ${item.color.replace('400', '600').replace('500', '700')}` 
-                      : `bg-gradient-to-r ${item.color}`
-                  }`}>
-                    <span className={isDeacon ? "text-lg" : "text-base"}>{item.emoji}</span>
-                  </div>
-                  <div className="flex-1 text-right">
-                    <span className={`font-medium font-cairo transition-colors ${
-                      isActive ? 'text-white' : 'text-purple-100 group-hover:text-white'
-                    }`}>
-                      {item.label}
-                    </span>
-                  </div>
-                  {isActive && (
-                    <div className={`w-2 h-2 rounded-full animate-pulse ${
-                      isDeacon ? 'bg-yellow-400' : 'bg-blue-400'
-                    }`}></div>
-                  )}
-                </div>
+                <Icon className={`ml-3 h-5 w-5 ${isActive ? 'text-blue-600' : item.color}`} />
+                <span className="font-cairo">{item.label}</span>
+                {isActive && (
+                  <div className="mr-auto w-2 h-2 bg-blue-600 rounded-full"></div>
+                )}
               </button>
             );
           })}
         </nav>
       </div>
 
-      <div className="p-4 border-t border-white/10 relative z-10">
-        <div className={`flex items-center space-x-3 space-x-reverse mb-4 p-3 rounded-2xl backdrop-blur-sm ${
-          isDeacon ? 'bg-white/10' : 'bg-white/5'
-        }`}>
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${
-            isDeacon 
-              ? 'bg-gradient-to-r from-pink-400 to-purple-500' 
-              : 'bg-gradient-to-r from-blue-600 to-indigo-600'
-          }`}>
-            <span className="text-lg font-bold text-white font-cairo">
+      {/* User Profile */}
+      <div className="p-4 border-t border-gray-200">
+        <div className="flex items-center space-x-3 space-x-reverse mb-4 p-3 bg-gray-50 rounded-xl">
+          <div className="w-10 h-10 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
+            <span className="text-white font-bold text-sm font-cairo">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </span>
           </div>
           <div className="flex-1 min-w-0 text-right">
-            <p className="text-sm font-medium text-white truncate font-cairo">
+            <p className="text-sm font-medium text-gray-900 truncate font-cairo">
               {user?.firstName} {user?.lastName}
             </p>
-            <p className="text-xs text-purple-200 truncate">{user?.email}</p>
+            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
           </div>
         </div>
         
         <button
           onClick={logout}
-          className="w-full flex items-center px-4 py-3 text-sm font-medium text-purple-200 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-300 group"
+          className="w-full flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 group"
         >
-          <div className="flex-1 text-right">تسجيل الخروج</div>
-          <div className="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center ml-3 group-hover:bg-red-500/30 transition-colors">
-            <ArrowLeftOnRectangleIcon className="w-4 h-4" />
-          </div>
+          <ArrowLeftOnRectangleIcon className="ml-3 h-5 w-5 text-gray-400 group-hover:text-red-500" />
+          <span className="font-cairo">تسجيل الخروج</span>
         </button>
       </div>
     </div>

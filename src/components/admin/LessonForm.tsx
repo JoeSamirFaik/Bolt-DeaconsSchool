@@ -132,38 +132,38 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
   };
 
   const contentTypes = [
-    { value: 'text', label: 'محتوى نصي', icon: DocumentTextIcon, color: 'from-blue-600 to-blue-700', bgColor: 'bg-blue-50', borderColor: 'border-blue-200' },
-    { value: 'image', label: 'محتوى مرئي', icon: PhotoIcon, color: 'from-green-600 to-green-700', bgColor: 'bg-green-50', borderColor: 'border-green-200' },
-    { value: 'video', label: 'محتوى فيديو', icon: VideoCameraIcon, color: 'from-red-600 to-red-700', bgColor: 'bg-red-50', borderColor: 'border-red-200' },
-    { value: 'mixed', label: 'محتوى مختلط', icon: BookOpenIcon, color: 'from-purple-600 to-purple-700', bgColor: 'bg-purple-50', borderColor: 'border-purple-200' }
+    { value: 'text', label: 'نص', icon: DocumentTextIcon, color: 'text-blue-600', bgColor: 'bg-blue-50', borderColor: 'border-blue-200' },
+    { value: 'image', label: 'صورة', icon: PhotoIcon, color: 'text-green-600', bgColor: 'bg-green-50', borderColor: 'border-green-200' },
+    { value: 'video', label: 'فيديو', icon: VideoCameraIcon, color: 'text-red-600', bgColor: 'bg-red-50', borderColor: 'border-red-200' },
+    { value: 'mixed', label: 'مختلط', icon: BookOpenIcon, color: 'text-purple-600', bgColor: 'bg-purple-50', borderColor: 'border-purple-200' }
   ];
 
   const renderContentFields = () => {
     const { contentType } = formData;
     
     return (
-      <div className="space-y-6">
+      <div className="space-y-4">
         {(contentType === 'text' || contentType === 'mixed') && (
           <div>
-            <label htmlFor="content.text" className="block text-sm font-bold text-purple-900 mb-3 text-right">
-              المحتوى النصي للدرس
+            <label htmlFor="content.text" className="block text-sm font-medium text-gray-700 mb-2 text-right">
+              المحتوى النصي
             </label>
             <textarea
               id="content.text"
               name="content.text"
               value={formData.content.text}
               onChange={handleChange}
-              rows={8}
-              className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo resize-none leading-relaxed"
-              placeholder="اكتب محتوى الدرس النصي هنا... يمكنك إضافة الشرح والتفاصيل والأمثلة"
+              rows={6}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo resize-none"
+              placeholder="اكتب محتوى الدرس النصي هنا..."
             />
           </div>
         )}
 
         {(contentType === 'image' || contentType === 'mixed') && (
           <div>
-            <label htmlFor="content.imageUrl" className="block text-sm font-bold text-purple-900 mb-3 text-right">
-              رابط الصورة التعليمية
+            <label htmlFor="content.imageUrl" className="block text-sm font-medium text-gray-700 mb-2 text-right">
+              رابط الصورة
             </label>
             <input
               type="url"
@@ -171,17 +171,16 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
               name="content.imageUrl"
               value={formData.content.imageUrl}
               onChange={handleChange}
-              className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
               placeholder="https://example.com/image.jpg"
             />
-            <p className="text-xs text-purple-600 mt-2 text-right">أدخل رابط الصورة التعليمية المناسبة للدرس</p>
           </div>
         )}
 
         {(contentType === 'video' || contentType === 'mixed') && (
           <div>
-            <label htmlFor="content.videoUrl" className="block text-sm font-bold text-purple-900 mb-3 text-right">
-              رابط الفيديو التعليمي
+            <label htmlFor="content.videoUrl" className="block text-sm font-medium text-gray-700 mb-2 text-right">
+              رابط الفيديو
             </label>
             <input
               type="url"
@@ -189,10 +188,9 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
               name="content.videoUrl"
               value={formData.content.videoUrl}
               onChange={handleChange}
-              className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo"
-              placeholder="https://youtube.com/watch?v=... أو رابط فيديو آخر"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
+              placeholder="https://youtube.com/watch?v=..."
             />
-            <p className="text-xs text-purple-600 mt-2 text-right">أدخل رابط الفيديو التعليمي (يوتيوب أو منصة أخرى)</p>
           </div>
         )}
       </div>
@@ -201,43 +199,41 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto border-2 border-purple-200">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-6 border-b border-purple-200 rounded-t-3xl">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-purple-200 rounded-full transition-colors"
-            >
-              <XMarkIcon className="w-6 h-6 text-purple-800" />
-            </button>
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="text-right">
-                <h2 className="text-2xl font-bold text-purple-900 font-cairo">
-                  {lesson ? 'تعديل الدرس التعليمي' : 'إضافة درس تعليمي جديد'}
-                </h2>
-                <p className="text-purple-700 text-sm font-cairo mt-1">
-                  {lesson ? 'قم بتعديل بيانات الدرس ومحتواه' : 'أدخل بيانات الدرس الجديد ومحتواه التعليمي'}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center">
-                <DocumentTextIcon className="w-6 h-6 text-white" />
-              </div>
+        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <XMarkIcon className="w-5 h-5 text-gray-500" />
+          </button>
+          <div className="flex items-center space-x-3 space-x-reverse">
+            <div className="text-right">
+              <h2 className="text-xl font-bold text-gray-900 font-cairo">
+                {lesson ? 'تعديل الدرس' : 'إضافة درس جديد'}
+              </h2>
+              <p className="text-gray-600 text-sm font-cairo">
+                {lesson ? 'قم بتعديل بيانات الدرس' : 'أدخل بيانات الدرس الجديد'}
+              </p>
+            </div>
+            <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+              <DocumentTextIcon className="w-5 h-5 text-purple-600" />
             </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {error && (
-            <div className="p-4 bg-red-50 border-2 border-red-200 rounded-2xl">
+            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
               <p className="text-red-600 text-sm font-medium text-right font-cairo">{error}</p>
             </div>
           )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
               <div>
-                <label htmlFor="subjectId" className="block text-sm font-bold text-purple-900 mb-3 text-right">
+                <label htmlFor="subjectId" className="block text-sm font-medium text-gray-700 mb-2 text-right">
                   المقرر الدراسي *
                 </label>
                 <select
@@ -246,9 +242,9 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
                   value={formData.subjectId}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo text-lg bg-white"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo bg-white"
                 >
-                  <option value="">-- اختر المقرر الدراسي --</option>
+                  <option value="">-- اختر المقرر --</option>
                   {subjects.map((subject) => (
                     <option key={subject.id} value={subject.id}>
                       {subject.name}
@@ -258,7 +254,7 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
               </div>
 
               <div>
-                <label htmlFor="title" className="block text-sm font-bold text-purple-900 mb-3 text-right">
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2 text-right">
                   عنوان الدرس *
                 </label>
                 <input
@@ -268,13 +264,13 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
                   value={formData.title}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo text-lg"
-                  placeholder="مثال: مقدمة في تاريخ الكنيسة القبطية"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
+                  placeholder="مثال: مقدمة في تاريخ الكنيسة"
                 />
               </div>
 
               <div>
-                <label htmlFor="description" className="block text-sm font-bold text-purple-900 mb-3 text-right">
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2 text-right">
                   وصف الدرس *
                 </label>
                 <textarea
@@ -284,16 +280,16 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo resize-none leading-relaxed"
-                  placeholder="وصف مختصر وواضح للدرس وأهدافه التعليمية..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo resize-none"
+                  placeholder="وصف مختصر للدرس وأهدافه..."
                 />
               </div>
             </div>
 
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="order" className="block text-sm font-bold text-purple-900 mb-3 text-right">
+                  <label htmlFor="order" className="block text-sm font-medium text-gray-700 mb-2 text-right">
                     ترتيب الدرس *
                   </label>
                   <input
@@ -304,13 +300,13 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
                     onChange={handleChange}
                     required
                     min="1"
-                    className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo text-lg"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="duration" className="block text-sm font-bold text-purple-900 mb-3 text-right">
-                    مدة الدرس (دقيقة) *
+                  <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2 text-right">
+                    المدة (دقيقة) *
                   </label>
                   <input
                     type="number"
@@ -320,45 +316,42 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
                     onChange={handleChange}
                     required
                     min="1"
-                    className="w-full px-4 py-4 border-2 border-purple-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-600 transition-all duration-300 text-right font-cairo text-lg"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
                   />
                 </div>
               </div>
 
               {lesson && (
-                <div className="bg-purple-50 rounded-2xl p-6 border-2 border-purple-200">
+                <div className="bg-gray-50 rounded-xl p-4">
                   <label className="flex items-center justify-end space-x-3 space-x-reverse cursor-pointer">
-                    <span className="text-sm font-bold text-purple-900">تفعيل الدرس</span>
+                    <span className="text-sm font-medium text-gray-700">تفعيل الدرس</span>
                     <input
                       type="checkbox"
                       name="isActive"
                       checked={formData.isActive}
                       onChange={handleChange}
-                      className="w-5 h-5 text-purple-600 border-2 border-purple-300 rounded focus:ring-purple-500"
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     />
                   </label>
-                  <p className="text-xs text-purple-600 mt-2 text-right">
-                    {formData.isActive ? 'الدرس مفعل ومتاح للطلاب' : 'الدرس غير مفعل ولن يظهر للطلاب'}
-                  </p>
                 </div>
               )}
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-purple-900 mb-4 text-right">
-              نوع المحتوى التعليمي *
+            <label className="block text-sm font-medium text-gray-700 mb-3 text-right">
+              نوع المحتوى *
             </label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {contentTypes.map((type) => {
                 const Icon = type.icon;
                 return (
                   <label
                     key={type.value}
-                    className={`relative cursor-pointer p-6 border-2 rounded-2xl transition-all duration-300 ${
+                    className={`relative cursor-pointer p-4 border-2 rounded-xl transition-all ${
                       formData.contentType === type.value
-                        ? `${type.borderColor} ${type.bgColor} shadow-lg`
-                        : 'border-gray-200 hover:border-gray-300 bg-white'
+                        ? `${type.borderColor} ${type.bgColor}`
+                        : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
                     <input
@@ -370,10 +363,8 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
                       className="sr-only"
                     />
                     <div className="text-center">
-                      <div className={`w-12 h-12 mx-auto mb-3 rounded-2xl bg-gradient-to-r ${type.color} flex items-center justify-center shadow-lg`}>
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <span className="text-sm font-bold text-gray-700">{type.label}</span>
+                      <Icon className={`w-8 h-8 mx-auto mb-2 ${type.color}`} />
+                      <span className="text-sm font-medium text-gray-700">{type.label}</span>
                     </div>
                   </label>
                 );
@@ -381,27 +372,27 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
-            <h3 className="text-lg font-bold text-purple-900 mb-6 text-right font-cairo">محتوى الدرس التعليمي</h3>
+          <div className="bg-gray-50 rounded-xl p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-right font-cairo">محتوى الدرس</h3>
             {renderContentFields()}
           </div>
 
-          <div className="flex space-x-4 space-x-reverse pt-6 border-t-2 border-purple-100">
+          <div className="flex space-x-3 space-x-reverse pt-6 border-t border-gray-200">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-4 border-2 border-purple-300 text-purple-800 rounded-2xl hover:bg-purple-50 transition-colors font-bold text-lg"
+              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
             >
-              إلغاء العملية
+              إلغاء
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-bold text-lg"
+              className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             >
               {loading ? (
                 <div className="flex items-center justify-center space-x-2 space-x-reverse">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   <span>جاري الحفظ...</span>
                 </div>
               ) : (
