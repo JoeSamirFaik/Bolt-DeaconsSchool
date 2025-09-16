@@ -9,16 +9,18 @@ import {
   DocumentTextIcon,
   PhotoIcon,
   VideoCameraIcon,
+  ClipboardDocumentCheckIcon,
   ChartBarIcon,
   EyeIcon,
   EyeSlashIcon,
   FunnelIcon
 } from '@heroicons/react/24/outline';
-import { Level, Subject, Lesson } from '../../types/lms';
-import { levelsApi, subjectsApi, lessonsApi } from '../../services/lmsApi';
+import { Level, Subject, Lesson, Quiz } from '../../types/lms';
+import { levelsApi, subjectsApi, lessonsApi, quizzesApi } from '../../services/lmsApi';
 import LevelForm from './LevelForm';
 import SubjectForm from './SubjectForm';
 import LessonForm from './LessonForm';
+import QuizForm from './QuizForm';
 
 const customSelectStyles = {
   control: (provided: any, state: any) => ({
@@ -80,8 +82,9 @@ const LMSManagement: React.FC = () => {
   const [levels, setLevels] = useState<Level[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'levels' | 'subjects' | 'lessons'>('levels');
+  const [activeTab, setActiveTab] = useState<'levels' | 'subjects' | 'lessons' | 'quizzes'>('levels');
   const [selectedLevel, setSelectedLevel] = useState<string>('');
   const [selectedSubject, setSelectedSubject] = useState<string>('');
   
@@ -89,6 +92,7 @@ const LMSManagement: React.FC = () => {
   const [showLevelForm, setShowLevelForm] = useState(false);
   const [showSubjectForm, setShowSubjectForm] = useState(false);
   const [showLessonForm, setShowLessonForm] = useState(false);
+  const [showQuizForm, setShowQuizForm] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
 
   useEffect(() => {
@@ -104,6 +108,7 @@ const LMSManagement: React.FC = () => {
   useEffect(() => {
     if (selectedSubject) {
       loadLessons(selectedSubject);
+      loadQuizzes(selectedSubject);
     }
   }, [selectedSubject]);
 
@@ -137,6 +142,15 @@ const LMSManagement: React.FC = () => {
     }
   };
 
+  const loadQuizzes = async (subjectId: string) => {
+    try {
+      const data = await quizzesApi.getBySubjectId(subjectId);
+      setQuizzes(data);
+    } catch (error) {
+      console.error('Error loading quizzes:', error);
+    }
+  };
+
   const handleDeleteLevel = async (id: string) => {
     if (window.confirm('هل أنت متأكد من حذف هذا المستوى؟')) {
       try {
@@ -166,6 +180,17 @@ const LMSManagement: React.FC = () => {
         if (selectedSubject) loadLessons(selectedSubject);
       } catch (error) {
         console.error('Error deleting lesson:', error);
+      }
+    }
+  };
+
+  const handleDeleteQuiz = async (id: string) => {
+    if (window.confirm('هل أنت متأكد من حذف هذا الاختبار؟')) {
+      try {
+        await quizzesApi.delete(id);
+        if (selectedSubject) loadQuizzes(selectedSubject);
+      } catch (error) {
+        console.error('Error deleting quiz:', error);
       }
     }
   };
@@ -228,14 +253,16 @@ const LMSManagement: React.FC = () => {
               setEditingItem(null);
               if (activeTab === 'levels') setShowLevelForm(true);
               else if (activeTab === 'subjects') setShowSubjectForm(true);
-              else setShowLessonForm(true);
+              else if (activeTab === 'lessons') setShowLessonForm(true);
+              else setShowQuizForm(true);
             }}
             className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
           >
             <PlusIcon className="w-5 h-5" />
             <span>
               {activeTab === 'levels' ? 'إضافة مستوى' : 
-               activeTab === 'subjects' ? 'إضافة مقرر' : 'إضافة درس'}
+               activeTab === 'subjects' ? 'إضافة مقرر' : 
+               activeTab === 'lessons' ? 'إضافة درس' : 'إضافة اختبار'}
             </span>
           </button>
         </div>
@@ -275,11 +302,22 @@ const LMSManagement: React.FC = () => {
             <DocumentTextIcon className="w-4 h-4" />
             <span>الدروس</span>
           </button>
+          <button
+            onClick={() => setActiveTab('quizzes')}
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
+              activeTab === 'quizzes'
+                ? 'bg-white text-amber-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <ClipboardDocumentCheckIcon className="w-4 h-4" />
+            <span>الاختبارات</span>
+          </button>
         </div>
       </div>
 
       {/* Filters */}
-      {(activeTab === 'subjects' || activeTab === 'lessons') && (
+      {(activeTab === 'subjects' || activeTab === 'lessons' || activeTab === 'quizzes') && (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center space-x-3 space-x-reverse mb-4">
             <FunnelIcon className="w-5 h-5 text-gray-400" />
@@ -307,7 +345,7 @@ const LMSManagement: React.FC = () => {
               />
             </div>
             
-            {activeTab === 'lessons' && (
+            {(activeTab === 'lessons' || activeTab === 'quizzes') && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2 text-right">
                   المقرر الدراسي
@@ -552,6 +590,86 @@ const LMSManagement: React.FC = () => {
             )}
           </div>
         )}
+
+        {/* Quizzes Tab */}
+        {activeTab === 'quizzes' && (
+          <div className="p-6">
+            {!selectedSubject ? (
+              <div className="text-center py-12">
+                <ClipboardDocumentCheckIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">اختر مقرر دراسي</h3>
+                <p className="text-gray-500 font-cairo">يرجى اختيار مقرر دراسي لعرض الاختبارات</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {quizzes.map((quiz) => (
+                  <div key={quiz.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4 space-x-reverse">
+                        <div className="flex space-x-2 space-x-reverse">
+                          <button
+                            onClick={() => {
+                              setEditingItem(quiz);
+                              setShowQuizForm(true);
+                            }}
+                            className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                          >
+                            <PencilIcon className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteQuiz(quiz.id)}
+                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          >
+                            <TrashIcon className="w-4 h-4" />
+                          </button>
+                        </div>
+                        
+                        <div className="text-right">
+                          <div className="flex items-center space-x-3 space-x-reverse mb-2">
+                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                              quiz.type === 'lesson_quiz' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
+                            }`}>
+                              {quiz.type === 'lesson_quiz' ? 'اختبار درس' : 'امتحان نهائي'}
+                            </span>
+                            <span className="text-sm text-gray-500">{quiz.timeLimit} دقيقة</span>
+                            <span className="text-sm text-gray-400">•</span>
+                            <span className="text-sm text-gray-500">{quiz.questions.length} سؤال</span>
+                            <span className="text-sm text-gray-400">•</span>
+                            <span className="text-sm text-gray-500">#{quiz.order}</span>
+                          </div>
+                          <h3 className="text-lg font-semibold text-gray-900 font-cairo mb-1">
+                            {quiz.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm font-cairo">
+                            {quiz.description}
+                          </p>
+                          <div className="flex items-center space-x-4 space-x-reverse mt-2 text-sm text-gray-500">
+                            <span>درجة النجاح: {quiz.passingScore}%</span>
+                            <span>عدد المحاولات: {quiz.maxAttempts}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center space-x-4 space-x-reverse">
+                        <span className={`px-3 py-1 text-xs font-medium rounded-full flex items-center space-x-1 space-x-reverse ${
+                          quiz.isActive 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {quiz.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
+                          <span>{quiz.isActive ? 'نشط' : 'غير نشط'}</span>
+                        </span>
+                        <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                          <ClipboardDocumentCheckIcon className="w-6 h-6 text-indigo-600" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Modals */}
@@ -600,6 +718,24 @@ const LMSManagement: React.FC = () => {
             setShowLessonForm(false);
             setEditingItem(null);
             if (selectedSubject) loadLessons(selectedSubject);
+          }}
+        />
+      )}
+
+      {showQuizForm && (
+        <QuizForm
+          quiz={editingItem}
+          subjectId={selectedSubject}
+          subjects={subjects}
+          lessons={lessons}
+          onClose={() => {
+            setShowQuizForm(false);
+            setEditingItem(null);
+          }}
+          onSave={() => {
+            setShowQuizForm(false);
+            setEditingItem(null);
+            if (selectedSubject) loadQuizzes(selectedSubject);
           }}
         />
       )}
