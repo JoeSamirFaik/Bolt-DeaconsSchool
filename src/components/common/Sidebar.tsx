@@ -121,34 +121,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
 
       </div>
 
-      {/* User Profile */}
-      <div className="p-4 border-t border-gray-800">
-        <div className="flex items-center space-x-3 space-x-reverse mb-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
-            <span className="text-white font-bold text-lg font-cairo">
-              {user?.firstName?.[0]}{user?.lastName?.[0]}
-            </span>
-          </div>
-          <div className="flex-1 min-w-0 text-right">
-            <p className="text-sm font-medium text-white truncate font-cairo">
-              {user?.firstName} {user?.lastName}
-            </p>
-            <p className="text-xs text-gray-400 truncate font-cairo">
-              {user?.role === 'deacon' ? 'شماس' : 
-               user?.role === 'servant' ? 'خادم' : 
-               user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
-            </p>
-          </div>
-        </div>
-        
-        <button
-          onClick={logout}
-          className="w-full flex items-center px-4 py-3 text-sm font-medium text-gray-300 hover:text-red-400 hover:bg-gray-800 rounded-xl transition-all duration-200 group hover:scale-105"
-        >
-          <ArrowLeftOnRectangleIcon className="ml-3 h-4 w-4" />
-          <span className="font-cairo">تسجيل الخروج</span>
-        </button>
-      </div>
     </div>
   );
 };

@@ -6,7 +6,9 @@ import {
   BellIcon, 
   Cog6ToothIcon,
   SunIcon,
-  ShoppingCartIcon
+  ShoppingCartIcon,
+  ArrowLeftOnRectangleIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline';
 
 interface HeaderProps {
@@ -14,7 +16,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const [showProfileMenu, setShowProfileMenu] = React.useState(false);
 
   return (
     <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
@@ -60,26 +63,99 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
             <Cog6ToothIcon className="h-6 w-6" />
           </button>
 
-          {/* User Profile */}
-          <div className="flex items-center space-x-3 space-x-reverse">
-            <div className="text-right">
-              <p className="text-sm font-semibold text-gray-900 font-cairo">
-                {user?.firstName} {user?.lastName}
-              </p>
-              <p className="text-xs text-gray-500 font-cairo">
-                {user?.role === 'deacon' ? 'شماس' : 
-                 user?.role === 'servant' ? 'خادم' : 
-                 user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
-              </p>
-            </div>
-            <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200 cursor-pointer">
-              <span className="text-white font-bold text-sm font-cairo">
-                {user?.firstName?.[0]}{user?.lastName?.[0]}
-              </span>
-            </div>
+          {/* User Profile Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowProfileMenu(!showProfileMenu)}
+              className="flex items-center space-x-3 space-x-reverse p-2 rounded-xl hover:bg-gray-50 transition-all duration-200"
+            >
+              <ChevronDownIcon className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${showProfileMenu ? 'rotate-180' : ''}`} />
+              <div className="text-right">
+                <p className="text-sm font-semibold text-gray-900 font-cairo">
+                  {user?.firstName} {user?.lastName}
+                </p>
+                <p className="text-xs text-gray-500 font-cairo">
+                  {user?.role === 'deacon' ? 'شماس' : 
+                   user?.role === 'servant' ? 'خادم' : 
+                   user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
+                </p>
+              </div>
+              <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200">
+                <span className="text-white font-bold text-sm font-cairo">
+                  {user?.firstName?.[0]}{user?.lastName?.[0]}
+                </span>
+              </div>
+            </button>
+
+            {/* Profile Dropdown Menu */}
+            {showProfileMenu && (
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 py-2 z-50">
+                <div className="px-4 py-3 border-b border-gray-100">
+                  <div className="flex items-center space-x-3 space-x-reverse">
+                    <div className="text-right">
+                      <p className="text-sm font-semibold text-gray-900 font-cairo">
+                        {user?.firstName} {user?.lastName}
+                      </p>
+                      <p className="text-xs text-gray-500 font-cairo">
+                        {user?.email}
+                      </p>
+                      <span className="inline-block mt-1 px-2 py-1 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-xs font-medium rounded-full">
+                        {user?.role === 'deacon' ? 'شماس' : 
+                         user?.role === 'servant' ? 'خادم' : 
+                         user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
+                      </span>
+                    </div>
+                    <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-white font-bold text-sm font-cairo">
+                        {user?.firstName?.[0]}{user?.lastName?.[0]}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="py-2">
+                  <button className="w-full px-4 py-3 text-right hover:bg-gray-50 transition-colors flex items-center space-x-3 space-x-reverse">
+                    <span className="text-sm text-gray-700 font-cairo">الملف الشخصي</span>
+                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <span className="text-blue-600 text-sm">👤</span>
+                    </div>
+                  </button>
+                  
+                  <button className="w-full px-4 py-3 text-right hover:bg-gray-50 transition-colors flex items-center space-x-3 space-x-reverse">
+                    <span className="text-sm text-gray-700 font-cairo">الإعدادات</span>
+                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Cog6ToothIcon className="w-4 h-4 text-purple-600" />
+                    </div>
+                  </button>
+                  
+                  <div className="border-t border-gray-100 mt-2 pt-2">
+                    <button
+                      onClick={() => {
+                        logout();
+                        setShowProfileMenu(false);
+                      }}
+                      className="w-full px-4 py-3 text-right hover:bg-red-50 transition-colors flex items-center space-x-3 space-x-reverse group"
+                    >
+                      <span className="text-sm text-gray-700 group-hover:text-red-600 font-cairo">تسجيل الخروج</span>
+                      <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition-colors">
+                        <ArrowLeftOnRectangleIcon className="w-4 h-4 text-red-600" />
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
+      
+      {/* Click outside to close dropdown */}
+      {showProfileMenu && (
+        <div 
+          className="fixed inset-0 z-40" 
+          onClick={() => setShowProfileMenu(false)}
+        />
+      )}
     </header>
   );
 };
