@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
@@ -52,32 +53,36 @@ const AuthWrapper: React.FC = () => {
     );
   }
 
-  if (user) {
-    return <Layout />;
-  }
-
   return (
-    <>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-8 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-200 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute top-3/4 right-1/4 w-48 h-48 bg-orange-200 rounded-full opacity-20 animate-bounce"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-red-200 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-purple-200 rounded-full opacity-20 animate-bounce"></div>
-      </div>
-      
-      <div className="w-full max-w-2xl relative z-10">
-        <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-12 border border-white/50">
-          <LoginForm onSwitchToRegister={() => {}} />
-        </div>
-      </div>
-      
-      </div>
-      
-      {/* PWA Install Prompt */}
-      <PWAInstallPrompt />
-    </>
+    <Routes>
+      <Route path="/login" element={
+        user ? <Navigate to="/" replace /> : (
+          <>
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-8 relative overflow-hidden">
+              {/* Animated background elements */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-200 rounded-full opacity-20 animate-pulse"></div>
+                <div className="absolute top-3/4 right-1/4 w-48 h-48 bg-orange-200 rounded-full opacity-20 animate-bounce"></div>
+                <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-red-200 rounded-full opacity-20 animate-pulse"></div>
+                <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-purple-200 rounded-full opacity-20 animate-bounce"></div>
+              </div>
+              
+              <div className="w-full max-w-2xl relative z-10">
+                <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-12 border border-white/50">
+                  <LoginForm onSwitchToRegister={() => {}} />
+                </div>
+              </div>
+            </div>
+            
+            {/* PWA Install Prompt */}
+            <PWAInstallPrompt />
+          </>
+        )
+      } />
+      <Route path="/*" element={
+        user ? <Layout /> : <Navigate to="/login" replace />
+      } />
+    </Routes>
   );
 };
 

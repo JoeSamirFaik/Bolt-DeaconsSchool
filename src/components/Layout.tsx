@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Sidebar from './common/Sidebar';
 import Header from './common/Header';
@@ -23,20 +24,24 @@ import PWAInstallPrompt from './common/PWAInstallPrompt';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const navigate = useNavigate();
+  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Get current page from URL
+  const currentPage = location.pathname.slice(1) || 'dashboard';
 
   // Listen for notification navigation events
   useEffect(() => {
     const handleNavigateToNotifications = () => {
-      setCurrentPage('notifications');
+      navigate('/notifications');
     };
 
     window.addEventListener('navigate-to-notifications', handleNavigateToNotifications);
     return () => {
       window.removeEventListener('navigate-to-notifications', handleNavigateToNotifications);
     };
-  }, []);
+  }, [navigate]);
 
   const renderDashboard = () => {
     switch (user?.role) {
@@ -53,217 +58,32 @@ const Layout: React.FC = () => {
     }
   };
 
-  const renderContent = () => {
-    switch (currentPage) {
-      case 'dashboard':
-        return renderDashboard();
-      case 'lessons':
-        return user?.role === 'deacon' ? <LearningJourney /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">📚</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الدروس</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-      case 'calendar':
-        return user?.role === 'deacon' ? <DeaconCalendar /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">📅</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">التقويم</h3>
-              <p className="text-gray-500 font-cairo">عرض جميع الجلسات والفعاليات</p>
-            </div>
-          </div>
-        );
-      case 'attendance-board':
-        return <AttendanceBoard />;
-      case 'content-mgmt':
-        return <LMSManagement />;
-      case 'lessons-mgmt':
-        return <LMSManagement />;
-      case 'attendance':
-        return user?.role === 'admin' || user?.role === 'servant' ? (
-          <AttendanceManagement />
-        ) : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚫</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
-              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
-            </div>
-          </div>
-        );
-      case 'reports':
-        return user?.role === 'admin' || user?.role === 'servant' ? <ReportsManagement /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚧</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">{currentPage}</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-      case 'deacon-reports':
-        return user?.role === 'admin' || user?.role === 'servant' ? <ReportsManagement /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚧</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">تقارير الشمامسة</h3>
-              <p className="text-gray-500 font-cairo">عرض تقارير مفصلة لجميع الشمامسة</p>
-            </div>
-          </div>
-        );
-      case 'servant-mgmt':
-        return user?.role === 'admin' ? <ServantManagement /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚫</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
-              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين فقط</p>
-            </div>
-          </div>
-        );
-      case 'users-mgmt':
-        return user?.role === 'admin' || user?.role === 'servant' ? <DeaconParentManagement /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚫</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
-              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
-            </div>
-          </div>
-        );
-      case 'deacon-parent-mgmt':
-        return user?.role === 'admin' || user?.role === 'servant' ? <DeaconParentManagement /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚫</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
-              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
-            </div>
-          </div>
-        );
-      case 'child-notes':
-        return user?.role === 'admin' || user?.role === 'servant' ? <ChildNotesManagement /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚫</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
-              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
-            </div>
-          </div>
-        );
-      case 'records-approval':
-        return user?.role === 'admin' || user?.role === 'servant' ? <RecordsApproval /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚫</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
-              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
-            </div>
-          </div>
-        );
-      case 'call-requests':
-        return <CallRequestManagement />;
-      case 'call-request':
-        return <CallRequestManagement />;
-      case 'notifications':
-        return <NotificationLogs />;
-      case 'settings':
-        return user?.role === 'admin' ? <SystemSettings /> : (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚫</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
-              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين فقط</p>
-            </div>
-          </div>
-        );
-      case 'profile':
-        return (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">👤</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الملف الشخصي</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-      case 'quizzes':
-        return (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🎯</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الاختبارات</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-      case 'help':
-        return (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">❓</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">المساعدة والدعم</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-      case 'analytics':
-        return user?.role === 'admin' ? (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">📊</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">التحليلات المتقدمة</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        ) : null;
-      default:
-        return (
-          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🚧</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">{currentPage}</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-    }
+  const NotAllowedPage = ({ title }: { title: string }) => (
+    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+      <div className="text-center py-16">
+        <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <span className="text-3xl">🚫</span>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
+        <p className="text-gray-500 font-cairo">{title}</p>
+      </div>
+    </div>
+  );
+
+  const ComingSoonPage = ({ title, icon }: { title: string; icon: string }) => (
+    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+      <div className="text-center py-16">
+        <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <span className="text-3xl">{icon}</span>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">{title}</h3>
+        <p className="text-gray-500 font-cairo">قريباً...</p>
+      </div>
+    </div>
+  );
+
+  const handlePageChange = (page: string) => {
+    navigate(`/${page === 'dashboard' ? '' : page}`);
   };
 
   return (
@@ -282,7 +102,7 @@ const Layout: React.FC = () => {
       } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:sticky lg:top-0 lg:flex-shrink-0 lg:right-auto lg:left-0`}>
         <Sidebar 
           currentPage={currentPage} 
-          onPageChange={setCurrentPage}
+          onPageChange={handlePageChange}
           onMobileClose={() => setSidebarOpen(false)}
         />
       </div>
@@ -296,12 +116,88 @@ const Layout: React.FC = () => {
         
         {/* Page content */}
         <main className="flex-1 p-6 lg:ml-0 overflow-y-auto">
-          {renderContent()}
+          <Routes>
+            {/* Dashboard Routes */}
+            <Route path="/" element={renderDashboard()} />
+            <Route path="/dashboard" element={renderDashboard()} />
+            
+            {/* Deacon Routes */}
+            <Route path="/lessons" element={
+              user?.role === 'deacon' ? <LearningJourney /> : <ComingSoonPage title="الدروس" icon="📚" />
+            } />
+            <Route path="/calendar" element={
+              user?.role === 'deacon' ? <DeaconCalendar /> : <ComingSoonPage title="التقويم" icon="📅" />
+            } />
+            <Route path="/attendance-board" element={<AttendanceBoard />} />
+            
+            {/* Admin/Servant Routes */}
+            <Route path="/content-mgmt" element={<LMSManagement />} />
+            <Route path="/lessons-mgmt" element={<LMSManagement />} />
+            <Route path="/attendance" element={
+              user?.role === 'admin' || user?.role === 'servant' ? 
+                <AttendanceManagement /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
+            } />
+            <Route path="/reports" element={
+              user?.role === 'admin' || user?.role === 'servant' ? 
+                <ReportsManagement /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
+            } />
+            <Route path="/deacon-reports" element={
+              user?.role === 'admin' || user?.role === 'servant' ? 
+                <ReportsManagement /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
+            } />
+            <Route path="/servant-mgmt" element={
+              user?.role === 'admin' ? 
+                <ServantManagement /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين فقط" />
+            } />
+            <Route path="/users-mgmt" element={
+              user?.role === 'admin' || user?.role === 'servant' ? 
+                <DeaconParentManagement /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
+            } />
+            <Route path="/deacon-parent-mgmt" element={
+              user?.role === 'admin' || user?.role === 'servant' ? 
+                <DeaconParentManagement /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
+            } />
+            <Route path="/child-notes" element={
+              user?.role === 'admin' || user?.role === 'servant' ? 
+                <ChildNotesManagement /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
+            } />
+            <Route path="/records-approval" element={
+              user?.role === 'admin' || user?.role === 'servant' ? 
+                <RecordsApproval /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين والخدام فقط" />
+            } />
+            
+            {/* Parent Routes */}
+            <Route path="/call-requests" element={<CallRequestManagement />} />
+            <Route path="/call-request" element={<CallRequestManagement />} />
+            
+            {/* Common Routes */}
+            <Route path="/notifications" element={<NotificationLogs />} />
+            <Route path="/profile" element={<ComingSoonPage title="الملف الشخصي" icon="👤" />} />
+            <Route path="/quizzes" element={<ComingSoonPage title="الاختبارات" icon="🎯" />} />
+            <Route path="/help" element={<ComingSoonPage title="المساعدة والدعم" icon="❓" />} />
+            
+            {/* Admin Only Routes */}
+            <Route path="/settings" element={
+              user?.role === 'admin' ? 
+                <SystemSettings /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين فقط" />
+            } />
+            <Route path="/analytics" element={
+              user?.role === 'admin' ? 
+                <ComingSoonPage title="التحليلات المتقدمة" icon="📊" /> : 
+                <NotAllowedPage title="هذه الصفحة متاحة للمديرين فقط" />
+            } />
+          </Routes>
         </main>
       </div>
-      
-      {/* PWA Install Prompt */}
-      <PWAInstallPrompt />
       
       {/* PWA Install Prompt */}
       <PWAInstallPrompt />
