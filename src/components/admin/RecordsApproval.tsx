@@ -527,10 +527,12 @@ const RecordsApproval: React.FC = () => {
       </div>
 
       {/* Review Modal */}
-      {showReviewModal && selectedRecord && (
+      {showReviewModal && selectedRecord && (() => {
+        const selectedDeacon = deacons.find(d => d.id === selectedRecord.deaconId);
+        return selectedDeacon ? (
         <RecordReviewModal
           record={selectedRecord}
-          deacon={deacons.find(d => d.id === selectedRecord.deaconId)!}
+          deacon={selectedDeacon}
           balance={getDeaconBalance(selectedRecord.deaconId)}
           onClose={() => {
             setShowReviewModal(false);
@@ -538,7 +540,8 @@ const RecordsApproval: React.FC = () => {
           }}
           onReview={handleReviewRecord}
         />
-      )}
+        ) : null;
+      })()}
     </div>
   );
 };
