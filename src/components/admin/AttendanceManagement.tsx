@@ -86,6 +86,7 @@ const AttendanceManagement: React.FC = () => {
   const [showAttendanceForm, setShowAttendanceForm] = useState(false);
   const [editingSession, setEditingSession] = useState<Session | null>(null);
   const [selectedSessionForAttendance, setSelectedSessionForAttendance] = useState<Session | null>(null);
+  const [showingAttendanceView, setShowingAttendanceView] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -124,7 +125,7 @@ const AttendanceManagement: React.FC = () => {
 
   const handleTakeAttendance = (session: Session) => {
     setSelectedSessionForAttendance(session);
-    setShowAttendanceForm(true);
+    setShowingAttendanceView(true);
   };
 
   const getSessionTypeLabel = (type: string) => {
@@ -184,6 +185,24 @@ const AttendanceManagement: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Show Attendance View if active */}
+      {showingAttendanceView && selectedSessionForAttendance ? (
+        <AttendanceForm
+          session={selectedSessionForAttendance}
+          deacons={users.filter(u => u.role === 'deacon')}
+          levels={levels}
+          onClose={() => {
+            setShowingAttendanceView(false);
+            setSelectedSessionForAttendance(null);
+          }}
+          onSave={() => {
+            setShowingAttendanceView(false);
+            setSelectedSessionForAttendance(null);
+            loadData();
+          }}
+        />
+      ) : (
+        <>
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
@@ -488,7 +507,7 @@ const AttendanceManagement: React.FC = () => {
         )}
       </div>
 
-      {/* Modals */}
+      {/* Session Form Modal */}
       {showSessionForm && (
         <SessionForm
           session={editingSession}
@@ -505,22 +524,7 @@ const AttendanceManagement: React.FC = () => {
           }}
         />
       )}
-
-      {showAttendanceForm && selectedSessionForAttendance && (
-        <AttendanceForm
-          session={selectedSessionForAttendance}
-          deacons={users.filter(u => u.role === 'deacon')}
-          levels={levels}
-          onClose={() => {
-            setShowAttendanceForm(false);
-            setSelectedSessionForAttendance(null);
-          }}
-          onSave={() => {
-            setShowAttendanceForm(false);
-            setSelectedSessionForAttendance(null);
-            loadData();
-          }}
-        />
+        </>
       )}
     </div>
   );
