@@ -127,7 +127,7 @@ const Layout: React.FC = () => {
       </div>
       
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0 lg:ml-72">
+      <div className="lg:ml-72 flex-1">
         {/* Mobile header */}
         <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 p-4 flex items-center">
           <button
@@ -142,7 +142,7 @@ const Layout: React.FC = () => {
         </div>
         
         {/* Page content */}
-        <main className="flex-1 p-6">
+        <main className="p-6">
           {renderContent()}
         </main>
       </div>
