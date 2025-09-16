@@ -27,45 +27,45 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
 
   const getMenuItems = () => {
     const common = [
-      { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية', color: 'text-blue-600' },
-      { id: 'calendar', icon: CalendarIcon, label: 'التقويم', color: 'text-purple-600' },
-      { id: 'notifications', icon: BellIcon, label: 'الإشعارات', color: 'text-yellow-600' },
-      { id: 'library', icon: BuildingLibraryIcon, label: 'المكتبة', color: 'text-green-600' },
+      { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
+      { id: 'calendar', icon: CalendarIcon, label: 'التقويم' },
+      { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
+      { id: 'library', icon: BuildingLibraryIcon, label: 'المكتبة' },
     ];
 
     switch (user?.role) {
       case 'deacon':
         return [
           ...common,
-          { id: 'lessons', icon: BookOpenIcon, label: 'الدروس', color: 'text-indigo-600' },
-          { id: 'quizzes', icon: ClipboardDocumentCheckIcon, label: 'الاختبارات', color: 'text-red-600' },
-          { id: 'progress', icon: ChartBarIcon, label: 'التقدم', color: 'text-teal-600' },
-          { id: 'certificates', icon: AcademicCapIcon, label: 'الشهادات', color: 'text-amber-600' },
-          { id: 'achievements', icon: TrophyIcon, label: 'الإنجازات', color: 'text-orange-600' },
+          { id: 'lessons', icon: BookOpenIcon, label: 'الدروس' },
+          { id: 'quizzes', icon: ClipboardDocumentCheckIcon, label: 'الاختبارات' },
+          { id: 'progress', icon: ChartBarIcon, label: 'التقدم' },
+          { id: 'certificates', icon: AcademicCapIcon, label: 'الشهادات' },
+          { id: 'achievements', icon: TrophyIcon, label: 'الإنجازات' },
         ];
       case 'servant':
         return [
           ...common,
-          { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور', color: 'text-blue-600' },
-          { id: 'deacons', icon: UsersIcon, label: 'الشمامسة', color: 'text-gray-600' },
-          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات', color: 'text-teal-600' },
-          { id: 'reports', icon: ChartBarIcon, label: 'التقارير', color: 'text-indigo-600' },
+          { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور' },
+          { id: 'deacons', icon: UsersIcon, label: 'الشمامسة' },
+          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات' },
+          { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
         ];
       case 'parent':
         return [
           ...common,
-          { id: 'child-progress', icon: ChartBarIcon, label: 'تقدم الطفل', color: 'text-blue-600' },
-          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات', color: 'text-gray-600' },
-          { id: 'reports', icon: ClipboardDocumentCheckIcon, label: 'التقارير', color: 'text-indigo-600' },
+          { id: 'child-progress', icon: ChartBarIcon, label: 'تقدم الطفل' },
+          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات' },
+          { id: 'reports', icon: ClipboardDocumentCheckIcon, label: 'التقارير' },
         ];
       case 'admin':
         return [
           ...common,
-          { id: 'users', icon: UsersIcon, label: 'المستخدمون', color: 'text-gray-600' },
-          { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى', color: 'text-blue-600' },
-          { id: 'quizzes-mgmt', icon: ClipboardDocumentCheckIcon, label: 'إدارة الاختبارات', color: 'text-teal-600' },
-          { id: 'reports', icon: ChartBarIcon, label: 'التحليلات', color: 'text-indigo-600' },
-          { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات', color: 'text-gray-600' },
+          { id: 'users', icon: UsersIcon, label: 'المستخدمون' },
+          { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
+          { id: 'quizzes-mgmt', icon: ClipboardDocumentCheckIcon, label: 'إدارة الاختبارات' },
+          { id: 'reports', icon: ChartBarIcon, label: 'التحليلات' },
+          { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات' },
         ];
       default:
         return common;
@@ -75,27 +75,25 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
   const menuItems = getMenuItems();
 
   return (
-    <div className="h-full flex flex-col bg-white border-r border-gray-100 shadow-sm">
+    <div className="h-full flex flex-col bg-gray-900 text-white">
       {/* Header */}
-      <div className="p-8 border-b border-gray-100">
-        <div className="flex items-center space-x-4 space-x-reverse">
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <span className="text-white text-xl">⛪</span>
-          </div>
+      <div className="p-6 border-b border-gray-800">
+        <div className="flex items-center space-x-3 space-x-reverse">
+          <img 
+            src="/logo.jpg" 
+            alt="Logo" 
+            className="w-10 h-10 rounded-lg object-cover"
+          />
           <div className="text-right">
-            <h1 className="text-xl font-bold text-gray-900 font-cairo">مدرسة الشمامسة</h1>
-            <p className="text-sm text-gray-500 font-cairo">
-              {user?.role === 'deacon' ? 'شماس' : 
-               user?.role === 'servant' ? 'خادم' : 
-               user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
-            </p>
+            <h1 className="text-lg font-bold font-cairo">مدرسة الشمامسة</h1>
+            <p className="text-xs text-gray-400 font-cairo">القديس أثناسيوس</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 px-6 py-8">
-        <nav className="space-y-2">
+      <div className="flex-1 px-4 py-6">
+        <nav className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentPage === item.id;
@@ -104,44 +102,63 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
               <button
                 key={item.id}
                 onClick={() => onPageChange(item.id)}
-                className={`w-full group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                className={`w-full group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
                   isActive
-                    ? 'bg-blue-50 text-blue-700 border border-blue-100 shadow-sm'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-gradient-to-r from-amber-500 to-red-500 text-white shadow-lg'
+                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                 }`}
               >
-                <Icon className={`ml-3 h-5 w-5 ${isActive ? 'text-blue-600' : item.color}`} />
+                <Icon className="ml-3 h-5 w-5" />
                 <span className="font-cairo">{item.label}</span>
                 {isActive && (
-                  <div className="mr-auto w-2 h-2 bg-blue-600 rounded-full"></div>
+                  <div className="mr-auto w-2 h-2 bg-white rounded-full"></div>
                 )}
               </button>
             );
           })}
         </nav>
+
+        {/* Pages Section */}
+        <div className="mt-8">
+          <h3 className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider font-cairo mb-3">
+            الصفحات
+          </h3>
+          <nav className="space-y-1">
+            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-all duration-200">
+              <span className="font-cairo">قائمة الصفحات</span>
+            </button>
+            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-all duration-200">
+              <span className="font-cairo">صفحات الشبكة</span>
+            </button>
+          </nav>
+        </div>
       </div>
 
       {/* User Profile */}
-      <div className="p-6 border-t border-gray-100">
-        <div className="flex items-center space-x-3 space-x-reverse mb-4 p-4 bg-gray-50 rounded-xl">
-          <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-700 rounded-xl flex items-center justify-center">
+      <div className="p-4 border-t border-gray-800">
+        <div className="flex items-center space-x-3 space-x-reverse mb-4">
+          <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-red-500 rounded-full flex items-center justify-center">
             <span className="text-white font-bold text-sm font-cairo">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </span>
           </div>
           <div className="flex-1 min-w-0 text-right">
-            <p className="text-sm font-medium text-gray-900 truncate font-cairo">
+            <p className="text-sm font-medium text-white truncate font-cairo">
               {user?.firstName} {user?.lastName}
             </p>
-            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            <p className="text-xs text-gray-400 truncate font-cairo">
+              {user?.role === 'deacon' ? 'شماس' : 
+               user?.role === 'servant' ? 'خادم' : 
+               user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
+            </p>
           </div>
         </div>
         
         <button
           onClick={logout}
-          className="w-full flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 group"
+          className="w-full flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:text-red-400 hover:bg-gray-800 rounded-lg transition-all duration-200 group"
         >
-          <ArrowLeftOnRectangleIcon className="ml-3 h-5 w-5 text-gray-400 group-hover:text-red-500" />
+          <ArrowLeftOnRectangleIcon className="ml-3 h-4 w-4" />
           <span className="font-cairo">تسجيل الخروج</span>
         </button>
       </div>

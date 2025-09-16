@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Sidebar from './common/Sidebar';
+import Header from './common/Header';
 import DeaconDashboard from './dashboards/DeaconDashboard';
 import ServantDashboard from './dashboards/ServantDashboard';
 import ParentDashboard from './dashboards/ParentDashboard';
 import AdminDashboard from './dashboards/AdminDashboard';
 import LMSManagement from './admin/LMSManagement';
-import { Bars3Icon } from '@heroicons/react/24/outline';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -36,9 +36,9 @@ const Layout: React.FC = () => {
         return <LMSManagement />;
       case 'lessons':
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
-              <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">📚</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الدروس</h3>
@@ -48,9 +48,9 @@ const Layout: React.FC = () => {
         );
       case 'quizzes':
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
-              <div className="w-20 h-20 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">🎯</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الاختبارات</h3>
@@ -58,47 +58,11 @@ const Layout: React.FC = () => {
             </div>
           </div>
         );
-      case 'calendar':
-        return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">📅</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">التقويم</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-      case 'notifications':
-        return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-yellow-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">🔔</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الإشعارات</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
-      case 'library':
-        return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-            <div className="text-center py-16">
-              <div className="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl">📖</span>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">المكتبة</h3>
-              <p className="text-gray-500 font-cairo">قريباً...</p>
-            </div>
-          </div>
-        );
       default:
         return (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
-              <div className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">🚧</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">{currentPage}</h3>
@@ -120,29 +84,19 @@ const Layout: React.FC = () => {
       )}
       
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-80 transform ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 transform ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex-shrink-0`}>
         <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
       </div>
       
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile header */}
-        <div className="lg:hidden bg-white shadow-sm border-b border-gray-100 p-4 flex items-center">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
-          >
-            <Bars3Icon className="h-6 w-6" />
-          </button>
-          <h1 className="ml-3 text-lg font-semibold text-gray-900 font-cairo">
-            مدرسة الشمامسة
-          </h1>
-        </div>
+      <div className="flex-1 flex flex-col min-w-0 lg:ml-0">
+        {/* Header */}
+        <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         
         {/* Page content */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-6">
           {renderContent()}
         </main>
       </div>

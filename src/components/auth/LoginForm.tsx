@@ -25,17 +25,21 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
   };
 
   const demoCredentials = [
-    { role: 'شماس', email: 'deacon@example.com', icon: '🎓', color: 'bg-blue-50 border-blue-200 hover:bg-blue-100' },
-    { role: 'خادم', email: 'servant@example.com', icon: '👨‍🏫', color: 'bg-green-50 border-green-200 hover:bg-green-100' },
-    { role: 'ولي أمر', email: 'parent@example.com', icon: '👨‍👩‍👧', color: 'bg-purple-50 border-purple-200 hover:bg-purple-100' },
-    { role: 'مدير', email: 'admin@example.com', icon: '⚡', color: 'bg-orange-50 border-orange-200 hover:bg-orange-100' },
+    { role: 'شماس', email: 'deacon@example.com', icon: '🎓', color: 'from-blue-400 to-indigo-500' },
+    { role: 'خادم', email: 'servant@example.com', icon: '👨‍🏫', color: 'from-green-400 to-emerald-500' },
+    { role: 'ولي أمر', email: 'parent@example.com', icon: '👨‍👩‍👧', color: 'from-purple-400 to-pink-500' },
+    { role: 'مدير', email: 'admin@example.com', icon: '👑', color: 'from-red-400 to-orange-500' },
   ];
 
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
-          <span className="text-3xl text-white">⛪</span>
+        <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-red-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+          <img 
+            src="/logo.jpg" 
+            alt="Logo" 
+            className="w-16 h-16 rounded-2xl object-cover"
+          />
         </div>
         <h2 className="text-3xl font-bold text-gray-900 mb-3 font-cairo">
           تسجيل الدخول
@@ -55,7 +59,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors"
+              className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors"
               placeholder="your.email@example.com"
             />
           </div>
@@ -71,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors pl-14"
+                className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors pl-14"
                 placeholder="أدخل كلمة المرور"
               />
               <button
@@ -98,7 +102,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-2xl hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold font-cairo text-lg shadow-lg"
+          className="w-full bg-gradient-to-r from-amber-500 to-red-500 text-white py-4 px-6 rounded-2xl hover:from-amber-600 hover:to-red-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold font-cairo text-lg shadow-lg"
         >
           {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
         </button>
@@ -109,7 +113,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
           جديد هنا؟{' '}
           <button
             onClick={onSwitchToRegister}
-            className="font-semibold text-blue-600 hover:text-blue-500 transition-colors"
+            className="font-semibold text-amber-600 hover:text-amber-500 transition-colors"
           >
             إنشاء حساب جديد
           </button>
@@ -126,7 +130,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
                 setEmail(cred.email);
                 setPassword('password');
               }}
-              className={`p-5 rounded-2xl border-2 transition-all duration-200 ${cred.color}`}
+              className={`p-5 rounded-2xl border-2 border-gray-200 hover:border-gray-300 bg-gradient-to-br ${cred.color} bg-opacity-10 hover:bg-opacity-20 transition-all duration-200`}
             >
               <div className="flex items-center space-x-3 space-x-reverse justify-center mb-3">
                 <span className="font-semibold text-gray-800 font-cairo text-lg">{cred.role}</span>
