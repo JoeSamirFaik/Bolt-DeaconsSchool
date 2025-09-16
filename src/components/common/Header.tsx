@@ -17,13 +17,13 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const { user } = useAuth();
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4">
+    <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Left side - Mobile menu button */}
         <div className="flex items-center space-x-4 space-x-reverse">
           <button
             onClick={onToggleSidebar}
-            className="lg:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
           >
             <Bars3Icon className="h-6 w-6" />
           </button>
@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
             <input
               type="text"
               placeholder="البحث..."
-              className="w-full pl-4 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo"
+              className="w-full pl-4 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo transition-all duration-200 hover:bg-white"
             />
           </div>
         </div>
@@ -44,19 +44,19 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
         {/* Right side - Actions and Profile */}
         <div className="flex items-center space-x-4 space-x-reverse">
           {/* Action buttons */}
-          <button className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors">
+          <button className="p-3 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200 hover:scale-110">
             <ShoppingCartIcon className="h-6 w-6" />
           </button>
-          <button className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors">
+          <button className="p-3 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-xl transition-all duration-200 hover:scale-110">
             <SunIcon className="h-6 w-6" />
           </button>
-          <button className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors relative">
+          <button className="p-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 hover:scale-110 relative">
             <BellIcon className="h-6 w-6" />
-            <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg">
               3
             </span>
           </button>
-          <button className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors">
+          <button className="p-3 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-xl transition-all duration-200 hover:scale-110">
             <Cog6ToothIcon className="h-6 w-6" />
           </button>
 
@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                  user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
               </p>
             </div>
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200 cursor-pointer">
               <span className="text-white font-bold text-sm font-cairo">
                 {user?.firstName?.[0]}{user?.lastName?.[0]}
               </span>

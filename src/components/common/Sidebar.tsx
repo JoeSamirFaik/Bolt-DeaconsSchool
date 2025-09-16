@@ -13,7 +13,6 @@ import {
   ChatBubbleLeftRightIcon,
   ArrowLeftOnRectangleIcon,
   AcademicCapIcon,
-  StarIcon,
   TrophyIcon
 } from '@heroicons/react/24/outline';
 
@@ -82,10 +81,10 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
           <img 
             src="/logo.jpg" 
             alt="Logo" 
-            className="w-10 h-10 rounded-lg object-cover"
+            className="w-10 h-10 rounded-xl object-cover shadow-lg"
           />
           <div className="text-right">
-            <h1 className="text-lg font-bold font-cairo">مدرسة الشمامسة</h1>
+            <h1 className="text-lg font-bold font-cairo text-white">مدرسة الشمامسة</h1>
             <p className="text-xs text-gray-400 font-cairo">القديس أثناسيوس</p>
           </div>
         </div>
@@ -93,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
 
       {/* Navigation */}
       <div className="flex-1 px-4 py-6">
-        <nav className="space-y-1">
+        <nav className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentPage === item.id;
@@ -102,16 +101,16 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
               <button
                 key={item.id}
                 onClick={() => onPageChange(item.id)}
-                className={`w-full group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
+                className={`w-full group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-amber-500 to-red-500 text-white shadow-lg'
-                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                    ? 'bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white shadow-lg transform scale-105'
+                    : 'text-gray-300 hover:bg-gray-800 hover:text-white hover:scale-105'
                 }`}
               >
                 <Icon className="ml-3 h-5 w-5" />
                 <span className="font-cairo">{item.label}</span>
                 {isActive && (
-                  <div className="mr-auto w-2 h-2 bg-white rounded-full"></div>
+                  <div className="mr-auto w-2 h-2 bg-white rounded-full shadow-lg"></div>
                 )}
               </button>
             );
@@ -123,11 +122,11 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
           <h3 className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider font-cairo mb-3">
             الصفحات
           </h3>
-          <nav className="space-y-1">
-            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-all duration-200">
+          <nav className="space-y-2">
+            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 hover:scale-105">
               <span className="font-cairo">قائمة الصفحات</span>
             </button>
-            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-all duration-200">
+            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 hover:scale-105">
               <span className="font-cairo">صفحات الشبكة</span>
             </button>
           </nav>
@@ -137,8 +136,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
       {/* User Profile */}
       <div className="p-4 border-t border-gray-800">
         <div className="flex items-center space-x-3 space-x-reverse mb-4">
-          <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-red-500 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-sm font-cairo">
+          <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-lg font-cairo">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </span>
           </div>
@@ -156,7 +155,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
         
         <button
           onClick={logout}
-          className="w-full flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:text-red-400 hover:bg-gray-800 rounded-lg transition-all duration-200 group"
+          className="w-full flex items-center px-4 py-3 text-sm font-medium text-gray-300 hover:text-red-400 hover:bg-gray-800 rounded-xl transition-all duration-200 group hover:scale-105"
         >
           <ArrowLeftOnRectangleIcon className="ml-3 h-4 w-4" />
           <span className="font-cairo">تسجيل الخروج</span>
