@@ -293,7 +293,6 @@ const DeaconParentManagement: React.FC = () => {
                     <p className="text-gray-600 font-cairo text-sm mb-2">
                       {deacon.email}
                     </p>
-                    <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
                     <span className="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-medium rounded-full">
                       شماس
                     </span>
@@ -301,7 +300,6 @@ const DeaconParentManagement: React.FC = () => {
                   
                   <div className="space-y-3">
                     {deacon.deaconInfo && (
-                      <div className="bg-blue-50 rounded-lg p-3">
                       <div className="bg-amber-50 rounded-lg p-3">
                         <p className="text-sm text-gray-600 font-cairo mb-2">المستوى الحالي</p>
                         <p className="font-medium text-amber-800 font-cairo">
