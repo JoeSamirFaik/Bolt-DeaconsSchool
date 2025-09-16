@@ -5,6 +5,7 @@ import DeaconDashboard from './dashboards/DeaconDashboard';
 import ServantDashboard from './dashboards/ServantDashboard';
 import ParentDashboard from './dashboards/ParentDashboard';
 import AdminDashboard from './dashboards/AdminDashboard';
+import LMSManagement from './admin/LMSManagement';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 
 const Layout: React.FC = () => {
@@ -31,6 +32,8 @@ const Layout: React.FC = () => {
     switch (currentPage) {
       case 'dashboard':
         return renderDashboard();
+      case 'lessons-mgmt':
+        return <LMSManagement />;
       case 'lessons':
         return <div className="p-6 bg-white rounded-xl">Lessons content coming soon...</div>;
       case 'quizzes':
