@@ -71,7 +71,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           firstName: 'داود',
           lastName: 'إبراهيم',
           role: 'parent',
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          isActive: true,
+          parentInfo: {
+            phone: '01234567890',
+            address: 'القاهرة، مصر الجديدة',
+            occupation: 'مهندس برمجيات',
+            children: ['1'] // Child deacon ID
+          }
         },
         {
           id: '4',
