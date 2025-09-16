@@ -1,63 +1,67 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Lesson } from '../entities/lesson.entity';
+import { CreateLessonDto } from './dto/create-lesson.dto';
+import { UpdateLessonDto } from './dto/update-lesson.dto';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class LessonsService {
-  private readonly mockLessons = [
-    {
-      id: '1',
-      title: 'مغامرة الصلاة الأولى',
-      description: 'تعلم كيفية التحدث مع الله بطريقة ممتعة',
-      stage: 'ابتدائي',
-      level: '1',
-      content: {
-        text: 'الصلاة هي محادثة جميلة مع الله...',
-        videoUrl: 'https://example.com/video1',
-      },
-      duration: 30,
-      order: 1,
-      createdAt: '2024-01-01T10:00:00Z',
-    },
-    {
-      id: '2',
-      title: 'أبطال الكتاب المقدس',
-      description: 'قصص مثيرة عن الأبطال في الكتاب المقدس',
-      stage: 'ابتدائي',
-      level: '2',
-      content: {
-        text: 'دعونا نتعرف على داود الشجاع...',
-        videoUrl: 'https://example.com/video2',
-      },
-      duration: 45,
-      order: 2,
-      createdAt: '2024-01-02T10:00:00Z',
-    },
-    {
-      id: '3',
-      title: 'خدمة المجتمع',
-      description: 'كيف نساعد الآخرين ونخدم مجتمعنا',
-      stage: 'إعدادي',
-      level: '1',
-      content: {
-        text: 'الخدمة هي طريقة لإظهار محبة الله...',
-        videoUrl: 'https://example.com/video3',
-      },
-      duration: 60,
-      order: 3,
-      createdAt: '2024-01-03T10:00:00Z',
-    },
-  ];
+  constructor(
+    @InjectRepository(Lesson)
+    private lessonRepository: Repository<Lesson>,
+  ) {}
 
-  findAll(stage?: string, level?: string) {
-    let lessons = this.mockLessons;
-    
-    if (stage) {
-      lessons = lessons.filter(lesson => lesson.stage === stage);
+  async create(createLessonDto: CreateLessonDto): Promise<Lesson> {
+    const lesson = this.lessonRepository.create(createLessonDto);
+    return await this.lessonRepository.save(lesson);
+  }
+
+  async findAll(): Promise<Lesson[]> {
+    return await this.lessonRepository.find({
+      relations: ['subject', 'subject.level'],
+      order: { order: 'ASC' },
+    });
+  }
+
+  async findBySubject(subjectId: string): Promise<Lesson[]> {
+    return await this.lessonRepository.find({
+      where: { subjectId },
+      relations: ['subject'],
+      order: { order: 'ASC' },
+    });
+  }
+
+  async findOne(id: string): Promise<Lesson> {
+    const lesson = await this.lessonRepository.findOne({
+      where: { id },
+      relations: ['subject', 'subject.level'],
+    });
+
+    if (!lesson) {
+      throw new NotFoundException(`Lesson with ID ${id} not found`);
     }
-    
-    if (level) {
-      lessons = lessons.filter(lesson => lesson.level === level);
-    }
-    
-    return lessons;
+
+    return lesson;
+  }
+
+  async update(id: string, updateLessonDto: UpdateLessonDto): Promise<Lesson> {
+    const lesson = await this.findOne(id);
+    Object.assign(lesson, updateLessonDto);
+    return await this.lessonRepository.save(lesson);
+  }
+
+  async remove(id: string): Promise<void> {
+    const lesson = await this.findOne(id);
+    await this.lessonRepository.remove(lesson);
+  }
+
+  async findActiveBySubject(subjectId: string): Promise<Lesson[]> {
+    return await this.lessonRepository.find({
+      where: { subjectId, isActive: true },
+      relations: ['subject'],
+      order: { order: 'ASC' },
+    });
   }
 }
