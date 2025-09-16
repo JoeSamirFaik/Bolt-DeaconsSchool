@@ -131,4 +131,4 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
   );
 };
 
-export default PointsSystemSettings;
+export default AcademicSettings;
