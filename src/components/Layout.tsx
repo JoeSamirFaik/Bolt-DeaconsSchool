@@ -77,7 +77,7 @@ const Layout: React.FC = () => {
           </div>
         );
       case 'attendance-board':
-        return <NotificationLogs />;
+        return <AttendanceBoard />;
       case 'lessons-mgmt':
         return <LMSManagement />;
       case 'attendance':
@@ -106,6 +106,8 @@ const Layout: React.FC = () => {
             </div>
           </div>
         );
+      case 'notifications':
+        return <NotificationLogs />;
       case 'quizzes':
         return (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
