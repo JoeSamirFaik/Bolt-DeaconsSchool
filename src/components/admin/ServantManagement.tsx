@@ -58,7 +58,7 @@ const ServantManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between">
           <button
             onClick={() => {
@@ -78,7 +78,7 @@ const ServantManagement: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {servants.map((servant) => (
             <div key={servant.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
@@ -100,8 +100,8 @@ const ServantManagement: React.FC = () => {
                     <TrashIcon className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                  <UserIcon className="w-6 h-6 text-amber-600" />
+                <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                  <UserIcon className="w-6 h-6 text-orange-600" />
                 </div>
               </div>
               
@@ -112,7 +112,6 @@ const ServantManagement: React.FC = () => {
                 <p className="text-gray-600 font-cairo text-sm mb-2">
                   {servant.email}
                 </p>
-                <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full">
                 <span className="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded-full">
                   خادم
                 </span>
