@@ -188,7 +188,6 @@ const Layout: React.FC = () => {
             {/* Common Routes */}
             <Route path="/notifications" element={<NotificationLogs />} />
             <Route path="/profile" element={<ComingSoonPage title="الملف الشخصي" icon="👤" />} />
-            <Route path="/quizzes" element={<ComingSoonPage title="الاختبارات" icon="🎯" />} />
             <Route path="/help" element={<ComingSoonPage title="المساعدة والدعم" icon="❓" />} />
             
             {/* Admin Only Routes */}
