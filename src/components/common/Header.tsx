@@ -46,21 +46,17 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 
         {/* Right side - Actions and Profile */}
         <div className="flex items-center space-x-4 space-x-reverse">
-          {/* Action buttons */}
-          <button className="p-3 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200 hover:scale-110">
-            <ShoppingCartIcon className="h-6 w-6" />
+          {/* Dark Mode Toggle */}
+          <button className="p-3 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-200 hover:scale-110 group">
+            <SunIcon className="h-6 w-6 group-hover:rotate-180 transition-transform duration-300" />
           </button>
-          <button className="p-3 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-xl transition-all duration-200 hover:scale-110">
-            <SunIcon className="h-6 w-6" />
-          </button>
+          
+          {/* Notifications */}
           <button className="p-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 hover:scale-110 relative">
             <BellIcon className="h-6 w-6" />
-            <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg">
+            <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg animate-pulse">
               3
             </span>
-          </button>
-          <button className="p-3 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-xl transition-all duration-200 hover:scale-110">
-            <Cog6ToothIcon className="h-6 w-6" />
           </button>
 
           {/* User Profile Dropdown */}
@@ -89,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 
             {/* Profile Dropdown Menu */}
             {showProfileMenu && (
-              <div className="absolute left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-200 py-2 z-50">
+              <div className="absolute left-0 mt-3 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 py-3 z-50 animate-in slide-in-from-top-2 duration-200">
                 <div className="px-4 py-3 border-b border-gray-100">
                   <div className="flex items-center space-x-3 space-x-reverse">
                     <div className="text-right">
@@ -99,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                       <p className="text-xs text-gray-500 font-cairo">
                         {user?.email}
                       </p>
-                      <span className="inline-block mt-1 px-2 py-1 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-xs font-medium rounded-full">
+                      <span className="inline-block mt-2 px-3 py-1 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-xs font-medium rounded-full shadow-sm">
                         {user?.role === 'deacon' ? 'شماس' : 
                          user?.role === 'servant' ? 'خادم' : 
                          user?.role === 'parent' ? 'ولي أمر' : 'مدير'}
@@ -114,17 +110,28 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                 </div>
                 
                 <div className="py-2">
-                  <button className="w-full px-4 py-3 text-right hover:bg-gray-50 transition-colors flex items-center space-x-3 space-x-reverse">
-                    <span className="text-sm text-gray-700 font-cairo">الملف الشخصي</span>
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <span className="text-blue-600 text-sm">👤</span>
+                  <button className="w-full px-4 py-3 text-right hover:bg-blue-50 transition-all duration-200 flex items-center space-x-3 space-x-reverse group">
+                    <span className="text-sm text-gray-700 group-hover:text-blue-600 font-cairo font-medium">الملف الشخصي</span>
+                    <div className="w-9 h-9 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center transition-colors duration-200">
+                      <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
                     </div>
                   </button>
                   
-                  <button className="w-full px-4 py-3 text-right hover:bg-gray-50 transition-colors flex items-center space-x-3 space-x-reverse">
-                    <span className="text-sm text-gray-700 font-cairo">الإعدادات</span>
-                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <button className="w-full px-4 py-3 text-right hover:bg-purple-50 transition-all duration-200 flex items-center space-x-3 space-x-reverse group">
+                    <span className="text-sm text-gray-700 group-hover:text-purple-600 font-cairo font-medium">الإعدادات</span>
+                    <div className="w-9 h-9 bg-purple-100 group-hover:bg-purple-200 rounded-xl flex items-center justify-center transition-colors duration-200">
                       <Cog6ToothIcon className="w-4 h-4 text-purple-600" />
+                    </div>
+                  </button>
+                  
+                  <button className="w-full px-4 py-3 text-right hover:bg-green-50 transition-all duration-200 flex items-center space-x-3 space-x-reverse group">
+                    <span className="text-sm text-gray-700 group-hover:text-green-600 font-cairo font-medium">المساعدة والدعم</span>
+                    <div className="w-9 h-9 bg-green-100 group-hover:bg-green-200 rounded-xl flex items-center justify-center transition-colors duration-200">
+                      <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
                   </button>
                   
@@ -134,11 +141,13 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                         logout();
                         setShowProfileMenu(false);
                       }}
-                      className="w-full px-4 py-3 text-right hover:bg-red-50 transition-colors flex items-center space-x-3 space-x-reverse group"
+                      className="w-full px-4 py-3 text-right hover:bg-red-50 transition-all duration-200 flex items-center space-x-3 space-x-reverse group"
                     >
-                      <span className="text-sm text-gray-700 group-hover:text-red-600 font-cairo">تسجيل الخروج</span>
-                      <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                        <ArrowLeftOnRectangleIcon className="w-4 h-4 text-red-600" />
+                      <span className="text-sm text-gray-700 group-hover:text-red-600 font-cairo font-medium">تسجيل الخروج</span>
+                      <div className="w-9 h-9 bg-red-100 group-hover:bg-red-200 rounded-xl flex items-center justify-center transition-colors duration-200">
+                        <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
                       </div>
                     </button>
                   </div>
