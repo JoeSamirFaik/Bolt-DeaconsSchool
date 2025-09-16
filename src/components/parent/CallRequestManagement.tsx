@@ -223,77 +223,78 @@ const CallRequestManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6">
         <div className="flex items-center justify-between">
           {/* Left side - Action Button */}
           <button
             onClick={() => setShowRequestForm(true)}
-            className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
+            className="bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white px-3 py-2 sm:px-6 sm:py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
           >
-            <PlusIcon className="w-5 h-5" />
-            <span>طلب مكالمة جديدة</span>
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">طلب مكالمة جديدة</span>
+            <span className="sm:hidden">طلب مكالمة</span>
           </button>
           
           {/* Right side - Title & Description */}
           <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">طلبات المكالمات</h1>
-            <p className="text-gray-600 font-cairo">احجز مكالمات مع الخادم أو طفلك</p>
+            <h1 className="text-lg sm:text-2xl font-bold text-gray-900 font-cairo">طلبات المكالمات</h1>
+            <p className="text-gray-600 font-cairo text-sm sm:text-base hidden sm:block">احجز مكالمات مع الخادم أو طفلك</p>
           </div>
         </div>
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <PhoneIcon className="w-6 h-6 text-purple-600" />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-3 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <PhoneIcon className="w-4 h-4 sm:w-6 sm:h-6 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-purple-600 mb-1">
             {callRequests.length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">إجمالي الطلبات</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">إجمالي الطلبات</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <ClockIcon className="w-6 h-6 text-yellow-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-3 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-yellow-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <ClockIcon className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-600" />
           </div>
-          <div className="text-2xl font-bold text-yellow-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-yellow-600 mb-1">
             {callRequests.filter(r => r.status === 'pending').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">في الانتظار</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">في الانتظار</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <CalendarIcon className="w-6 h-6 text-blue-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-3 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <CalendarIcon className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-blue-600 mb-1">
             {callRequests.filter(r => r.status === 'scheduled').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">مجدولة</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">مجدولة</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <CheckCircleIcon className="w-6 h-6 text-green-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-3 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <CheckCircleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-green-600" />
           </div>
-          <div className="text-2xl font-bold text-green-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-green-600 mb-1">
             {callRequests.filter(r => r.status === 'completed').length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">مكتملة</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">مكتملة</p>
         </div>
       </div>
 
       {/* Call Requests List */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="space-y-4">
             {callRequests.map((request) => (
-              <div key={request.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div key={request.id} className="border border-gray-200 rounded-xl p-4 sm:p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between">
                   {/* Left side - Status and Actions */}
-                  <div className="flex items-center space-x-3 space-x-reverse">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 sm:space-x-reverse">
                     <span className={`px-3 py-1 text-xs font-medium rounded-full border ${getStatusColor(request.status)}`}>
                       {getStatusLabel(request.status)}
                     </span>
@@ -305,25 +306,26 @@ const CallRequestManagement: React.FC = () => {
                         href={request.meetingLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg text-xs font-medium transition-colors"
+                        className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg text-xs font-medium transition-colors whitespace-nowrap"
                       >
-                        انضم للمكالمة
+                        <span className="hidden sm:inline">انضم للمكالمة</span>
+                        <span className="sm:hidden">انضم</span>
                       </a>
                     )}
                   </div>
 
                   {/* Center - Request Details */}
-                  <div className="flex-1 text-right mx-6">
+                  <div className="flex-1 text-right mx-2 sm:mx-6">
                     <div className="flex items-center space-x-3 space-x-reverse mb-2">
                       <span className="text-sm text-gray-500 font-cairo">
                         {new Date(request.createdAt).toLocaleDateString('ar-EG')}
                       </span>
-                      <h3 className="text-lg font-bold text-gray-900 font-cairo">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 font-cairo">
                         {request.topic}
                       </h3>
                     </div>
                     
-                    <div className="flex items-center space-x-4 space-x-reverse text-sm text-gray-600 mb-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 sm:space-x-reverse text-xs sm:text-sm text-gray-600 mb-3 space-y-1 sm:space-y-0">
                       <span className="font-cairo">
                         📅 {new Date(request.preferredDate).toLocaleDateString('ar-EG')}
                       </span>
@@ -332,14 +334,14 @@ const CallRequestManagement: React.FC = () => {
                     </div>
                     
                     {request.notes && (
-                      <p className="text-gray-600 font-cairo text-sm mb-3">{request.notes}</p>
+                      <p className="text-gray-600 font-cairo text-xs sm:text-sm mb-3 line-clamp-2">{request.notes}</p>
                     )}
                     
                     {request.status === 'scheduled' && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 sm:p-3">
                         <div className="flex items-center space-x-2 space-x-reverse text-blue-800">
-                          <CalendarIcon className="w-4 h-4" />
-                          <span className="font-cairo text-sm">
+                          <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span className="font-cairo text-xs sm:text-sm">
                             مجدولة: {new Date(request.scheduledDate!).toLocaleDateString('ar-EG')} في {request.scheduledTime}
                           </span>
                         </div>
@@ -348,7 +350,7 @@ const CallRequestManagement: React.FC = () => {
                   </div>
 
                   {/* Right side - Request Type Icon */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center flex-shrink-0">
                     {getRequestTypeIcon(request.requestType)}
                   </div>
                 </div>
@@ -359,17 +361,17 @@ const CallRequestManagement: React.FC = () => {
           {callRequests.length === 0 && (
             <div className="text-center py-12">
               <PhoneIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد طلبات مكالمات</h3>
-              <p className="text-gray-500 font-cairo">ابدأ بطلب مكالمة جديدة للتواصل مع الخادم أو طفلك</p>
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد طلبات مكالمات</h3>
+              <p className="text-gray-500 font-cairo text-sm">ابدأ بطلب مكالمة جديدة للتواصل مع الخادم أو طفلك</p>
             </div>
           )}
         </div>
       </div>
 
       {/* Quick Tips */}
-      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-6 border border-purple-200">
-        <h3 className="text-lg font-bold text-purple-900 mb-4 text-right font-cairo">نصائح للمكالمات الفعالة</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-4 sm:p-6 border border-purple-200">
+        <h3 className="text-base sm:text-lg font-bold text-purple-900 mb-4 text-right font-cairo">نصائح للمكالمات الفعالة</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-white/70 rounded-xl p-4">
             <h4 className="font-semibold text-purple-800 font-cairo mb-2">📞 مع الخادم</h4>
             <ul className="text-sm text-purple-700 font-cairo space-y-1">

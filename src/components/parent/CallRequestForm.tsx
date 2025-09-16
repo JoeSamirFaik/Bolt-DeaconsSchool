@@ -75,10 +75,10 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
   ];
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[95vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-indigo-50">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-indigo-50">
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -87,22 +87,22 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
           </button>
           <div className="flex items-center space-x-3 space-x-reverse">
             <div className="text-right">
-              <h2 className="text-xl font-bold text-gray-900 font-cairo">طلب مكالمة</h2>
-              <p className="text-gray-600 text-sm font-cairo">احجز مكالمة مع الخادم أو طفلك</p>
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 font-cairo">طلب مكالمة</h2>
+              <p className="text-gray-600 text-xs sm:text-sm font-cairo">احجز مكالمة مع الخادم أو طفلك</p>
             </div>
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-              <PhoneIcon className="w-6 h-6 text-purple-600" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+              <PhoneIcon className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
             </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Call Type Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3 text-right font-cairo">
               نوع المكالمة *
             </label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <label className={`cursor-pointer p-4 border-2 rounded-xl transition-all ${
                 formData.requestType === 'parent-servant'
                   ? 'border-purple-500 bg-purple-50'
@@ -117,9 +117,9 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
                   className="sr-only"
                 />
                 <div className="text-center">
-                  <UserIcon className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                  <UserIcon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600 mx-auto mb-2" />
                   <span className="font-medium text-gray-900 font-cairo">مع الخادم</span>
-                  <p className="text-xs text-gray-600 font-cairo mt-1">مناقشة تقدم الطفل مع المعلم</p>
+                  <p className="text-xs text-gray-600 font-cairo mt-1 hidden sm:block">مناقشة تقدم الطفل مع المعلم</p>
                 </div>
               </label>
               
@@ -137,9 +137,9 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
                   className="sr-only"
                 />
                 <div className="text-center">
-                  <ChatBubbleLeftRightIcon className="w-8 h-8 text-indigo-600 mx-auto mb-2" />
+                  <ChatBubbleLeftRightIcon className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-600 mx-auto mb-2" />
                   <span className="font-medium text-gray-900 font-cairo">مع الطفل</span>
-                  <p className="text-xs text-gray-600 font-cairo mt-1">محادثة مباشرة مع طفلك</p>
+                  <p className="text-xs text-gray-600 font-cairo mt-1 hidden sm:block">محادثة مباشرة مع طفلك</p>
                 </div>
               </label>
             </div>
@@ -156,7 +156,7 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
               value={formData.topic}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo"
+              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo text-sm sm:text-base"
             >
               <option value="">اختر موضوع المكالمة</option>
               {topics.map((topic, index) => (
@@ -170,7 +170,7 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
             <label className="block text-sm font-medium text-gray-700 mb-3 text-right font-cairo">
               مستوى الأولوية *
             </label>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
               <label className={`cursor-pointer p-3 border-2 rounded-xl transition-all ${
                 formData.urgency === 'low'
                   ? 'border-green-500 bg-green-50'
@@ -231,10 +231,10 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
           </div>
 
           {/* Preferred Time Slots */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-purple-50 rounded-xl p-4 border border-purple-200">
-              <h3 className="text-md font-bold text-purple-900 mb-3 text-right font-cairo">الموعد المفضل</h3>
-              <div className="space-y-3">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6">
+            <div className="bg-purple-50 rounded-xl p-3 sm:p-4 border border-purple-200">
+              <h3 className="text-sm sm:text-md font-bold text-purple-900 mb-3 text-right font-cairo">الموعد المفضل</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label htmlFor="preferredDate" className="block text-sm font-medium text-purple-700 mb-2 text-right font-cairo">
                     التاريخ *
@@ -247,7 +247,7 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
                     onChange={handleChange}
                     required
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo bg-white"
+                    className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo bg-white text-sm"
                   />
                 </div>
                 <div>
@@ -261,15 +261,15 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
                     value={formData.preferredTime}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo bg-white"
+                    className="w-full px-3 py-2 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo bg-white text-sm"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="bg-indigo-50 rounded-xl p-4 border border-indigo-200">
-              <h3 className="text-md font-bold text-indigo-900 mb-3 text-right font-cairo">موعد بديل</h3>
-              <div className="space-y-3">
+            <div className="bg-indigo-50 rounded-xl p-3 sm:p-4 border border-indigo-200">
+              <h3 className="text-sm sm:text-md font-bold text-indigo-900 mb-3 text-right font-cairo">موعد بديل (اختياري)</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label htmlFor="alternativeDate" className="block text-sm font-medium text-indigo-700 mb-2 text-right font-cairo">
                     التاريخ
@@ -281,7 +281,7 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
                     value={formData.alternativeDate}
                     onChange={handleChange}
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full px-3 py-2 border border-indigo-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo bg-white"
+                    className="w-full px-3 py-2 border border-indigo-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo bg-white text-sm"
                   />
                 </div>
                 <div>
@@ -294,11 +294,10 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
                     name="alternativeTime"
                     value={formData.alternativeTime}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-indigo-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo bg-white"
+                    className="w-full px-3 py-2 border border-indigo-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo bg-white text-sm"
                   />
                 </div>
               </div>
-            </div>
           </div>
 
           {/* Additional Notes */}
@@ -311,24 +310,24 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
               name="notes"
               value={formData.notes}
               onChange={handleChange}
-              rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo resize-none"
+              rows={3}
+              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 text-right font-cairo resize-none text-sm"
               placeholder="أي معلومات إضافية تود مناقشتها..."
             />
           </div>
 
           {/* Submit Buttons */}
-          <div className="flex space-x-3 space-x-reverse pt-4">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 sm:space-x-reverse pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+              className="w-full sm:flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium text-sm sm:text-base"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-xl hover:from-purple-600 hover:to-indigo-600 transition-colors font-medium shadow-lg hover:scale-105"
+              className="w-full sm:flex-1 px-4 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-xl hover:from-purple-600 hover:to-indigo-600 transition-colors font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
             >
               إرسال طلب المكالمة
             </button>
