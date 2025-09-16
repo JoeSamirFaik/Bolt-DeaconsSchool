@@ -135,10 +135,10 @@ const Layout: React.FC = () => {
             
             {/* Deacon Routes */}
             <Route path="/lessons" element={
-              user?.role === 'deacon' ? <LearningJourney /> : <ComingSoonPage title="الدروس" icon="📚" />
+              user?.role === 'deacon' ? <LearningJourney /> : <NotAllowedPage title="هذه الصفحة متاحة للشمامسة فقط" />
             } />
             <Route path="/calendar" element={
-              user?.role === 'deacon' ? <DeaconCalendar /> : <ComingSoonPage title="التقويم" icon="📅" />
+              user?.role === 'deacon' ? <DeaconCalendar /> : <NotAllowedPage title="هذه الصفحة متاحة للشمامسة فقط" />
             } />
             <Route path="/attendance-board" element={<AttendanceBoard />} />
             
