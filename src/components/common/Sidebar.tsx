@@ -34,6 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'lessons', icon: BookOpenIcon, label: 'الدروس' },
+          { id: 'calendar', icon: CalendarIcon, label: 'التقويم' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
         ];
       case 'servant':

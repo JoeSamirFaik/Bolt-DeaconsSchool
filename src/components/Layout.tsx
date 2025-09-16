@@ -48,6 +48,18 @@ const Layout: React.FC = () => {
             </div>
           </div>
         );
+      case 'calendar':
+        return (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">📅</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">التقويم</h3>
+              <p className="text-gray-500 font-cairo">عرض جميع الجلسات والفعاليات</p>
+            </div>
+          </div>
+        );
       case 'lessons-mgmt':
         return <LMSManagement />;
       case 'attendance':
