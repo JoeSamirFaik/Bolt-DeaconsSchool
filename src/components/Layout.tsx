@@ -137,6 +137,8 @@ const Layout: React.FC = () => {
         );
       case 'call-requests':
         return <CallRequestManagement />;
+      case 'call-request':
+        return <CallRequestManagement />;
       case 'notifications':
         return <NotificationLogs />;
       case 'settings':
