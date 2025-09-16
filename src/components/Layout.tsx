@@ -84,7 +84,8 @@ const Layout: React.FC = () => {
       case 'lessons-mgmt':
         return <LMSManagement />;
       case 'attendance':
-          <ChildNotesManagement />
+        return user?.role === 'admin' || user?.role === 'servant' ? (
+          <AttendanceManagement />
         ) : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
