@@ -11,6 +11,7 @@ import DeaconParentManagement from './admin/DeaconParentManagement';
 import ServantManagement from './admin/ServantManagement';
 import AttendanceManagement from './admin/AttendanceManagement';
 import LearningJourney from './deacon/LearningJourney';
+import DeaconCalendar from './deacon/DeaconCalendar';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -49,7 +50,7 @@ const Layout: React.FC = () => {
           </div>
         );
       case 'calendar':
-        return (
+        return user?.role === 'deacon' ? <DeaconCalendar /> : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
             <div className="text-center py-16">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
