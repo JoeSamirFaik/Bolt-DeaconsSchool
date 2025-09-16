@@ -7,6 +7,7 @@ import ServantDashboard from './dashboards/ServantDashboard';
 import ParentDashboard from './dashboards/ParentDashboard';
 import AdminDashboard from './dashboards/AdminDashboard';
 import LMSManagement from './admin/LMSManagement';
+import UserManagement from './admin/UserManagement';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -34,6 +35,8 @@ const Layout: React.FC = () => {
         return renderDashboard();
       case 'lessons-mgmt':
         return <LMSManagement />;
+      case 'users':
+        return <UserManagement />;
       case 'lessons':
         return (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
