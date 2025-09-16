@@ -229,7 +229,7 @@ const DeaconParentManagement: React.FC = () => {
           {/* Left side - Title & Description */}
           <div className="text-right">
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
-            <p className="text-gray-600 font-cairo">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
+            <p className="text-gray-600 font-cairo mt-1">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
           </div>
           
           {/* Right side - Action Buttons */}
