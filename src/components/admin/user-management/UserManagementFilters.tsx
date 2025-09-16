@@ -140,6 +140,7 @@ const UserManagementFilters: React.FC<UserManagementFiltersProps> = ({
             />
           </div>
         )}
+      </div>
     </div>
   );
 };
