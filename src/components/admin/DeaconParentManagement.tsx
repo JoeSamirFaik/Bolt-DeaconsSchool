@@ -274,6 +274,7 @@ const DeaconParentManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
+          {/* Left side - Buttons */}
           <div className="flex items-center space-x-3 space-x-reverse">
             {(activeTab === 'deacons' || activeTab === 'parents') && (
               <button
@@ -290,6 +291,8 @@ const DeaconParentManagement: React.FC = () => {
               </button>
             )}
           </div>
+          
+          {/* Right side - Title */}
           <div className="text-right">
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
             <p className="text-gray-600 font-cairo">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
