@@ -62,6 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
           { id: 'deacon-parent-mgmt', icon: UsersIcon, label: 'الشمامسة وأولياء الأمور' },
           { id: 'servant-mgmt', icon: UserIcon, label: 'إدارة الخدام' },
           { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
+          { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'إدارة الحضور' },
           { id: 'reports', icon: ChartBarIcon, label: 'التحليلات' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
           { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات' },
