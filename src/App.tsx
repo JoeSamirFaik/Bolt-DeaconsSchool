@@ -82,8 +82,6 @@ const AuthWrapper: React.FC = () => {
 };
 
 function App() {
-    }
-  )
   return (
     <AuthProvider>
       <AuthWrapper />
