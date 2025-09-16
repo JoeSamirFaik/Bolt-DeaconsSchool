@@ -63,7 +63,7 @@ const ServantManagement: React.FC = () => {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between">
           {/* Left side - Title & Description */}
-          <div className="text-left">
+          <div className="text-right">
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الخدام</h1>
             <p className="text-gray-600 font-cairo">إدارة الخدام والمعلمين في المدرسة</p>
           </div>

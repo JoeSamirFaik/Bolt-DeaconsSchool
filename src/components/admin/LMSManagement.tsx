@@ -234,7 +234,7 @@ const LMSManagement: React.FC = () => {
           >
             <PlusIcon className="w-5 h-5" />
             <span>
-              {activeTab === 'levels' ? 'إضافة مستوى' : 
+          <div className="text-right">
                activeTab === 'subjects' ? 'إضافة مقرر' : 'إضافة درس'}
             </span>
           </button>
