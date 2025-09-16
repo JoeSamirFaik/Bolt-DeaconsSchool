@@ -147,7 +147,11 @@ const Layout: React.FC = () => {
       <div className={`fixed inset-y-0 right-0 z-50 w-64 transform ${
         sidebarOpen ? 'translate-x-0' : 'translate-x-full'
       } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex-shrink-0 lg:right-auto lg:left-0`}>
-        <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
+        <Sidebar 
+          currentPage={currentPage} 
+          onPageChange={setCurrentPage}
+          onMobileClose={() => setSidebarOpen(false)}
+        />
       </div>
       
       {/* Main content */}
