@@ -22,8 +22,38 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   return (
     <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
-        {/* Left side - User Profile Dropdown */}
-        <div className="flex items-center space-x-4">
+        {/* Left side - Mobile menu button */}
+        <button
+          onClick={onToggleSidebar}
+          className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
+        >
+          <Bars3Icon className="h-6 w-6" />
+        </button>
+
+        {/* Right side - Actions and Profile */}
+        <div className="flex items-center space-x-4 space-x-reverse">
+          {/* Dark Mode Toggle */}
+          <button className="p-3 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-200 hover:scale-110 group">
+            <SunIcon className="h-6 w-6 group-hover:rotate-180 transition-transform duration-300" />
+          </button>
+          
+          {/* Notifications */}
+          <button 
+            onClick={() => {
+              // In a real app, this would navigate to notifications page
+              window.dispatchEvent(new CustomEvent('navigate-to-notifications'));
+            }}
+            className="p-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 hover:scale-110 relative"
+          >
+            <BellIcon className="h-6 w-6" />
+            {unreadNotifications > 0 && (
+              <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                {unreadNotifications}
+              </span>
+            )}
+          </button>
+
+          {/* User Profile Dropdown */}
           <div className="relative">
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
@@ -96,38 +126,6 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
               </>
             )}
           </div>
-        </div>
-
-        {/* Right side - Icons and Mobile menu */}
-        <div className="flex items-center space-x-4 space-x-reverse">
-          {/* Mobile menu button */}
-          <button
-            onClick={onToggleSidebar}
-            className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
-          >
-            <Bars3Icon className="h-6 w-6" />
-          </button>
-
-          {/* Dark Mode Toggle */}
-          <button className="p-3 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-200 hover:scale-110 group">
-            <SunIcon className="h-6 w-6 group-hover:rotate-180 transition-transform duration-300" />
-          </button>
-          
-          {/* Notifications */}
-          <button 
-            onClick={() => {
-              // In a real app, this would navigate to notifications page
-              window.dispatchEvent(new CustomEvent('navigate-to-notifications'));
-            }}
-            className="p-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 hover:scale-110 relative"
-          >
-            <BellIcon className="h-6 w-6" />
-            {unreadNotifications > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center shadow-lg animate-pulse">
-                {unreadNotifications}
-              </span>
-            )}
-          </button>
         </div>
       </div>
     </header>
