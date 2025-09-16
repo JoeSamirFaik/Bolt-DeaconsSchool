@@ -22,8 +22,8 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   return (
     <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
-        {/* Left side - Action icons (always visible) */}
-        <div className="flex items-center space-x-4 space-x-reverse">
+        {/* Right side - Action icons (always visible) */}
+        <div className="flex items-center space-x-4">
           {/* Mobile menu button */}
           <button
             onClick={onToggleSidebar}
@@ -54,8 +54,8 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
           </button>
         </div>
 
-        {/* Right side - Profile */}
-        <div className="flex items-center">
+        {/* Left side - Profile */}
+        <div className="flex items-center space-x-4 space-x-reverse">
           {/* User Profile Dropdown */}
           <div className="relative">
             <button
