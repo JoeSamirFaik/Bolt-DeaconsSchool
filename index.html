@@ -1,198 +1,109 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  PlusIcon, 
-  UsersIcon,
-  AcademicCapIcon,
-  CalendarIcon
-} from '@heroicons/react/24/outline';
-import { User, LevelAssignment, AcademicYear } from '../../types/user';
-import { usersApi, levelAssignmentsApi, academicYearsApi } from '../../services/userApi';
-import { levelsApi } from '../../services/lmsApi';
-import { Level } from '../../types/lms';
-import UserForm from './UserForm';
-import LevelAssignmentForm from './LevelAssignmentForm';
-import UserManagementHeader from './user-management/UserManagementHeader';
-import UserManagementTabs from './user-management/UserManagementTabs';
-import UserManagementFilters from './user-management/UserManagementFilters';
-import UsersTab from './user-management/UsersTab';
-import AssignmentsTab from './user-management/AssignmentsTab';
-
-const UserManagement: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [levels, setLevels] = useState<Level[]>([]);
-  const [assignments, setAssignments] = useState<LevelAssignment[]>([]);
-  const [academicYears, setAcademicYears] = useState<AcademicYear[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'users' | 'assignments'>('users');
-  const [selectedRole, setSelectedRole] = useState<string>('');
-  const [selectedYear, setSelectedYear] = useState<string>('');
-  
-  // Modal states
-  const [showUserForm, setShowUserForm] = useState(false);
-  const [showAssignmentForm, setShowAssignmentForm] = useState(false);
-  const [editingItem, setEditingItem] = useState<any>(null);
-
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      const [usersData, levelsData, assignmentsData, yearsData] = await Promise.all([
-        usersApi.getAll(),
-        levelsApi.getAll(),
-        levelAssignmentsApi.getAll(),
-        academicYearsApi.getAll()
-      ]);
-      setUsers(usersData);
-      setLevels(levelsData);
-      setAssignments(assignmentsData);
-      setAcademicYears(yearsData);
-    } catch (error) {
-      console.error('Error loading data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDeleteUser = async (id: string) => {
-    if (window.confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
-      try {
-        await usersApi.delete(id);
-        loadData();
-      } catch (error) {
-        console.error('Error deleting user:', error);
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F59E0B" />
+    <meta name="description" content="تطبيق ويب تقدمي لإدارة وتعلم مدرسة الشمامسة" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="مدرسة الشمامسة" />
+    <link rel="apple-touch-icon" href="/logo.jpg" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/logo.jpg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo.jpg" />
+    
+    <!-- Windows PWA Support -->
+    <meta name="msapplication-TileImage" content="/logo.jpg" />
+    <meta name="msapplication-TileColor" content="#F59E0B" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Additional PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="مدرسة الشمامسة" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/logo.jpg" as="image" />
+    
+    <meta name="theme-color" content="#F59E0B" />
+    <meta name="description" content="تطبيق ويب تقدمي لإدارة وتعلم مدرسة الشمامسة" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="مدرسة الشمامسة" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    
+    <!-- Windows PWA Support -->
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+    <meta name="msapplication-TileColor" content="#F59E0B" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Additional PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="مدرسة الشمامسة" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/logo.jpg" as="image" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <title>البوابة الإلكترونية لمدرسة الشمامسة</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- PWA Installation Script -->
+    <script>
+      // Register service worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
       }
-    }
-  };
-
-  const handleDeleteAssignment = async (id: string) => {
-    if (window.confirm('هل أنت متأكد من حذف هذا التكليف؟')) {
-      try {
-        await levelAssignmentsApi.delete(id);
-        loadData();
-      } catch (error) {
-        console.error('Error deleting assignment:', error);
-      }
-    }
-  };
-
-  const handleAddNew = () => {
-    setEditingItem(null);
-    if (activeTab === 'users') setShowUserForm(true);
-    else setShowAssignmentForm(true);
-  };
-
-  const filteredUsers = users.filter(user => 
-    !selectedRole || user.role === selectedRole
-  );
-
-  const filteredAssignments = assignments.filter(assignment => 
-    !selectedYear || assignment.academicYear === selectedYear
-  );
-
-  if (loading) {
-    return (
-      <div className="space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <div className="w-8 h-8 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-gray-600 font-cairo">جاري تحميل إدارة المستخدمين...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="space-y-4 sm:space-y-6">
-      {/* Header */}
-      <UserManagementHeader 
-        activeTab={activeTab}
-        onAddNew={handleAddNew}
-      />
-
-      {/* Tabs */}
-      <UserManagementTabs 
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
-
-      {/* Filters */}
-      <UserManagementFilters
-        activeTab={activeTab}
-        selectedRole={selectedRole}
-        selectedYear={selectedYear}
-        academicYears={academicYears}
-        onRoleChange={setSelectedRole}
-        onYearChange={setSelectedYear}
-      />
-
-      {/* Content */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
-        {activeTab === 'users' ? (
-          <UsersTab
-            users={filteredUsers}
-            levels={levels}
-            onEdit={(user) => {
-              setEditingItem(user);
-              setShowUserForm(true);
-            }}
-            onDelete={handleDeleteUser}
-          />
-        ) : (
-          <AssignmentsTab
-            assignments={filteredAssignments}
-            users={users}
-            levels={levels}
-            onEdit={(assignment) => {
-              setEditingItem(assignment);
-              setShowAssignmentForm(true);
-            }}
-            onDelete={handleDeleteAssignment}
-          />
-        )}
-      </div>
-
-      {/* Modals */}
-      {showUserForm && (
-        <UserForm
-          user={editingItem}
-          users={users}
-          onClose={() => {
-            setShowUserForm(false);
-            setEditingItem(null);
-          }}
-          onSave={() => {
-            setShowUserForm(false);
-            setEditingItem(null);
-            loadData();
-          }}
-        />
-      )}
-
-      {showAssignmentForm && (
-        <LevelAssignmentForm
-          assignment={editingItem}
-          users={users.filter(u => u.role === 'deacon')}
-          levels={levels}
-          academicYears={academicYears}
-          onClose={() => {
-            setShowAssignmentForm(false);
-            setEditingItem(null);
-          }}
-          onSave={() => {
-            setShowAssignmentForm(false);
-            setEditingItem(null);
-            loadData();
-          }}
-        />
-      )}
-    </div>
-  );
-};
-
-export default UserManagement;
+      
+      // Handle PWA install prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show custom install button if needed
+        const installButton = document.getElementById('pwa-install-btn');
+        if (installButton) {
+          installButton.style.display = 'block';
+          installButton.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+              }
+              deferredPrompt = null;
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
