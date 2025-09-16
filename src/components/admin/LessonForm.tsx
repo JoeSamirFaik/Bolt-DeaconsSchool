@@ -1,7 +1,59 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import { XMarkIcon, DocumentTextIcon, PhotoIcon, VideoCameraIcon, BookOpenIcon } from '@heroicons/react/24/outline';
 import { Lesson, Subject, CreateLessonRequest, UpdateLessonRequest, LessonContent } from '../../types/lms';
 import { lessonsApi } from '../../services/lmsApi';
+
+const customSelectStyles = {
+  control: (provided: any, state: any) => ({
+    ...provided,
+    minHeight: '48px',
+    border: state.isFocused ? '2px solid #f59e0b' : '1px solid #d1d5db',
+    borderRadius: '12px',
+    boxShadow: state.isFocused ? '0 0 0 3px rgba(245, 158, 11, 0.1)' : 'none',
+    '&:hover': {
+      borderColor: '#f59e0b'
+    },
+    fontSize: '14px',
+    fontFamily: 'Cairo, sans-serif'
+  }),
+  option: (provided: any, state: any) => ({
+    ...provided,
+    backgroundColor: state.isSelected 
+      ? '#f59e0b' 
+      : state.isFocused 
+        ? '#fef3c7' 
+        : 'white',
+    color: state.isSelected ? 'white' : '#374151',
+    padding: '12px 16px',
+    fontSize: '14px',
+    fontFamily: 'Cairo, sans-serif',
+    textAlign: 'right',
+    '&:hover': {
+      backgroundColor: state.isSelected ? '#f59e0b' : '#fef3c7'
+    }
+  }),
+  placeholder: (provided: any) => ({
+    ...provided,
+    color: '#9ca3af',
+    fontSize: '14px',
+    fontFamily: 'Cairo, sans-serif',
+    textAlign: 'right'
+  }),
+  singleValue: (provided: any) => ({
+    ...provided,
+    color: '#374151',
+    fontSize: '14px',
+    fontFamily: 'Cairo, sans-serif',
+    textAlign: 'right'
+  }),
+  menu: (provided: any) => ({
+    ...provided,
+    borderRadius: '12px',
+    border: '1px solid #e5e7eb',
+    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+  })
+};
 
 interface LessonFormProps {
   lesson?: Lesson | null;
