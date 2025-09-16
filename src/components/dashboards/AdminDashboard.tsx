@@ -40,27 +40,27 @@ const AdminDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center space-x-4 space-x-reverse">
-          <div className="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center">
-            <span className="text-2xl text-white">👑</span>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div className="flex items-center space-x-6 space-x-reverse">
+          <div className="w-20 h-20 bg-gradient-to-br from-red-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <span className="text-3xl text-white">👑</span>
           </div>
           <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">
+            <h1 className="text-3xl font-bold text-gray-900 font-cairo mb-2">
               المدير {user?.firstName}!
             </h1>
-            <p className="text-gray-600 font-cairo">
+            <p className="text-gray-600 font-cairo text-lg mb-3">
               أنت تصنع السحر للجميع!
             </p>
-            <div className="flex items-center space-x-4 space-x-reverse mt-2 text-sm text-gray-500">
-              <span className="flex items-center space-x-1 space-x-reverse">
-                <span>قائد النظام</span>
+            <div className="flex items-center space-x-6 space-x-reverse text-sm text-gray-500">
+              <span className="flex items-center space-x-2 space-x-reverse bg-red-50 px-3 py-1 rounded-full">
+                <span className="font-cairo">قائد النظام</span>
                 <span>🚀</span>
               </span>
-              <span className="flex items-center space-x-1 space-x-reverse">
-                <span>تحقيق الأحلام</span>
+              <span className="flex items-center space-x-2 space-x-reverse bg-yellow-50 px-3 py-1 rounded-full">
+                <span className="font-cairo">تحقيق الأحلام</span>
                 <span>🌟</span>
               </span>
             </div>
@@ -73,13 +73,13 @@ const AdminDashboard: React.FC = () => {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className={`w-12 h-12 rounded-lg ${stat.bgColor} flex items-center justify-center`}>
-                  <Icon className={`w-6 h-6 ${stat.color}`} />
+            <div key={index} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between mb-4">
+                <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} flex items-center justify-center`}>
+                  <Icon className={`w-7 h-7 ${stat.color}`} />
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold text-gray-900 font-cairo">{stat.value}</p>
+                  <p className="text-2xl font-bold text-gray-900 font-cairo mb-1">{stat.value}</p>
                   <p className="text-sm font-medium text-gray-600 font-cairo">{stat.label}</p>
                 </div>
               </div>
@@ -89,28 +89,28 @@ const AdminDashboard: React.FC = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Users by Role */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">المجتمع</h2>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">المجتمع</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {usersByRole.map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <div className="flex items-center space-x-2 space-x-reverse">
-                    <span className="text-lg font-bold text-gray-700">{item.count}</span>
+                <div key={index} className="flex items-center justify-between p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                  <div className="flex items-center space-x-3 space-x-reverse">
+                    <span className="text-xl font-bold text-gray-700">{item.count}</span>
                     {item.growth !== '0' && (
-                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">
+                      <span className="text-xs bg-green-100 text-green-800 px-3 py-1 rounded-full font-medium">
                         {item.growth}
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center space-x-3 space-x-reverse">
-                    <span className="font-medium text-gray-900 font-cairo">{item.role}</span>
-                    <div className={`w-10 h-10 rounded-lg ${item.color} flex items-center justify-center`}>
-                      <span className="text-lg">{item.icon}</span>
+                  <div className="flex items-center space-x-4 space-x-reverse">
+                    <span className="font-semibold text-gray-900 font-cairo text-lg">{item.role}</span>
+                    <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center`}>
+                      <span className="text-xl">{item.icon}</span>
                     </div>
                   </div>
                 </div>
@@ -120,18 +120,18 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Recent Activities */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">الأنشطة الأخيرة</h2>
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">الأنشطة الأخيرة</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {recentActivities.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-4 space-x-reverse p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div key={index} className="flex items-start space-x-6 space-x-reverse p-6 bg-gray-50 rounded-2xl border border-gray-100">
                   <div className="flex-1 text-right">
-                    <p className="text-sm font-medium text-gray-900 font-cairo">{activity.activity}</p>
-                    <div className="flex items-center space-x-2 space-x-reverse mt-1 justify-end">
-                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    <p className="text-sm font-semibold text-gray-900 font-cairo mb-2">{activity.activity}</p>
+                    <div className="flex items-center space-x-3 space-x-reverse justify-end">
+                      <span className={`px-3 py-1 text-xs font-medium rounded-full ${
                         activity.priority === 'high' ? 'bg-red-100 text-red-800' :
                         activity.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                         'bg-green-100 text-green-800'
@@ -141,13 +141,13 @@ const AdminDashboard: React.FC = () => {
                       <p className="text-xs text-gray-500 font-cairo">{activity.time}</p>
                     </div>
                   </div>
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center shadow-sm ${
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm ${
                     activity.type === 'content' ? 'bg-blue-100' :
                     activity.type === 'users' ? 'bg-green-100' :
                     activity.type === 'system' ? 'bg-purple-100' : 
                     'bg-orange-100'
                   }`}>
-                    <span className="text-lg">{activity.icon}</span>
+                    <span className="text-xl">{activity.icon}</span>
                   </div>
                 </div>
               ))}
@@ -157,33 +157,33 @@ const AdminDashboard: React.FC = () => {
       </div>
 
       {/* System Alerts & Quick Management */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">تحديثات النظام</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">تحديثات النظام</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {systemAlerts.map((alert, index) => (
                 <div
                   key={index}
-                  className={`p-4 rounded-lg border-2 ${
+                  className={`p-6 rounded-2xl border-2 ${
                     alert.type === 'warning' ? 'bg-yellow-50 border-yellow-200' :
                     alert.type === 'info' ? 'bg-blue-50 border-blue-200' :
                     'bg-green-50 border-green-200'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    <span className={`px-3 py-1 text-xs font-medium rounded-full ${
                       alert.priority === 'high' ? 'bg-red-100 text-red-800' :
                       alert.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                       'bg-green-100 text-green-800'
                     }`}>
                       {alert.priority === 'high' ? 'عالي' : alert.priority === 'medium' ? 'متوسط' : 'منخفض'}
                     </span>
-                    <div className="flex items-center space-x-3 space-x-reverse">
-                      <p className="text-sm font-medium text-gray-900 font-cairo">{alert.message}</p>
-                      <span className="text-lg">{alert.icon}</span>
+                    <div className="flex items-center space-x-4 space-x-reverse">
+                      <p className="text-sm font-semibold text-gray-900 font-cairo">{alert.message}</p>
+                      <span className="text-xl">{alert.icon}</span>
                     </div>
                   </div>
                 </div>
@@ -192,24 +192,24 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">الإجراءات السريعة</h2>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">الإجراءات السريعة</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {quickManagementActions.map((action, index) => (
                 <button
                   key={index}
-                  className={`w-full text-right p-4 border-2 rounded-lg transition-all ${action.color}`}
+                  className={`w-full text-right p-6 border-2 rounded-2xl transition-all ${action.color}`}
                 >
-                  <div className="flex items-center space-x-3 space-x-reverse">
+                  <div className="flex items-center space-x-4 space-x-reverse">
                     <div>
-                      <h3 className="font-medium text-gray-900 font-cairo">{action.title}</h3>
+                      <h3 className="font-semibold text-gray-900 font-cairo text-lg mb-1">{action.title}</h3>
                       <p className="text-sm text-gray-600 font-cairo">{action.description}</p>
                     </div>
-                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm">
-                      <span className="text-lg">{action.icon}</span>
+                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+                      <span className="text-xl">{action.icon}</span>
                     </div>
                   </div>
                 </button>
@@ -220,33 +220,33 @@ const AdminDashboard: React.FC = () => {
       </div>
 
       {/* Usage Analytics */}
-      <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl shadow-sm text-white p-6">
+      <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl shadow-lg text-white p-8">
         <div className="text-right">
-          <h2 className="text-xl font-bold mb-6 font-cairo">التأثير (آخر 30 يوماً)</h2>
+          <h2 className="text-2xl font-bold mb-8 font-cairo">التأثير (آخر 30 يوماً)</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center p-4 bg-white/20 rounded-lg">
-              <div className="text-3xl font-bold mb-2">1,245</div>
-              <div className="text-sm opacity-90 font-cairo">الدروس المكتملة</div>
-              <div className="text-xs opacity-70 mt-1 font-cairo">+15% من الشهر الماضي</div>
+            <div className="text-center p-6 bg-white/20 rounded-2xl">
+              <div className="text-4xl font-bold mb-3">1,245</div>
+              <div className="text-sm opacity-90 font-cairo mb-2">الدروس المكتملة</div>
+              <div className="text-xs opacity-70 font-cairo">+15% من الشهر الماضي</div>
             </div>
-            <div className="text-center p-4 bg-white/20 rounded-lg">
-              <div className="text-3xl font-bold mb-2">892</div>
-              <div className="text-sm opacity-90 font-cairo">الاختبارات</div>
-              <div className="text-xs opacity-70 mt-1 font-cairo">+22% من الشهر الماضي</div>
+            <div className="text-center p-6 bg-white/20 rounded-2xl">
+              <div className="text-4xl font-bold mb-3">892</div>
+              <div className="text-sm opacity-90 font-cairo mb-2">الاختبارات</div>
+              <div className="text-xs opacity-70 font-cairo">+22% من الشهر الماضي</div>
             </div>
-            <div className="text-center p-4 bg-white/20 rounded-lg">
-              <div className="text-3xl font-bold mb-2">15.2k</div>
-              <div className="text-sm opacity-90 font-cairo">مشاهدات الصفحة</div>
-              <div className="text-xs opacity-70 mt-1 font-cairo">+8% من الشهر الماضي</div>
+            <div className="text-center p-6 bg-white/20 rounded-2xl">
+              <div className="text-4xl font-bold mb-3">15.2k</div>
+              <div className="text-sm opacity-90 font-cairo mb-2">مشاهدات الصفحة</div>
+              <div className="text-xs opacity-70 font-cairo">+8% من الشهر الماضي</div>
             </div>
-            <div className="text-center p-4 bg-white/20 rounded-lg">
-              <div className="text-3xl font-bold mb-2">98.5%</div>
-              <div className="text-sm opacity-90 font-cairo">وقت تشغيل النظام</div>
-              <div className="text-xs opacity-70 mt-1 font-cairo">موثوق دائماً!</div>
+            <div className="text-center p-6 bg-white/20 rounded-2xl">
+              <div className="text-4xl font-bold mb-3">98.5%</div>
+              <div className="text-sm opacity-90 font-cairo mb-2">وقت تشغيل النظام</div>
+              <div className="text-xs opacity-70 font-cairo">موثوق دائماً!</div>
             </div>
           </div>
-          <div className="mt-6 p-4 bg-white/20 rounded-lg">
-            <p className="text-center font-cairo">
+          <div className="mt-8 p-6 bg-white/20 rounded-2xl">
+            <p className="text-center font-cairo text-lg leading-relaxed">
               "أنت تخلق بيئة تعليمية مذهلة تغير حياة الشباب كل يوم! استمر في العمل الرائع!"
             </p>
           </div>

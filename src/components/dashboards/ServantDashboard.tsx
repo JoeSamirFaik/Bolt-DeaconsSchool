@@ -33,27 +33,27 @@ const ServantDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center space-x-4 space-x-reverse">
-          <div className="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center">
-            <span className="text-2xl text-white">👨‍🏫</span>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div className="flex items-center space-x-6 space-x-reverse">
+          <div className="w-20 h-20 bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <span className="text-3xl text-white">👨‍🏫</span>
           </div>
           <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">
+            <h1 className="text-3xl font-bold text-gray-900 font-cairo mb-2">
               أهلاً أستاذ {user?.firstName}!
             </h1>
-            <p className="text-gray-600 font-cairo">
+            <p className="text-gray-600 font-cairo text-lg mb-3">
               مستعد لإلهام القلوب الصغيرة اليوم؟
             </p>
-            <div className="flex items-center space-x-4 space-x-reverse mt-2 text-sm text-gray-500">
-              <span className="flex items-center space-x-1 space-x-reverse">
-                <span>24 شماس رائع</span>
+            <div className="flex items-center space-x-6 space-x-reverse text-sm text-gray-500">
+              <span className="flex items-center space-x-2 space-x-reverse bg-green-50 px-3 py-1 rounded-full">
+                <span className="font-cairo">24 شماس رائع</span>
                 <span>🎓</span>
               </span>
-              <span className="flex items-center space-x-1 space-x-reverse">
-                <span>إحداث فرق</span>
+              <span className="flex items-center space-x-2 space-x-reverse bg-red-50 px-3 py-1 rounded-full">
+                <span className="font-cairo">إحداث فرق</span>
                 <span>❤️</span>
               </span>
             </div>
@@ -66,13 +66,13 @@ const ServantDashboard: React.FC = () => {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-3">
-                <div className={`w-12 h-12 rounded-lg ${stat.bgColor} flex items-center justify-center`}>
-                  <Icon className={`w-6 h-6 ${stat.color}`} />
+            <div key={index} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between mb-4">
+                <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} flex items-center justify-center`}>
+                  <Icon className={`w-7 h-7 ${stat.color}`} />
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold text-gray-900 font-cairo">{stat.value}</p>
+                  <p className="text-2xl font-bold text-gray-900 font-cairo mb-1">{stat.value}</p>
                   <p className="text-sm font-medium text-gray-600 font-cairo">{stat.label}</p>
                 </div>
               </div>
@@ -82,24 +82,24 @@ const ServantDashboard: React.FC = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Student Attendance */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
             <div className="flex items-center justify-between">
-              <button className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors font-cairo">
+              <button className="bg-green-600 text-white px-6 py-3 rounded-xl text-sm font-medium hover:bg-green-700 transition-colors font-cairo">
                 تسجيل الحضور
               </button>
-              <h2 className="text-xl font-bold text-gray-900 font-cairo">الشمامسة</h2>
+              <h2 className="text-2xl font-bold text-gray-900 font-cairo">الشمامسة</h2>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {recentAttendance.map((student, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <div className="flex items-center space-x-3 space-x-reverse">
+                <div key={index} className="flex items-center justify-between p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                  <div className="flex items-center space-x-4 space-x-reverse">
                     <span className="text-sm text-gray-500 font-cairo">{student.lastSeen}</span>
-                    <span className={`px-3 py-1 text-xs font-medium rounded-full ${
+                    <span className={`px-4 py-2 text-xs font-medium rounded-full ${
                       student.status === 'present' ? 'bg-green-100 text-green-800' :
                       student.status === 'late' ? 'bg-yellow-100 text-yellow-800' :
                       'bg-red-100 text-red-800'
@@ -108,13 +108,13 @@ const ServantDashboard: React.FC = () => {
                        student.status === 'late' ? 'متأخر' : 'غائب'}
                     </span>
                   </div>
-                  <div className="flex items-center space-x-4 space-x-reverse">
+                  <div className="flex items-center space-x-6 space-x-reverse">
                     <div className="text-right">
-                      <h3 className="font-medium text-gray-900 font-cairo">{student.name}</h3>
+                      <h3 className="font-semibold text-gray-900 font-cairo text-lg mb-1">{student.name}</h3>
                       <p className="text-sm text-gray-600 font-cairo">{student.stage} - المستوى {student.level}</p>
                     </div>
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <span className="text-lg">{student.avatar}</span>
+                    <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center">
+                      <span className="text-2xl">{student.avatar}</span>
                     </div>
                   </div>
                 </div>
@@ -124,24 +124,24 @@ const ServantDashboard: React.FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">الإجراءات السريعة</h2>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">الإجراءات السريعة</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {quickActions.map((action, index) => (
                 <button
                   key={index}
-                  className={`w-full text-right p-4 border-2 rounded-lg transition-all ${action.color}`}
+                  className={`w-full text-right p-6 border-2 rounded-2xl transition-all ${action.color}`}
                 >
-                  <div className="flex items-center space-x-3 space-x-reverse">
+                  <div className="flex items-center space-x-4 space-x-reverse">
                     <div>
-                      <h3 className="font-medium text-gray-900 font-cairo">{action.title}</h3>
+                      <h3 className="font-semibold text-gray-900 font-cairo text-lg mb-1">{action.title}</h3>
                       <p className="text-sm text-gray-600 font-cairo">{action.description}</p>
                     </div>
-                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm">
-                      <span className="text-lg">{action.icon}</span>
+                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+                      <span className="text-xl">{action.icon}</span>
                     </div>
                   </div>
                 </button>
@@ -152,21 +152,21 @@ const ServantDashboard: React.FC = () => {
       </div>
 
       {/* Student Highlights & Weekly Stats */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">إنجازات الطلاب</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">إنجازات الطلاب</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {studentHighlights.map((highlight, index) => (
-                <div key={index} className={`p-4 rounded-lg border-2 ${highlight.color}`}>
-                  <div className="flex items-center space-x-3 space-x-reverse">
+                <div key={index} className={`p-6 rounded-2xl border-2 ${highlight.color}`}>
+                  <div className="flex items-center space-x-4 space-x-reverse">
                     <div className="text-right">
-                      <h3 className="font-medium text-gray-900 font-cairo">{highlight.name}</h3>
+                      <h3 className="font-semibold text-gray-900 font-cairo text-lg mb-1">{highlight.name}</h3>
                       <p className="text-sm text-gray-700 font-cairo">{highlight.achievement}</p>
                     </div>
-                    <span className="text-2xl">{highlight.icon}</span>
+                    <span className="text-3xl">{highlight.icon}</span>
                   </div>
                 </div>
               ))}
@@ -174,24 +174,24 @@ const ServantDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-600 to-blue-600 rounded-xl shadow-sm text-white p-6">
+        <div className="bg-gradient-to-br from-green-600 to-blue-600 rounded-2xl shadow-lg text-white p-8">
           <div className="text-right">
-            <h2 className="text-xl font-bold mb-6 font-cairo">تأثير هذا الأسبوع</h2>
-            <div className="space-y-4">
+            <h2 className="text-2xl font-bold mb-8 font-cairo">تأثير هذا الأسبوع</h2>
+            <div className="space-y-6">
               <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold">12</span>
-                <span className="font-medium font-cairo">الدروس المُدرَّسة</span>
+                <span className="text-3xl font-bold">12</span>
+                <span className="font-medium font-cairo text-lg">الدروس المُدرَّسة</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold">24</span>
-                <span className="font-medium font-cairo">الطلاب المساعدون</span>
+                <span className="text-3xl font-bold">24</span>
+                <span className="font-medium font-cairo text-lg">الطلاب المساعدون</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold">∞</span>
-                <span className="font-medium font-cairo">الابتسامات المُنشأة</span>
+                <span className="text-3xl font-bold">∞</span>
+                <span className="font-medium font-cairo text-lg">الابتسامات المُنشأة</span>
               </div>
-              <div className="mt-6 p-4 bg-white/20 rounded-lg">
-                <p className="text-sm font-cairo">
+              <div className="mt-8 p-6 bg-white/20 rounded-2xl">
+                <p className="text-sm font-cairo leading-relaxed">
                   "أنت تُحدث فرقاً حقيقياً في هذه الحياة الصغيرة! استمر في العمل الرائع!"
                 </p>
               </div>

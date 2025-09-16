@@ -34,19 +34,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-          <span className="text-2xl text-white">⛪</span>
+        <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+          <span className="text-3xl text-white">⛪</span>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2 font-cairo">
+        <h2 className="text-3xl font-bold text-gray-900 mb-3 font-cairo">
           تسجيل الدخول
         </h2>
-        <p className="text-gray-600 font-cairo">مرحباً بعودتك إلى مدرسة الشمامسة</p>
+        <p className="text-gray-600 font-cairo text-lg">مرحباً بعودتك إلى مدرسة الشمامسة</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
               البريد الإلكتروني
             </label>
             <input
@@ -55,13 +55,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
+              className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors"
               placeholder="your.email@example.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+            <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
               كلمة المرور
             </label>
             <div className="relative">
@@ -71,7 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo pl-12"
+                className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors pl-14"
                 placeholder="أدخل كلمة المرور"
               />
               <button
@@ -80,9 +80,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
                 className="absolute inset-y-0 left-0 px-4 flex items-center text-gray-400 hover:text-gray-600"
               >
                 {showPassword ? (
-                  <EyeSlashIcon className="h-5 w-5" />
+                  <EyeSlashIcon className="h-6 w-6" />
                 ) : (
-                  <EyeIcon className="h-5 w-5" />
+                  <EyeIcon className="h-6 w-6" />
                 )}
               </button>
             </div>
@@ -90,7 +90,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
         </div>
 
         {error && (
-          <div className="p-4 text-sm text-red-600 bg-red-50 rounded-lg border border-red-200 text-right font-cairo">
+          <div className="p-5 text-sm text-red-600 bg-red-50 rounded-2xl border border-red-200 text-right font-cairo">
             {error}
           </div>
         )}
@@ -98,27 +98,27 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium font-cairo"
+          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-2xl hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold font-cairo text-lg shadow-lg"
         >
           {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
         </button>
       </form>
 
       <div className="text-center">
-        <p className="text-sm text-gray-600 mb-4 font-cairo">
+        <p className="text-sm text-gray-600 mb-6 font-cairo">
           جديد هنا؟{' '}
           <button
             onClick={onSwitchToRegister}
-            className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
+            className="font-semibold text-blue-600 hover:text-blue-500 transition-colors"
           >
             إنشاء حساب جديد
           </button>
         </p>
       </div>
 
-      <div className="border-t border-gray-200 pt-6">
-        <h3 className="text-sm font-medium text-gray-700 mb-4 text-center font-cairo">حسابات تجريبية:</h3>
-        <div className="grid grid-cols-2 gap-3">
+      <div className="border-t border-gray-200 pt-8">
+        <h3 className="text-sm font-semibold text-gray-700 mb-6 text-center font-cairo">حسابات تجريبية:</h3>
+        <div className="grid grid-cols-2 gap-4">
           {demoCredentials.map((cred) => (
             <button
               key={cred.role}
@@ -126,14 +126,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
                 setEmail(cred.email);
                 setPassword('password');
               }}
-              className={`p-3 rounded-lg border-2 transition-all duration-200 ${cred.color}`}
+              className={`p-5 rounded-2xl border-2 transition-all duration-200 ${cred.color}`}
             >
-              <div className="flex items-center space-x-2 space-x-reverse justify-center mb-2">
-                <span className="font-medium text-gray-800 font-cairo">{cred.role}</span>
-                <span className="text-lg">{cred.icon}</span>
+              <div className="flex items-center space-x-3 space-x-reverse justify-center mb-3">
+                <span className="font-semibold text-gray-800 font-cairo text-lg">{cred.role}</span>
+                <span className="text-2xl">{cred.icon}</span>
               </div>
               <div className="text-xs text-gray-600 font-cairo">
-                <div className="truncate">{cred.email}</div>
+                <div className="truncate mb-1">{cred.email}</div>
                 <div className="text-gray-500">password</div>
               </div>
             </button>

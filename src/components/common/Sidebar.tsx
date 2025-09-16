@@ -75,15 +75,15 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
   const menuItems = getMenuItems();
 
   return (
-    <div className="h-full flex flex-col bg-white border-r border-gray-200">
+    <div className="h-full flex flex-col bg-white border-r border-gray-100 shadow-sm">
       {/* Header */}
-      <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center space-x-3 space-x-reverse">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-sm">
-            <span className="text-white text-lg">⛪</span>
+      <div className="p-8 border-b border-gray-100">
+        <div className="flex items-center space-x-4 space-x-reverse">
+          <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <span className="text-white text-xl">⛪</span>
           </div>
           <div className="text-right">
-            <h1 className="text-lg font-bold text-gray-900 font-cairo">مدرسة الشمامسة</h1>
+            <h1 className="text-xl font-bold text-gray-900 font-cairo">مدرسة الشمامسة</h1>
             <p className="text-sm text-gray-500 font-cairo">
               {user?.role === 'deacon' ? 'شماس' : 
                user?.role === 'servant' ? 'خادم' : 
@@ -94,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 px-4 py-6">
+      <div className="flex-1 px-6 py-8">
         <nav className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
@@ -106,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
                 onClick={() => onPageChange(item.id)}
                 className={`w-full group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                    ? 'bg-blue-50 text-blue-700 border border-blue-100 shadow-sm'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
@@ -122,9 +122,9 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
       </div>
 
       {/* User Profile */}
-      <div className="p-4 border-t border-gray-200">
-        <div className="flex items-center space-x-3 space-x-reverse mb-4 p-3 bg-gray-50 rounded-xl">
-          <div className="w-10 h-10 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
+      <div className="p-6 border-t border-gray-100">
+        <div className="flex items-center space-x-3 space-x-reverse mb-4 p-4 bg-gray-50 rounded-xl">
+          <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-700 rounded-xl flex items-center justify-center">
             <span className="text-white font-bold text-sm font-cairo">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </span>

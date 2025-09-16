@@ -36,73 +36,73 @@ const Layout: React.FC = () => {
         return <LMSManagement />;
       case 'lessons':
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📚</span>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">📚</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">الدروس</h3>
-              <p className="text-gray-600">قريباً...</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الدروس</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
             </div>
           </div>
         );
       case 'quizzes':
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🎯</span>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🎯</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">الاختبارات</h3>
-              <p className="text-gray-600">قريباً...</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الاختبارات</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
             </div>
           </div>
         );
       case 'calendar':
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📅</span>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">📅</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">التقويم</h3>
-              <p className="text-gray-600">قريباً...</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">التقويم</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
             </div>
           </div>
         );
       case 'notifications':
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🔔</span>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-yellow-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🔔</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">الإشعارات</h3>
-              <p className="text-gray-600">قريباً...</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">الإشعارات</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
             </div>
           </div>
         );
       case 'library':
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📖</span>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">📖</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">المكتبة</h3>
-              <p className="text-gray-600">قريباً...</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">المكتبة</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
             </div>
           </div>
         );
       default:
         return (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🚧</span>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚧</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{currentPage}</h3>
-              <p className="text-gray-600">قريباً...</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">{currentPage}</h3>
+              <p className="text-gray-500 font-cairo">قريباً...</p>
             </div>
           </div>
         );
@@ -110,7 +110,7 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div
@@ -120,19 +120,19 @@ const Layout: React.FC = () => {
       )}
       
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-72 transform ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-80 transform ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+      } transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex-shrink-0`}>
         <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
       </div>
       
       {/* Main content */}
-      <div className="lg:ml-72 flex-1">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Mobile header */}
-        <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 p-4 flex items-center">
+        <div className="lg:hidden bg-white shadow-sm border-b border-gray-100 p-4 flex items-center">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
           >
             <Bars3Icon className="h-6 w-6" />
           </button>
@@ -142,7 +142,7 @@ const Layout: React.FC = () => {
         </div>
         
         {/* Page content */}
-        <main className="p-6">
+        <main className="flex-1 p-8">
           {renderContent()}
         </main>
       </div>

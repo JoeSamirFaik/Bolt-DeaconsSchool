@@ -33,31 +33,31 @@ const DeaconDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center space-x-4 space-x-reverse">
-          <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center">
-            <span className="text-2xl text-white">👋</span>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div className="flex items-center space-x-6 space-x-reverse">
+          <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <span className="text-3xl text-white">👋</span>
           </div>
           <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">
+            <h1 className="text-3xl font-bold text-gray-900 font-cairo mb-2">
               أهلاً {user?.firstName}!
             </h1>
-            <p className="text-gray-600 font-cairo">
+            <p className="text-gray-600 font-cairo text-lg mb-3">
               مرحباً بك في رحلتك التعليمية
             </p>
-            <div className="flex items-center space-x-4 space-x-reverse mt-2 text-sm text-gray-500">
-              <span className="flex items-center space-x-1 space-x-reverse">
-                <span>المرحلة: {user?.stage}</span>
+            <div className="flex items-center space-x-6 space-x-reverse text-sm text-gray-500">
+              <span className="flex items-center space-x-2 space-x-reverse bg-blue-50 px-3 py-1 rounded-full">
+                <span className="font-cairo">المرحلة: {user?.stage}</span>
                 <span>🎓</span>
               </span>
-              <span className="flex items-center space-x-1 space-x-reverse">
-                <span>المستوى: {user?.level}</span>
+              <span className="flex items-center space-x-2 space-x-reverse bg-purple-50 px-3 py-1 rounded-full">
+                <span className="font-cairo">المستوى: {user?.level}</span>
                 <StarIcon className="w-4 h-4" />
               </span>
-              <span className="flex items-center space-x-1 space-x-reverse">
-                <span>سلسلة 5 أيام!</span>
+              <span className="flex items-center space-x-2 space-x-reverse bg-orange-50 px-3 py-1 rounded-full">
+                <span className="font-cairo">سلسلة 5 أيام!</span>
                 <FireIcon className="w-4 h-4 text-orange-500" />
               </span>
             </div>
@@ -70,19 +70,19 @@ const DeaconDashboard: React.FC = () => {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-4">
-                <div className={`w-12 h-12 rounded-lg ${stat.bgColor} flex items-center justify-center`}>
-                  <Icon className={`w-6 h-6 ${stat.color}`} />
+            <div key={index} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between mb-6">
+                <div className={`w-14 h-14 rounded-2xl ${stat.bgColor} flex items-center justify-center`}>
+                  <Icon className={`w-7 h-7 ${stat.color}`} />
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold text-gray-900 font-cairo">{stat.value}</p>
+                  <p className="text-2xl font-bold text-gray-900 font-cairo mb-1">{stat.value}</p>
                   <p className="text-sm font-medium text-gray-600 font-cairo">{stat.label}</p>
                 </div>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-100 rounded-full h-3">
                 <div
-                  className={`h-2 rounded-full bg-gradient-to-r ${stat.color.replace('text-', 'from-')} to-${stat.color.split('-')[1]}-400 transition-all duration-500`}
+                  className={`h-3 rounded-full bg-gradient-to-r ${stat.color.replace('text-', 'from-')} to-${stat.color.split('-')[1]}-400 transition-all duration-500`}
                   style={{ width: `${stat.percentage}%` }}
                 ></div>
               </div>
@@ -91,22 +91,22 @@ const DeaconDashboard: React.FC = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Recent Lessons */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">الدروس الأخيرة</h2>
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">الدروس الأخيرة</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {recentLessons.map((lesson) => (
-                <div key={lesson.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors">
-                  <div className={`w-3 h-3 rounded-full ${lesson.completed ? 'bg-green-500' : 'bg-orange-400'}`} />
-                  <div className="flex items-center space-x-4 space-x-reverse">
+                <div key={lesson.id} className="flex items-center justify-between p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:bg-gray-100 transition-colors">
+                  <div className={`w-4 h-4 rounded-full ${lesson.completed ? 'bg-green-500' : 'bg-orange-400'}`} />
+                  <div className="flex items-center space-x-6 space-x-reverse">
                     <div className="text-right">
-                      <h3 className="font-medium text-gray-900 font-cairo">{lesson.title}</h3>
-                      <div className="flex items-center space-x-3 space-x-reverse mt-1 justify-end">
-                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                      <h3 className="font-semibold text-gray-900 font-cairo text-lg mb-2">{lesson.title}</h3>
+                      <div className="flex items-center space-x-4 space-x-reverse justify-end">
+                        <span className={`text-xs px-3 py-1 rounded-full font-medium ${
                           lesson.difficulty === 'سهل' ? 'bg-green-100 text-green-800' :
                           lesson.difficulty === 'متوسط' ? 'bg-yellow-100 text-yellow-800' :
                           'bg-red-100 text-red-800'
@@ -114,18 +114,18 @@ const DeaconDashboard: React.FC = () => {
                           {lesson.difficulty}
                         </span>
                         {lesson.completed ? (
-                          <span className="text-sm text-green-600 font-medium">
+                          <span className="text-sm text-green-600 font-semibold">
                             ✅ {lesson.score}%
                           </span>
                         ) : (
-                          <span className="text-sm text-orange-600 font-medium">
+                          <span className="text-sm text-orange-600 font-semibold">
                             ⏳ جاري التعلم
                           </span>
                         )}
                       </div>
                     </div>
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <span className="text-lg">{lesson.icon}</span>
+                    <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center">
+                      <span className="text-2xl">{lesson.icon}</span>
                     </div>
                   </div>
                 </div>
@@ -135,34 +135,34 @@ const DeaconDashboard: React.FC = () => {
         </div>
 
         {/* Achievements */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">الإنجازات</h2>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">الإنجازات</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {achievements.map((achievement, index) => (
-                <div key={index} className={`p-4 rounded-lg border-2 transition-all ${
+                <div key={index} className={`p-6 rounded-2xl border-2 transition-all ${
                   achievement.earned 
                     ? 'bg-yellow-50 border-yellow-200' 
                     : 'bg-gray-50 border-gray-200'
                 }`}>
-                  <div className="flex items-center space-x-3 space-x-reverse">
+                  <div className="flex items-center space-x-4 space-x-reverse">
                     {achievement.earned && (
-                      <StarIcon className="w-5 h-5 text-yellow-500 fill-current" />
+                      <StarIcon className="w-6 h-6 text-yellow-500 fill-current" />
                     )}
                     <div className="flex-1 text-right">
-                      <h3 className={`font-medium ${achievement.earned ? 'text-yellow-800' : 'text-gray-600'} font-cairo`}>
+                      <h3 className={`font-semibold ${achievement.earned ? 'text-yellow-800' : 'text-gray-600'} font-cairo mb-1`}>
                         {achievement.title}
                       </h3>
                       <p className={`text-sm ${achievement.earned ? 'text-yellow-600' : 'text-gray-500'} font-cairo`}>
                         {achievement.description}
                       </p>
                     </div>
-                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
                       achievement.earned ? 'bg-yellow-100' : 'bg-gray-200'
                     }`}>
-                      <span className="text-lg">{achievement.icon}</span>
+                      <span className="text-xl">{achievement.icon}</span>
                     </div>
                   </div>
                 </div>
@@ -173,21 +173,21 @@ const DeaconDashboard: React.FC = () => {
       </div>
 
       {/* Upcoming Events & Daily Verse */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900 text-right font-cairo">الأحداث القادمة</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+          <div className="p-8 border-b border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 text-right font-cairo">الأحداث القادمة</h2>
           </div>
-          <div className="p-6">
+          <div className="p-8">
             <div className="space-y-4">
               {upcomingEvents.map((event) => (
-                <div key={event.id} className="flex items-center space-x-4 space-x-reverse p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div key={event.id} className="flex items-center space-x-6 space-x-reverse p-6 bg-blue-50 rounded-2xl border border-blue-100">
                   <div className="flex-1 text-right">
-                    <h3 className="font-medium text-gray-900 font-cairo">{event.title}</h3>
+                    <h3 className="font-semibold text-gray-900 font-cairo text-lg mb-1">{event.title}</h3>
                     <p className="text-sm text-blue-600 font-cairo">{event.date}</p>
                   </div>
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <span className="text-lg">{event.icon}</span>
+                  <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
+                    <span className="text-2xl">{event.icon}</span>
                   </div>
                 </div>
               ))}
@@ -195,18 +195,18 @@ const DeaconDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl shadow-sm text-white p-6">
+        <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl shadow-lg text-white p-8">
           <div className="text-right">
-            <h2 className="text-xl font-bold mb-4 font-cairo">الآية اليومية</h2>
-            <blockquote className="text-lg leading-relaxed mb-4 font-cairo">
+            <h2 className="text-2xl font-bold mb-6 font-cairo">الآية اليومية</h2>
+            <blockquote className="text-xl leading-relaxed mb-6 font-cairo">
               "لأني عرفت الأفكار التي أنا مفتكر بها عنكم، يقول الرب، أفكار سلام لا شر، لأعطيكم آخرة ورجاء."
             </blockquote>
-            <p className="text-blue-100 font-cairo">— إرميا 29:11</p>
-            <div className="mt-4 flex space-x-2 space-x-reverse justify-end">
-              <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-colors font-cairo">
+            <p className="text-blue-100 font-cairo text-lg mb-6">— إرميا 29:11</p>
+            <div className="flex space-x-3 space-x-reverse justify-end">
+              <button className="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-xl text-sm font-medium transition-colors font-cairo">
                 مشاركة
               </button>
-              <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-colors font-cairo">
+              <button className="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-xl text-sm font-medium transition-colors font-cairo">
                 حفظ
               </button>
             </div>

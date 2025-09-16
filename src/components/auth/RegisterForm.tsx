@@ -59,53 +59,60 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
   const customSelectStyles = {
     control: (provided: any) => ({
       ...provided,
-      minHeight: '48px',
-      border: '1px solid #d1d5db',
-      borderRadius: '8px',
-      fontSize: '16px',
+      minHeight: '56px',
+      border: '1px solid #e5e7eb',
+      borderRadius: '16px',
+      fontSize: '18px',
       fontFamily: 'Cairo, sans-serif',
+      backgroundColor: '#f9fafb',
       '&:hover': {
-        borderColor: '#9ca3af'
+        borderColor: '#d1d5db',
+        backgroundColor: 'white'
       },
       '&:focus-within': {
         borderColor: '#3b82f6',
-        boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.1)'
+        boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.1)',
+        backgroundColor: 'white'
       }
     }),
     option: (provided: any, state: any) => ({
       ...provided,
       fontFamily: 'Cairo, sans-serif',
       textAlign: 'right',
+      fontSize: '16px',
+      padding: '12px 16px',
       backgroundColor: state.isSelected ? '#3b82f6' : state.isFocused ? '#f3f4f6' : 'white',
       color: state.isSelected ? 'white' : '#374151'
     }),
     singleValue: (provided: any) => ({
       ...provided,
       fontFamily: 'Cairo, sans-serif',
-      textAlign: 'right'
+      textAlign: 'right',
+      fontSize: '18px'
     }),
     placeholder: (provided: any) => ({
       ...provided,
       fontFamily: 'Cairo, sans-serif',
       textAlign: 'right',
-      color: '#9ca3af'
+      color: '#9ca3af',
+      fontSize: '18px'
     })
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="text-center">
-        <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-          <span className="text-2xl text-white">⛪</span>
+        <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+          <span className="text-3xl text-white">⛪</span>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2 font-cairo">إنشاء حساب جديد</h2>
-        <p className="text-gray-600 font-cairo">انضم إلى مجتمع مدرسة الشمامسة</p>
+        <h2 className="text-3xl font-bold text-gray-900 mb-3 font-cairo">إنشاء حساب جديد</h2>
+        <p className="text-gray-600 font-cairo text-lg">انضم إلى مجتمع مدرسة الشمامسة</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-2 gap-5">
           <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+            <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
               الاسم الأول
             </label>
             <input
@@ -115,12 +122,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               required
               value={formData.firstName}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
+              className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors"
               placeholder="الاسم الأول"
             />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+            <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
               اسم العائلة
             </label>
             <input
@@ -130,14 +137,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               required
               value={formData.lastName}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
+              className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors"
               placeholder="اسم العائلة"
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+          <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
             البريد الإلكتروني
           </label>
           <input
@@ -147,13 +154,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo"
+            className="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo text-lg bg-gray-50 hover:bg-white transition-colors"
             placeholder="your.email@example.com"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+          <label className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
             الدور
           </label>
           <Select
@@ -168,18 +175,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
             placeholder="اختر الدور"
             isSearchable={false}
             formatOptionLabel={(option) => (
-              <div className="flex items-center space-x-2 space-x-reverse justify-end">
+              <div className="flex items-center space-x-3 space-x-reverse justify-end">
                 <span>{option.label}</span>
-                <span>{option.icon}</span>
+                <span className="text-xl">{option.icon}</span>
               </div>
             )}
           />
         </div>
 
         {formData.role === 'deacon' && (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+              <label className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
                 المرحلة
               </label>
               <Select
@@ -196,7 +203,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+              <label className="block text-sm font-semibold text-gray-700 mb-3 text-right font-cairo">
                 المستوى
               </label>
               <Select
@@ -216,7 +223,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
         )}
 
         {error && (
-          <div className="p-4 text-sm text-red-600 bg-red-50 rounded-lg border border-red-200 text-right font-cairo">
+          <div className="p-5 text-sm text-red-600 bg-red-50 rounded-2xl border border-red-200 text-right font-cairo">
             {error}
           </div>
         )}
@@ -224,7 +231,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium font-cairo"
+          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-2xl hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold font-cairo text-lg shadow-lg"
         >
           {loading ? 'جاري إنشاء الحساب...' : 'إنشاء حساب'}
         </button>
@@ -235,7 +242,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
           لديك حساب بالفعل؟{' '}
           <button
             onClick={onSwitchToLogin}
-            className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
+            className="font-semibold text-blue-600 hover:text-blue-500 transition-colors"
           >
             تسجيل الدخول
           </button>
