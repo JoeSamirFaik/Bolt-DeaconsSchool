@@ -42,8 +42,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
         return [
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
+          { id: 'deacon-parent-mgmt', icon: UsersIcon, label: 'الشمامسة وأولياء الأمور' },
           { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور' },
-          { id: 'deacons', icon: UsersIcon, label: 'الشمامسة' },
           { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
         ];
