@@ -109,9 +109,9 @@ const AttendanceManagement: React.FC = () => {
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
-                <CalendarIcon className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد جلسات</h3>
-                <p className="text-gray-500 font-cairo text-sm sm:text-base">لم يتم إضافة أي جلسات بعد</p>
+      setLoading(false);
+    }
+  };
 
   const handleDeleteSession = async (id: string) => {
     if (window.confirm('هل أنت متأكد من حذف هذه الجلسة؟')) {
@@ -120,57 +120,7 @@ const AttendanceManagement: React.FC = () => {
         loadData();
       } catch (error) {
         console.error('Error deleting session:', error);
-            {/* Mobile: List View */}
-            <div className="block sm:hidden space-y-4">
-              {filteredAttendanceSessions.map((attendanceSession) => {
-                const session = sessions.find(s => s.id === attendanceSession.sessionId);
-                const attendanceRate = attendanceSession.totalExpected > 0 
-                  ? Math.round((attendanceSession.attendanceCount / attendanceSession.totalExpected) * 100)
-                  : 0;
-                
-                return (
-                  <div key={attendanceSession.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
-                        <UsersIcon className="w-5 h-5 text-amber-600" />
-                      </div>
-                      <div className="text-right flex-1 mr-3">
-                        <div className="flex items-center space-x-2 space-x-reverse mb-2">
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${getAttendanceStatusColor(attendanceSession.status)}`}>
-                            {attendanceSession.status === 'completed' ? 'مكتمل' :
-                             attendanceSession.status === 'in_progress' ? 'جاري' :
-                             attendanceSession.status === 'scheduled' ? 'مجدول' : 'ملغي'}
-                          </span>
-                          <span className="text-sm text-gray-500 font-cairo">{attendanceSession.date}</span>
-                        </div>
-                        <h3 className="text-base font-semibold text-gray-900 font-cairo mb-1">
-                          {session?.name}
-                        </h3>
-                        <p className="text-gray-600 text-sm font-cairo">
-                          {attendanceSession.startTime} - {attendanceSession.endTime}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-green-50 rounded-lg p-3 text-center">
-                        <div className="text-lg font-bold text-green-600">{attendanceRate}%</div>
-                        <div className="text-xs text-gray-600 font-cairo">نسبة الحضور</div>
-                      </div>
-                      <div className="bg-blue-50 rounded-lg p-3 text-center">
-                        <div className="text-lg font-bold text-blue-600">
-                          {attendanceSession.attendanceCount}/{attendanceSession.totalExpected}
-                        </div>
-                        <div className="text-xs text-gray-600 font-cairo">الحضور</div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            
-            {/* Desktop: Original Layout */}
-            <div className="hidden sm:block space-y-4">
+      }
     }
   };
 
@@ -222,18 +172,13 @@ const AttendanceManagement: React.FC = () => {
     if (selectedDate && session.date !== selectedDate) return false;
     return true;
   });
-            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-3 py-2 sm:px-6 sm:py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
+
   if (loading) {
-            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="hidden sm:inline">إضافة جلسة</span>
-            <span className="sm:hidden">إضافة</span>
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-                <UsersIcon className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد سجلات حضور</h3>
-                <p className="text-gray-500 font-cairo text-sm sm:text-base">لم يتم تسجيل أي حضور بعد</p>
-              <p className="text-gray-600 font-cairo">جاري تحميل إدارة الحضور...</p>
-          <h1 className="text-lg sm:text-2xl font-bold text-gray-900 font-cairo">إدارة الحضور</h1>
-          <p className="text-gray-600 font-cairo text-sm sm:text-base hidden sm:block">إدارة الجلسات والفعاليات وتسجيل الحضور</p>
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 font-cairo">جاري تحميل إدارة الحضور...</p>
         </div>
       </div>
     );
@@ -241,7 +186,6 @@ const AttendanceManagement: React.FC = () => {
 
   return (
     <div className="space-y-6">
-          className={`flex-1 py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
       {showingAttendanceView && selectedSessionForAttendance ? (
         <AttendanceForm
           session={selectedSessionForAttendance}
@@ -260,7 +204,7 @@ const AttendanceManagement: React.FC = () => {
       ) : (
         <>
           {/* Header */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
             {/* Left side - Action Button (only for sessions tab) */}
             {activeTab === 'sessions' && (
               <button
@@ -268,17 +212,18 @@ const AttendanceManagement: React.FC = () => {
                   setEditingSession(null);
                   setShowSessionForm(true);
                 }}
-                className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
+                className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-3 py-2 sm:px-6 sm:py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
               >
-                <PlusIcon className="w-5 h-5" />
-                <span>إضافة جلسة</span>
+                <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden sm:inline">إضافة جلسة</span>
+                <span className="sm:hidden">إضافة</span>
               </button>
             )}
             
             {/* Right side - Title & Description */}
             <div className="text-right">
-              <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الحضور</h1>
-              <p className="text-gray-600 font-cairo">إدارة الجلسات والفعاليات وتسجيل الحضور</p>
+              <h1 className="text-lg sm:text-2xl font-bold text-gray-900 font-cairo">إدارة الحضور</h1>
+              <p className="text-gray-600 font-cairo text-sm sm:text-base hidden sm:block">إدارة الجلسات والفعاليات وتسجيل الحضور</p>
             </div>
           </div>
 
@@ -286,46 +231,48 @@ const AttendanceManagement: React.FC = () => {
           <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-xl">
             <button
               onClick={() => setActiveTab('calendar')}
-              className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
+              className={`flex-1 py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
                 activeTab === 'calendar'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              <CalendarIcon className="w-4 h-4" />
+              <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>التقويم</span>
             </button>
             <button
               onClick={() => setActiveTab('sessions')}
-              className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
+              className={`flex-1 py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
                 activeTab === 'sessions'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              <CalendarIcon className="w-4 h-4" />
-              <span>الجلسات والفعاليات</span>
+              <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">الجلسات والفعاليات</span>
+              <span className="sm:hidden">الجلسات</span>
             </button>
             <button
               onClick={() => setActiveTab('attendance')}
-              className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
+              className={`flex-1 py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
                 activeTab === 'attendance'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              <UsersIcon className="w-4 h-4" />
-              <span>سجلات الحضور</span>
+              <UsersIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">سجلات الحضور</span>
+              <span className="sm:hidden">الحضور</span>
             </button>
           </div>
 
           {/* Filters */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center space-x-3 space-x-reverse mb-4">
-              <FunnelIcon className="w-5 h-5 text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-900 font-cairo">تصفية البيانات</h3>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6">
+            <div className="flex items-center space-x-2 sm:space-x-3 space-x-reverse mb-4">
+              <FunnelIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 font-cairo">تصفية البيانات</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2 text-right">
                   التاريخ
@@ -334,7 +281,7 @@ const AttendanceManagement: React.FC = () => {
                   type="date"
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo text-sm sm:text-base"
                 />
               </div>
               
@@ -395,8 +342,97 @@ const AttendanceManagement: React.FC = () => {
 
             {/* Sessions Tab */}
             {activeTab === 'sessions' && (
-              <div className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="p-4 sm:p-6">
+                {/* Mobile: List View */}
+                <div className="block sm:hidden space-y-4">
+                  {filteredSessions.map((session) => {
+                    const instructor = users.find(u => u.id === session.instructorId);
+                    const sessionLevels = levels.filter(l => session.levelIds.includes(l.id));
+                    
+                    return (
+                      <div key={session.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex space-x-2 space-x-reverse">
+                            <button
+                              onClick={() => {
+                                setEditingSession(session);
+                                setShowSessionForm(true);
+                              }}
+                              className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                            >
+                              <PencilIcon className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDeleteSession(session.id)}
+                              className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            >
+                              <TrashIcon className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+                            <CalendarIcon className="w-5 h-5 text-amber-600" />
+                          </div>
+                        </div>
+                        
+                        <div className="text-right mb-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${getSessionTypeColor(session.type)}`}>
+                              {getSessionTypeLabel(session.type)}
+                            </span>
+                            <h3 className="text-base font-semibold text-gray-900 font-cairo">
+                              {session.name}
+                            </h3>
+                          </div>
+                          <p className="text-gray-600 text-sm font-cairo mb-2">
+                            {session.description}
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-500 font-cairo">{session.date}</span>
+                            <div className="flex items-center space-x-1 space-x-reverse text-gray-600">
+                              <ClockIcon className="w-3 h-3" />
+                              <span className="font-cairo">{session.startTime} - {session.endTime}</span>
+                            </div>
+                          </div>
+                          
+                          {session.location && (
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-500 font-cairo">{session.location}</span>
+                              <MapPinIcon className="w-3 h-3 text-gray-400" />
+                            </div>
+                          )}
+                          
+                          {instructor && (
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-500 font-cairo">{instructor.firstName} {instructor.lastName}</span>
+                              <span className="text-gray-400 font-cairo text-xs">المدرس</span>
+                            </div>
+                          )}
+                          
+                          <div className="flex items-center justify-between">
+                            <div className="flex flex-wrap gap-1">
+                              {sessionLevels.map(level => (
+                                <span key={level.id} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-cairo">
+                                  {level.name}
+                                </span>
+                              ))}
+                            </div>
+                            {session.isRecurring && (
+                              <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full font-cairo">
+                                متكرر
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                {/* Desktop: Grid View */}
+                <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredSessions.map((session) => {
                     const instructor = users.find(u => u.id === session.instructorId);
                     const sessionLevels = levels.filter(l => session.levelIds.includes(l.id));
@@ -485,9 +521,9 @@ const AttendanceManagement: React.FC = () => {
                 
                 {filteredSessions.length === 0 && (
                   <div className="text-center py-12">
-                    <CalendarIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد جلسات</h3>
-                    <p className="text-gray-500 font-cairo">لم يتم إضافة أي جلسات بعد</p>
+                    <CalendarIcon className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد جلسات</h3>
+                    <p className="text-gray-500 font-cairo text-sm sm:text-base">لم يتم إضافة أي جلسات بعد</p>
                   </div>
                 )}
               </div>
@@ -495,8 +531,58 @@ const AttendanceManagement: React.FC = () => {
 
             {/* Attendance Tab */}
             {activeTab === 'attendance' && (
-              <div className="p-6">
-                <div className="space-y-4">
+              <div className="p-4 sm:p-6">
+                {/* Mobile: List View */}
+                <div className="block sm:hidden space-y-4">
+                  {filteredAttendanceSessions.map((attendanceSession) => {
+                    const session = sessions.find(s => s.id === attendanceSession.sessionId);
+                    const attendanceRate = attendanceSession.totalExpected > 0 
+                      ? Math.round((attendanceSession.attendanceCount / attendanceSession.totalExpected) * 100)
+                      : 0;
+                    
+                    return (
+                      <div key={attendanceSession.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+                            <UsersIcon className="w-5 h-5 text-amber-600" />
+                          </div>
+                          <div className="text-right flex-1 mr-3">
+                            <div className="flex items-center space-x-2 space-x-reverse mb-2">
+                              <span className={`px-2 py-1 text-xs font-medium rounded-full ${getAttendanceStatusColor(attendanceSession.status)}`}>
+                                {attendanceSession.status === 'completed' ? 'مكتمل' :
+                                 attendanceSession.status === 'in_progress' ? 'جاري' :
+                                 attendanceSession.status === 'scheduled' ? 'مجدول' : 'ملغي'}
+                              </span>
+                              <span className="text-sm text-gray-500 font-cairo">{attendanceSession.date}</span>
+                            </div>
+                            <h3 className="text-base font-semibold text-gray-900 font-cairo mb-1">
+                              {session?.name}
+                            </h3>
+                            <p className="text-gray-600 text-sm font-cairo">
+                              {attendanceSession.startTime} - {attendanceSession.endTime}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="bg-green-50 rounded-lg p-3 text-center">
+                            <div className="text-lg font-bold text-green-600">{attendanceRate}%</div>
+                            <div className="text-xs text-gray-600 font-cairo">نسبة الحضور</div>
+                          </div>
+                          <div className="bg-blue-50 rounded-lg p-3 text-center">
+                            <div className="text-lg font-bold text-blue-600">
+                              {attendanceSession.attendanceCount}/{attendanceSession.totalExpected}
+                            </div>
+                            <div className="text-xs text-gray-600 font-cairo">الحضور</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                {/* Desktop: Original Layout */}
+                <div className="hidden sm:block space-y-4">
                   {filteredAttendanceSessions.map((attendanceSession) => {
                     const session = sessions.find(s => s.id === attendanceSession.sessionId);
                     const attendanceRate = attendanceSession.totalExpected > 0 
@@ -507,6 +593,9 @@ const AttendanceManagement: React.FC = () => {
                       <div key={attendanceSession.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4 space-x-reverse">
+                            <div className="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+                              <UsersIcon className="w-6 h-6 text-amber-600" />
+                            </div>
                             <div className="text-right">
                               <div className="flex items-center space-x-3 space-x-reverse mb-2">
                                 <span className={`px-3 py-1 text-xs font-medium rounded-full ${getAttendanceStatusColor(attendanceSession.status)}`}>
@@ -535,42 +624,36 @@ const AttendanceManagement: React.FC = () => {
                             
                             <div className="text-center">
                               <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center mb-2">
-          <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                                <span className="text-lg font-bold text-blue-600">
                                   {attendanceSession.attendanceCount}/{attendanceSession.totalExpected}
                                 </span>
                               </div>
                               <p className="text-xs text-gray-600 font-cairo">الحضور</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            
-                            <div className="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
-                              <UsersIcon className="w-6 h-6 text-amber-600" />
                             </div>
                           </div>
-          <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span className="hidden sm:inline">الجلسات والفعاليات</span>
-          <span className="sm:hidden">الجلسات</span>
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
-          className={`flex-1 py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
+                
                 {filteredAttendanceSessions.length === 0 && (
                   <div className="text-center py-12">
-                    <UsersIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد سجلات حضور</h3>
-                    <p className="text-gray-500 font-cairo">لم يتم تسجيل أي حضور بعد</p>
-          <UsersIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-          <span className="hidden sm:inline">سجلات الحضور</span>
-          <span className="sm:hidden">الحضور</span>
+                    <UsersIcon className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد سجلات حضور</h3>
+                    <p className="text-gray-500 font-cairo text-sm sm:text-base">لم يتم تسجيل أي حضور بعد</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
 
           {/* Session Form Modal */}
-        <div className="flex items-center space-x-2 sm:space-x-3 space-x-reverse mb-4">
-          <FunnelIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
-          <h3 className="text-base sm:text-lg font-semibold text-gray-900 font-cairo">تصفية البيانات</h3>
+          {showSessionForm && (
+            <SessionForm
+              session={editingSession}
+              levels={levels}
               users={users.filter(u => u.role === 'servant' || u.role === 'admin')}
-        <div className="grid grid-cols-1 gap-4">
               onClose={() => {
                 setShowSessionForm(false);
                 setEditingSession(null);
@@ -579,8 +662,8 @@ const AttendanceManagement: React.FC = () => {
                 setShowSessionForm(false);
                 setEditingSession(null);
                 loadData();
-              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo text-sm sm:text-base"
-            </div>
+              }}
+            />
           )}
         </>
       )}
@@ -589,93 +672,3 @@ const AttendanceManagement: React.FC = () => {
 };
 
 export default AttendanceManagement;
-            {/* Mobile: List View */}
-            <div className="block sm:hidden space-y-4">
-              {filteredSessions.map((session) => {
-                const instructor = users.find(u => u.id === session.instructorId);
-                const sessionLevels = levels.filter(l => session.levelIds.includes(l.id));
-                
-                return (
-                  <div key={session.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex space-x-2 space-x-reverse">
-                        <button
-                          onClick={() => {
-                            setEditingSession(session);
-                            setShowSessionForm(true);
-                          }}
-                          className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                        >
-                          <PencilIcon className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteSession(session.id)}
-                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                        >
-                          <TrashIcon className="w-4 h-4" />
-                        </button>
-                      </div>
-                      <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
-                        <CalendarIcon className="w-5 h-5 text-amber-600" />
-                      </div>
-                    </div>
-                    
-                    <div className="text-right mb-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getSessionTypeColor(session.type)}`}>
-                          {getSessionTypeLabel(session.type)}
-                        </span>
-                        <h3 className="text-base font-semibold text-gray-900 font-cairo">
-                          {session.name}
-                        </h3>
-                      </div>
-                      <p className="text-gray-600 text-sm font-cairo mb-2">
-                        {session.description}
-                      </p>
-                    </div>
-                    
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-500 font-cairo">{session.date}</span>
-                        <div className="flex items-center space-x-1 space-x-reverse text-gray-600">
-                          <ClockIcon className="w-3 h-3" />
-                          <span className="font-cairo">{session.startTime} - {session.endTime}</span>
-                        </div>
-                      </div>
-                      
-                      {session.location && (
-                        <div className="flex items-center justify-between">
-                          <span className="text-gray-500 font-cairo">{session.location}</span>
-                          <MapPinIcon className="w-3 h-3 text-gray-400" />
-                        </div>
-                      )}
-                      
-                      {instructor && (
-                        <div className="flex items-center justify-between">
-                          <span className="text-gray-500 font-cairo">{instructor.firstName} {instructor.lastName}</span>
-                          <span className="text-gray-400 font-cairo text-xs">المدرس</span>
-                        </div>
-                      )}
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex flex-wrap gap-1">
-                          {sessionLevels.map(level => (
-                            <span key={level.id} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-cairo">
-                              {level.name}
-                            </span>
-                          ))}
-                        </div>
-                        {session.isRecurring && (
-                          <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full font-cairo">
-                            متكرر
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            
-            {/* Desktop: Grid View */}
-            <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
