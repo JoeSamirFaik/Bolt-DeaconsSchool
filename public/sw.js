@@ -1,6 +1,8 @@
-const CACHE_NAME = 'deacons-school-v2.0';
-const STATIC_CACHE = 'deacons-static-v2.0';
-const DYNAMIC_CACHE = 'deacons-dynamic-v2.0';
+// Generate unique cache names with timestamp to force cache refresh on new deployments
+const CACHE_VERSION = Date.now();
+const CACHE_NAME = `deacons-school-v${CACHE_VERSION}`;
+const STATIC_CACHE = `deacons-static-v${CACHE_VERSION}`;
+const DYNAMIC_CACHE = `deacons-dynamic-v${CACHE_VERSION}`;
 
 // Files to cache immediately
 const STATIC_ASSETS = [
@@ -37,7 +39,8 @@ self.addEventListener('activate', (event) => {
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+            // Delete all old caches that don't match current version
+            if (!cacheName.includes(`v${CACHE_VERSION}`)) {
               console.log('Service Worker: Deleting old cache', cacheName);
               return caches.delete(cacheName);
             }
@@ -63,6 +66,31 @@ self.addEventListener('fetch', (event) => {
 
   // Skip external requests
   if (!url.origin.includes(self.location.origin)) {
+    return;
+  }
+
+  // For HTML requests, always try network first to get latest version
+  if (request.destination === 'document') {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            // Cache the new version
+            const responseToCache = networkResponse.clone();
+            caches.open(STATIC_CACHE)
+              .then((cache) => {
+                cache.put(request, responseToCache);
+              });
+            return networkResponse;
+          }
+          // Fallback to cache if network fails
+          return caches.match(request);
+        })
+        .catch(() => {
+          // Network failed, try cache
+          return caches.match(request);
+        })
+    );
     return;
   }
 
