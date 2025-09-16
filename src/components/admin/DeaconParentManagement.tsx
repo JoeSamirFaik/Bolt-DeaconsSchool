@@ -174,7 +174,7 @@ const DeaconParentManagement: React.FC = () => {
                 setShowUserForm(true);
               }
             }}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-colors flex items-center space-x-2 space-x-reverse font-medium"
+            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
           >
             <PlusIcon className="w-5 h-5" />
             <span>
@@ -194,7 +194,7 @@ const DeaconParentManagement: React.FC = () => {
             onClick={() => setActiveTab('deacons')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'deacons'
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-white text-amber-600 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -205,7 +205,7 @@ const DeaconParentManagement: React.FC = () => {
             onClick={() => setActiveTab('parents')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'parents'
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-white text-amber-600 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -216,7 +216,7 @@ const DeaconParentManagement: React.FC = () => {
             onClick={() => setActiveTab('assignments')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'assignments'
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-white text-amber-600 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -270,7 +270,7 @@ const DeaconParentManagement: React.FC = () => {
                           setEditingItem(deacon);
                           setShowUserForm(true);
                         }}
-                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                       >
                         <PencilIcon className="w-4 h-4" />
                       </button>
@@ -282,7 +282,7 @@ const DeaconParentManagement: React.FC = () => {
                       </button>
                     </div>
                     <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <AcademicCapIcon className="w-6 h-6 text-blue-600" />
+                      <AcademicCapIcon className="w-6 h-6 text-amber-600" />
                     </div>
                   </div>
                   
@@ -294,6 +294,7 @@ const DeaconParentManagement: React.FC = () => {
                       {deacon.email}
                     </p>
                     <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                    <span className="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-medium rounded-full">
                       شماس
                     </span>
                   </div>
@@ -301,8 +302,9 @@ const DeaconParentManagement: React.FC = () => {
                   <div className="space-y-3">
                     {deacon.deaconInfo && (
                       <div className="bg-blue-50 rounded-lg p-3">
+                      <div className="bg-amber-50 rounded-lg p-3">
                         <p className="text-sm text-gray-600 font-cairo mb-2">المستوى الحالي</p>
-                        <p className="font-medium text-blue-800 font-cairo">
+                        <p className="font-medium text-amber-800 font-cairo">
                           {levels.find(l => l.id === deacon.deaconInfo?.currentLevel)?.name || 'غير محدد'}
                         </p>
                       </div>
@@ -338,7 +340,7 @@ const DeaconParentManagement: React.FC = () => {
                           setEditingItem(parent);
                           setShowUserForm(true);
                         }}
-                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                       >
                         <PencilIcon className="w-4 h-4" />
                       </button>
@@ -411,7 +413,7 @@ const DeaconParentManagement: React.FC = () => {
                               setEditingItem(assignment);
                               setShowAssignmentForm(true);
                             }}
-                            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                           >
                             <PencilIcon className="w-4 h-4" />
                           </button>
@@ -441,13 +443,13 @@ const DeaconParentManagement: React.FC = () => {
                       
                       <div className="flex items-center space-x-4 space-x-reverse">
                         <div className="text-center">
-                          <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-2">
-                            <span className="text-lg font-bold text-blue-600">{assignment.progress}%</span>
+                          <div className="w-16 h-16 bg-amber-100 rounded-xl flex items-center justify-center mb-2">
+                            <span className="text-lg font-bold text-amber-600">{assignment.progress}%</span>
                           </div>
                           <p className="text-sm text-gray-600 font-cairo">التقدم</p>
                         </div>
-                        <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                          <AcademicCapIcon className="w-6 h-6 text-purple-600" />
+                        <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                          <AcademicCapIcon className="w-6 h-6 text-orange-600" />
                         </div>
                       </div>
                     </div>
@@ -455,7 +457,7 @@ const DeaconParentManagement: React.FC = () => {
                     <div className="mt-4 pt-4 border-t border-gray-200">
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
-                          className="h-2 rounded-full bg-blue-600 transition-all duration-300"
+                          className="h-2 rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-300"
                           style={{ width: `${assignment.progress}%` }}
                         ></div>
                       </div>

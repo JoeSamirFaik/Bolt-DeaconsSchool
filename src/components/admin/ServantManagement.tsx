@@ -65,7 +65,7 @@ const ServantManagement: React.FC = () => {
               setEditingUser(null);
               setShowUserForm(true);
             }}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-colors flex items-center space-x-2 space-x-reverse font-medium"
+            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
           >
             <PlusIcon className="w-5 h-5" />
             <span>إضافة خادم</span>
@@ -89,7 +89,7 @@ const ServantManagement: React.FC = () => {
                       setEditingUser(servant);
                       setShowUserForm(true);
                     }}
-                    className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                   >
                     <PencilIcon className="w-4 h-4" />
                   </button>
@@ -101,7 +101,7 @@ const ServantManagement: React.FC = () => {
                   </button>
                 </div>
                 <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                  <UserIcon className="w-6 h-6 text-purple-600" />
+                  <UserIcon className="w-6 h-6 text-amber-600" />
                 </div>
               </div>
               
@@ -113,6 +113,7 @@ const ServantManagement: React.FC = () => {
                   {servant.email}
                 </p>
                 <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full">
+                <span className="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded-full">
                   خادم
                 </span>
               </div>
@@ -120,16 +121,16 @@ const ServantManagement: React.FC = () => {
               <div className="space-y-3">
                 {servant.servantInfo && (
                   <>
-                    <div className="bg-purple-50 rounded-lg p-3">
+                    <div className="bg-amber-50 rounded-lg p-3">
                       <p className="text-sm text-gray-600 font-cairo mb-2">التخصص</p>
-                      <p className="font-medium text-purple-800 font-cairo">
+                      <p className="font-medium text-amber-800 font-cairo">
                         {servant.servantInfo.specialization}
                       </p>
                     </div>
                     
-                    <div className="bg-indigo-50 rounded-lg p-3">
+                    <div className="bg-orange-50 rounded-lg p-3">
                       <p className="text-sm text-gray-600 font-cairo mb-2">رقم الهاتف</p>
-                      <p className="font-medium text-indigo-800 font-cairo">
+                      <p className="font-medium text-orange-800 font-cairo">
                         {servant.servantInfo.phone}
                       </p>
                     </div>
