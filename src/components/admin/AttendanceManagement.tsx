@@ -212,22 +212,6 @@ const AttendanceManagement: React.FC = () => {
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الحضور</h1>
             <p className="text-gray-600 font-cairo">إدارة الجلسات والفعاليات وتسجيل الحضور</p>
           </div>
-          
-          {/* Left side - Action Button */}
-          <button
-            onClick={() => {
-              setEditingSession(null);
-              if (activeTab === 'sessions') {
-                setShowSessionForm(true);
-              }
-            }}
-            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
-          >
-            <PlusIcon className="w-5 h-5" />
-            <span>
-              {activeTab === 'sessions' ? 'إضافة جلسة' : 'تسجيل حضور'}
-            </span>
-          </button>
         </div>
 
         {/* Tabs */}
