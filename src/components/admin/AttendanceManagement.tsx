@@ -346,12 +346,12 @@ const AttendanceManagement: React.FC = () => {
                     
                     <div className="text-right mb-4">
                       <div className="flex items-center justify-between mb-2">
-                        <span className={`px-3 py-1 text-xs font-medium rounded-full ${getSessionTypeColor(session.type)}`}>
-                          {getSessionTypeLabel(session.type)}
-                        </span>
                         <h3 className="text-lg font-semibold text-gray-900 font-cairo">
                           {session.name}
                         </h3>
+                        <span className={`px-3 py-1 text-xs font-medium rounded-full ${getSessionTypeColor(session.type)}`}>
+                          {getSessionTypeLabel(session.type)}
+                        </span>
                       </div>
                       <p className="text-gray-600 text-sm font-cairo mb-3">
                         {session.description}
