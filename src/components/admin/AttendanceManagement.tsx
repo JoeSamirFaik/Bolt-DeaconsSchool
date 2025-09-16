@@ -201,12 +201,6 @@ const AttendanceManagement: React.FC = () => {
             setSelectedSessionForAttendance(null);
             loadData();
           }}
-        />
-      ) : (
-        <>
-      {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center justify-between mb-6">
           {/* Left side - Action Button (only for sessions tab) */}
           {activeTab === 'sessions' && (
             <button
@@ -220,6 +214,12 @@ const AttendanceManagement: React.FC = () => {
               <span>إضافة جلسة</span>
             </button>
           )}
+          
+          {/* Right side - Title & Description */}
+          <div className="text-right">
+            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الحضور</h1>
+            <p className="text-gray-600 font-cairo">إدارة الجلسات والفعاليات وتسجيل الحضور</p>
+          </div>
           
           {/* Right side - Title & Description */}
           <div className="text-right">
