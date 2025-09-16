@@ -274,19 +274,22 @@ const DeaconParentManagement: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <button
-            onClick={() => {
-              setEditingUser(null);
-              setShowUserForm(true);
-            }}
-            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
-          >
-            <PlusIcon className="w-5 h-5" />
-            <span>
-              {activeTab === 'deacons' ? 'إضافة شماس' : 
-               activeTab === 'parents' ? 'إضافة ولي أمر' : 'تكليف مستوى'}
-            </span>
-          </button>
+          <div className="flex items-center space-x-3 space-x-reverse">
+            {(activeTab === 'deacons' || activeTab === 'parents') && (
+              <button
+                onClick={() => {
+                  setEditingUser(null);
+                  setShowUserForm(true);
+                }}
+                className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
+              >
+                <PlusIcon className="w-5 h-5" />
+                <span>
+                  {activeTab === 'deacons' ? 'إضافة شماس' : 'إضافة ولي أمر'}
+                </span>
+              </button>
+            )}
+          </div>
           <div className="text-right">
             <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الشمامسة وأولياء الأمور</h1>
             <p className="text-gray-600 font-cairo">إدارة الشمامسة وأولياء الأمور وتكليفات المستويات</p>
