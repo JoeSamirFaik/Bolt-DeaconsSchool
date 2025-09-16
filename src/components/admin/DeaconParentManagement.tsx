@@ -249,6 +249,18 @@ const DeaconParentManagement: React.FC = () => {
             {(activeTab === 'deacons' || activeTab === 'parents') && (
               <button
                 onClick={() => {
+                  setEditingUser(null);
+                  setShowUserForm(true);
+                }}
+                className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
+              >
+                <PlusIcon className="w-5 h-5" />
+                <span>
+                  {activeTab === 'deacons' ? 'إضافة شماس' : 'إضافة ولي أمر'}
+                </span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Tabs */}
