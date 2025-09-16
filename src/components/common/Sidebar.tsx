@@ -26,50 +26,48 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
   const { user, logout } = useAuth();
 
   const getMenuItems = () => {
-    const common = [
-      { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
-      { id: 'calendar', icon: CalendarIcon, label: 'التقويم' },
-      { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
-      { id: 'library', icon: BuildingLibraryIcon, label: 'المكتبة' },
-    ];
-
     switch (user?.role) {
       case 'deacon':
         return [
+          { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'lessons', icon: BookOpenIcon, label: 'الدروس' },
           { id: 'quizzes', icon: ClipboardDocumentCheckIcon, label: 'الاختبارات' },
           { id: 'progress', icon: ChartBarIcon, label: 'التقدم' },
-          { id: 'certificates', icon: AcademicCapIcon, label: 'الشهادات' },
-          { id: 'achievements', icon: TrophyIcon, label: 'الإنجازات' },
+          { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
         ];
       case 'servant':
         return [
+          { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'attendance', icon: ClipboardDocumentCheckIcon, label: 'الحضور' },
           { id: 'deacons', icon: UsersIcon, label: 'الشمامسة' },
-          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات' },
           { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
+          { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
         ];
       case 'parent':
         return [
+          { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'child-progress', icon: ChartBarIcon, label: 'تقدم الطفل' },
-          { id: 'messages', icon: ChatBubbleLeftRightIcon, label: 'المحادثات' },
           { id: 'reports', icon: ClipboardDocumentCheckIcon, label: 'التقارير' },
+          { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
         ];
       case 'admin':
         return [
+          { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'deacon-parent-mgmt', icon: UsersIcon, label: 'الشمامسة وأولياء الأمور' },
           { id: 'servant-mgmt', icon: UserIcon, label: 'إدارة الخدام' },
           { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
-          { id: 'quizzes-mgmt', icon: ClipboardDocumentCheckIcon, label: 'إدارة الاختبارات' },
           { id: 'reports', icon: ChartBarIcon, label: 'التحليلات' },
+          { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
           { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات' },
         ];
       default:
-        return common;
+        return [
+          { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
+        ];
     }
   };
 
@@ -119,20 +117,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
           })}
         </nav>
 
-        {/* Pages Section */}
-        <div className="mt-8">
-          <h3 className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider font-cairo mb-3">
-            الصفحات
-          </h3>
-          <nav className="space-y-2">
-            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 hover:scale-105">
-              <span className="font-cairo">قائمة الصفحات</span>
-            </button>
-            <button className="w-full group flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-xl transition-all duration-200 hover:scale-105">
-              <span className="font-cairo">صفحات الشبكة</span>
-            </button>
-          </nav>
-        </div>
       </div>
 
       {/* User Profile */}
