@@ -745,225 +745,120 @@ const DeaconParentManagement: React.FC = () => {
                 </p>
               </div>
             )}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Assignment Form */}
-              <div className="lg:col-span-1">
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-200 sticky top-6">
-                  <h3 className="text-lg font-bold text-amber-900 mb-4 font-cairo">تكليف فردي</h3>
-                  
-                  <form onSubmit={handleAssignmentSubmit} className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-amber-700 mb-2 text-right font-cairo">
-                        الشماس *
-                      </label>
-                      <Select
-                        value={assignmentForm.deaconId ? 
-                          { value: assignmentForm.deaconId, label: deacons.find(d => d.id === assignmentForm.deaconId)?.firstName + ' ' + deacons.find(d => d.id === assignmentForm.deaconId)?.lastName } : 
-                          null
-                        }
-                        onChange={(option) => {
-                          setAssignmentForm({ ...assignmentForm, deaconId: option ? option.value : '' });
-                        }}
-                        options={deacons.map(deacon => ({ 
-                          value: deacon.id, 
-                          label: `${deacon.firstName} ${deacon.lastName}` 
-                        }))}
-                        styles={customSelectStyles}
-                        placeholder="اختر الشماس"
-                        isSearchable={true}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-amber-700 mb-2 text-right font-cairo">
-                        المستوى *
-                      </label>
-                      <Select
-                        value={assignmentForm.levelId ? 
-                          { value: assignmentForm.levelId, label: levels.find(l => l.id === assignmentForm.levelId)?.name } : 
-                          null
-                        }
-                        onChange={(option) => {
-                          setAssignmentForm({ ...assignmentForm, levelId: option ? option.value : '' });
-                        }}
-                        options={levels.map(level => ({ 
-                          value: level.id, 
-                          label: level.name 
-                        }))}
-                        styles={customSelectStyles}
-                        placeholder="اختر المستوى"
-                        isSearchable={true}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-amber-700 mb-2 text-right font-cairo">
-                        السنة الأكاديمية *
-                      </label>
-                      <Select
-                        value={assignmentForm.academicYear ? 
-                          { value: assignmentForm.academicYear, label: assignmentForm.academicYear } : 
-                          null
-                        }
-                        onChange={(option) => {
-                          setAssignmentForm({ ...assignmentForm, academicYear: option ? option.value : '' });
-                        }}
-                        options={academicYears.map(year => ({ 
-                          value: year.year, 
-                          label: year.year 
-                        }))}
-                        styles={customSelectStyles}
-                        placeholder="اختر السنة"
-                        isSearchable={false}
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-sm font-medium text-amber-700 mb-2 text-right font-cairo">
-                          تاريخ البداية *
-                        </label>
-                        <input
-                          type="date"
-                          value={assignmentForm.startDate}
-                          onChange={(e) => setAssignmentForm({ ...assignmentForm, startDate: e.target.value })}
-                          required
-                          className="w-full px-3 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-right font-cairo bg-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-amber-700 mb-2 text-right font-cairo">
-                          تاريخ الانتهاء *
-                        </label>
-                        <input
-                          type="date"
-                          value={assignmentForm.expectedEndDate}
-                          onChange={(e) => setAssignmentForm({ ...assignmentForm, expectedEndDate: e.target.value })}
-                          required
-                          className="w-full px-3 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-right font-cairo bg-white"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-amber-700 mb-2 text-right font-cairo">
-                        ملاحظات
-                      </label>
-                      <textarea
-                        value={assignmentForm.notes}
-                        onChange={(e) => setAssignmentForm({ ...assignmentForm, notes: e.target.value })}
-                        rows={3}
-                        className="w-full px-3 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-right font-cairo resize-none bg-white"
-                        placeholder="ملاحظات إضافية..."
-                      />
-                    </div>
-
-                    <div className="flex space-x-3 space-x-reverse">
-                      {editingAssignment && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditingAssignment(null);
-                            setAssignmentForm({
-                              deaconId: '',
-                              levelId: '',
-                              academicYear: '',
-                              startDate: '',
-                              expectedEndDate: '',
-                              notes: ''
-                            });
-                          }}
-                          className="flex-1 px-4 py-2 border border-amber-300 text-amber-700 rounded-lg hover:bg-amber-50 transition-colors font-medium"
-                        >
-                          إلغاء
-                        </button>
-                      )}
-                      <button
-                        type="submit"
-                        disabled={showBulkAssignment && selectedDeacons.length === 0}
-                        className="flex-1 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition-colors font-medium"
-                      >
-                        {editingAssignment ? 'تحديث' : 'إضافة'}
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              {/* Assignments List */}
-              <div className="lg:col-span-2">
-                <div className="space-y-4">
-                  {assignments.map((assignment) => {
-                    const deacon = users.find(u => u.id === assignment.deaconId);
-                    const level = levels.find(l => l.id === assignment.levelId);
-                    
-                    return (
-                      <div key={assignment.id} className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3 space-x-reverse">
-                            <div className="flex space-x-2 space-x-reverse">
-                              <button
-                                onClick={() => handleEditAssignment(assignment)}
-                                className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
-                                title="تعديل"
-                              >
-                                <PencilIcon className="w-4 h-4" />
-                              </button>
-                              <button
-                                onClick={() => handleDeleteAssignment(assignment.id)}
-                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                                title="حذف"
-                              >
-                                <TrashIcon className="w-4 h-4" />
-                              </button>
-                            </div>
-                            
-                            <div className="text-right">
-                              <div className="flex items-center space-x-3 space-x-reverse mb-2">
-                                <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(assignment.status)}`}>
-                                  {getStatusLabel(assignment.status)}
-                                </span>
-                                <span className="text-sm text-gray-500 font-cairo">{assignment.academicYear}</span>
-                              </div>
-                              <h4 className="text-lg font-semibold text-gray-900 font-cairo mb-1">
-                                {deacon?.firstName} {deacon?.lastName}
-                              </h4>
-                              <p className="text-gray-600 font-cairo text-sm">
-                                {level?.name}
-                              </p>
-                              <div className="flex items-center space-x-4 space-x-reverse text-xs text-gray-500 mt-2">
-                                <span>{new Date(assignment.startDate).toLocaleDateString('ar-EG')}</span>
-                                <span>-</span>
-                                <span>{new Date(assignment.expectedEndDate).toLocaleDateString('ar-EG')}</span>
-                              </div>
-                            </div>
-                          </div>
-                          
+            {/* Assignments by Level */}
+            <div className="space-y-6">
+              {levels.map((level) => {
+                const levelAssignments = assignments.filter(a => a.levelId === level.id);
+                const assignedDeacons = levelAssignments.map(a => users.find(u => u.id === a.deaconId)).filter(Boolean);
+                const averageProgress = levelAssignments.length > 0 
+                  ? Math.round(levelAssignments.reduce((sum, a) => sum + a.progress, 0) / levelAssignments.length)
+                  : 0;
+                
+                return (
+                  <div key={level.id} className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+                    {/* Level Header */}
+                    <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-6 border-b border-gray-200">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-4 space-x-reverse">
                           <div className="text-center">
-                            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-2">
-                              <span className="text-sm font-bold text-amber-600">{assignment.progress}%</span>
+                            <div className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-2">
+                              <span className="text-xl font-bold text-amber-600">{averageProgress}%</span>
                             </div>
-                            <div className="w-16 bg-gray-200 rounded-full h-1">
-                              <div
-                                className="h-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-300"
-                                style={{ width: `${assignment.progress}%` }}
-                              ></div>
+                            <p className="text-xs text-gray-600 font-cairo">متوسط التقدم</p>
+                          </div>
+                          <div className="text-right">
+                            <h3 className="text-2xl font-bold text-gray-900 font-cairo mb-2">{level.name}</h3>
+                            <p className="text-gray-600 font-cairo mb-3">{level.description}</p>
+                            <div className="flex items-center space-x-4 space-x-reverse text-sm">
+                              <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-medium">
+                                {levelAssignments.length} شماس مُكلف
+                              </span>
+                              <span className="text-gray-500">نسبة النجاح: {level.passPercentage}%</span>
                             </div>
                           </div>
                         </div>
+                        <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center shadow-lg">
+                          <AcademicCapIcon className="w-10 h-10 text-white" />
+                        </div>
                       </div>
-                    );
-                  })}
-                  
-                  {assignments.length === 0 && (
-                    <div className="text-center py-12">
-                      <CalendarIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا يوجد تكليفات</h3>
-                      <p className="text-gray-500 font-cairo">لم يتم إنشاء أي تكليفات بعد</p>
+                      
+                      {/* Progress Bar */}
+                      <div className="mt-4">
+                        <div className="w-full bg-gray-200 rounded-full h-3">
+                          <div
+                            className="h-3 rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-700 shadow-sm"
+                            style={{ width: `${averageProgress}%` }}
+                          ></div>
+                        </div>
+                      </div>
                     </div>
-                  )}
+
+                    {/* Assigned Deacons */}
+                    {levelAssignments.length > 0 ? (
+                      <div className="p-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {levelAssignments.map((assignment) => {
+                            const deacon = users.find(u => u.id === assignment.deaconId);
+                            
+                            return (
+                              <div key={assignment.id} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
+                                <div className="flex items-center justify-between mb-3">
+                                  <div className="flex space-x-2 space-x-reverse">
+                                    <button
+                                      onClick={() => handleDeleteAssignment(assignment.id)}
+                                      className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                      title="حذف التكليف"
+                                    >
+                                      <TrashIcon className="w-4 h-4" />
+                                    </button>
+                                  </div>
+                                  <div className="text-right">
+                                    <h4 className="font-semibold text-gray-900 font-cairo">
+                                      {deacon?.firstName} {deacon?.lastName}
+                                    </h4>
+                                    <p className="text-xs text-gray-500 font-cairo">{assignment.academicYear}</p>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-bold text-amber-600">{assignment.progress}%</span>
+                                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(assignment.status)}`}>
+                                    {getStatusLabel(assignment.status)}
+                                  </span>
+                                </div>
+                                
+                                <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
+                                  <div
+                                    className="h-2 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-300"
+                                    style={{ width: `${assignment.progress}%` }}
+                                  ></div>
+                                </div>
+                                
+                                <div className="text-xs text-gray-500 font-cairo">
+                                  {new Date(assignment.startDate).toLocaleDateString('ar-EG')} - {new Date(assignment.expectedEndDate).toLocaleDateString('ar-EG')}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="p-6 text-center">
+                        <UsersIcon className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                        <p className="text-gray-500 font-cairo">لا يوجد شمامسة مُكلفون في هذا المستوى</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+              
+              {levels.length === 0 && (
+                <div className="text-center py-12">
+                  <AcademicCapIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا يوجد مستويات</h3>
+                  <p className="text-gray-500 font-cairo">يرجى إضافة مستويات أكاديمية أولاً</p>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         )}
