@@ -1,5 +1,57 @@
 import { User, LevelAssignment, AcademicYear, CreateUserRequest, CreateLevelAssignmentRequest } from '../types/user';
 
+// Mock child notes data
+const mockChildNotes: any[] = [
+  {
+    id: '1',
+    deaconId: '1',
+    servantId: '2',
+    title: 'تقدم ممتاز في الحفظ',
+    content: 'يوحنا يظهر تقدماً رائعاً في حفظ المزامير. لديه ذاكرة قوية ويشارك بنشاط في الدروس. أنصح بتشجيعه على المشاركة في مسابقة الحفظ القادمة.',
+    category: 'academic',
+    priority: 'medium',
+    isPrivate: false,
+    createdAt: '2024-12-20T14:30:00Z',
+    updatedAt: '2024-12-20T14:30:00Z'
+  },
+  {
+    id: '2',
+    deaconId: '1',
+    servantId: '2',
+    title: 'ملاحظة حول السلوك',
+    content: 'لاحظت أن يوحنا أصبح أكثر هدوءاً في الأسبوعين الماضيين. قد يكون هناك شيء يشغل باله. أقترح التحدث معه بلطف لمعرفة إذا كان يواجه أي تحديات.',
+    category: 'behavioral',
+    priority: 'high',
+    isPrivate: true,
+    createdAt: '2024-12-18T16:45:00Z',
+    updatedAt: '2024-12-18T16:45:00Z'
+  },
+  {
+    id: '3',
+    deaconId: '1',
+    servantId: '2',
+    title: 'نمو روحي ملحوظ',
+    content: 'يوحنا يظهر اهتماماً متزايداً بالصلاة والتأمل. يسأل أسئلة عميقة حول الإيمان ويشارك تجاربه الروحية مع زملائه. هذا تطور إيجابي جداً.',
+    category: 'spiritual',
+    priority: 'low',
+    isPrivate: false,
+    createdAt: '2024-12-15T11:20:00Z',
+    updatedAt: '2024-12-15T11:20:00Z'
+  },
+  {
+    id: '4',
+    deaconId: '1',
+    servantId: '2',
+    title: 'اقتراح للأنشطة الإضافية',
+    content: 'بناءً على اهتمام يوحنا بالألحان، أقترح تسجيله في ورشة الألحان المتقدمة. لديه صوت جميل وحس موسيقي جيد.',
+    category: 'general',
+    priority: 'medium',
+    isPrivate: false,
+    createdAt: '2024-12-12T09:15:00Z',
+    updatedAt: '2024-12-12T09:15:00Z'
+  }
+];
+
 // Mock data for development
 const mockUsers: User[] = [
   {
@@ -259,6 +311,76 @@ export const academicYearsApi = {
         };
         mockAcademicYears.push(newYear);
         resolve(newYear);
+      }, 500);
+    });
+  }
+};
+
+// Child Notes API
+export const childNotesApi = {
+  getByDeaconId: async (deaconId: string): Promise<any[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const notes = mockChildNotes.filter(n => n.deaconId === deaconId);
+        resolve(notes);
+      }, 500);
+    });
+  },
+
+  getByParentId: async (parentId: string): Promise<any[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Find children of this parent
+        const children = mockUsers.filter(u => u.role === 'deacon' && u.deaconInfo?.parentId === parentId);
+        const childIds = children.map(c => c.id);
+        
+        // Get notes for all children
+        const notes = mockChildNotes.filter(n => childIds.includes(n.deaconId));
+        resolve(notes);
+      }, 500);
+    });
+  },
+
+  create: async (data: any): Promise<any> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const newNote = {
+          id: Math.random().toString(36).substr(2, 9),
+          servantId: '2', // Current servant ID
+          ...data,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        mockChildNotes.push(newNote);
+        resolve(newNote);
+      }, 500);
+    });
+  },
+
+  update: async (id: string, data: Partial<any>): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = mockChildNotes.findIndex(n => n.id === id);
+        if (index !== -1) {
+          mockChildNotes[index] = { ...mockChildNotes[index], ...data, updatedAt: new Date().toISOString() };
+          resolve(mockChildNotes[index]);
+        } else {
+          reject(new Error('Note not found'));
+        }
+      }, 500);
+    });
+  },
+
+  delete: async (id: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = mockChildNotes.findIndex(n => n.id === id);
+        if (index !== -1) {
+          mockChildNotes.splice(index, 1);
+          resolve();
+        } else {
+          reject(new Error('Note not found'));
+        }
       }, 500);
     });
   }

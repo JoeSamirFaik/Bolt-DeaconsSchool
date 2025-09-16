@@ -42,8 +42,9 @@ const ChildDetailedReport: React.FC<ChildDetailedReportProps> = ({ child, onClos
   const [records, setRecords] = useState<DeaconRecord[]>([]);
   const [transactions, setTransactions] = useState<PointsTransaction[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
+  const [childNotes, setChildNotes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance' | 'notes'>('overview');
 
   useEffect(() => {
     loadChildData();

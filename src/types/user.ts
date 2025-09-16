@@ -92,3 +92,24 @@ export interface CreateLevelAssignmentRequest {
   expectedEndDate: string;
   notes?: string;
 }
+export interface ChildNote {
+  id: string;
+  deaconId: string;
+  servantId: string;
+  title: string;
+  content: string;
+  category: 'academic' | 'behavioral' | 'spiritual' | 'general';
+  priority: 'low' | 'medium' | 'high';
+  isPrivate: boolean; // If true, only visible to parents, not the child
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateChildNoteRequest {
+  deaconId: string;
+  title: string;
+  content: string;
+  category: 'academic' | 'behavioral' | 'spiritual' | 'general';
+  priority: 'low' | 'medium' | 'high';
+  isPrivate: boolean;
+}
