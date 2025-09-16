@@ -45,52 +45,9 @@ const mockUsers: User[] = [
     isActive: true,
     parentInfo: {
       phone: '01234567890',
-      address: 'القاهرة، مصر الجديدة',
+      address: 'القاهرة، مصر',
       occupation: 'مهندس',
       children: ['1']
-    }
-  },
-  {
-    id: '4',
-    email: 'admin@example.com',
-    firstName: 'سارة',
-    lastName: 'مينا',
-    role: 'admin',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    isActive: true
-  },
-  {
-    id: '5',
-    email: 'deacon2@example.com',
-    firstName: 'مرقس',
-    lastName: 'عادل',
-    role: 'deacon',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    isActive: true,
-    deaconInfo: {
-      dateOfBirth: '2011-03-20',
-      parentId: '3',
-      currentLevel: '1',
-      enrollmentDate: '2024-09-01',
-      notes: 'طالب نشط ومتفاعل'
-    }
-  },
-  {
-    id: '6',
-    email: 'deacon3@example.com',
-    firstName: 'سارة',
-    lastName: 'جورج',
-    role: 'deacon',
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    isActive: true,
-    deaconInfo: {
-      dateOfBirth: '2012-08-10',
-      currentLevel: '2',
-      enrollmentDate: '2024-09-01',
-      notes: 'متميزة في الألحان'
     }
   }
 ];

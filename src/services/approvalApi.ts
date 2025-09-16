@@ -68,76 +68,6 @@ const mockDeaconRecords: DeaconRecord[] = [
     updatedAt: '2024-12-20T18:00:00Z'
   },
   {
-    id: '6',
-    deaconId: '1',
-    type: 'personal_study',
-    title: 'دراسة سفر المزامير',
-    description: 'قراءة وحفظ 10 مزامير من سفر المزامير',
-    date: '2024-12-18',
-    duration: 90,
-    location: 'المنزل',
-    notes: 'حفظت المزامير 1-10 وكتبت تأملات',
-    evidence: {
-      witnessName: 'والدي داود إبراهيم',
-      witnessContact: '01234567890'
-    },
-    pointsRequested: 50,
-    status: 'approved',
-    reviewedBy: '2',
-    reviewedAt: '2024-12-18T20:00:00Z',
-    reviewNotes: 'عمل ممتاز في الحفظ والتأمل',
-    submittedAt: '2024-12-18T17:00:00Z',
-    createdAt: '2024-12-18T17:00:00Z',
-    updatedAt: '2024-12-18T20:00:00Z'
-  },
-  {
-    id: '7',
-    deaconId: '1',
-    type: 'liturgy',
-    title: 'قداس عيد الميلاد',
-    description: 'حضور قداس عيد الميلاد المجيد',
-    date: '2024-12-25',
-    location: 'الكنيسة الكبرى',
-    notes: 'شاركت في الترتيل والخدمة',
-    evidence: {
-      witnessName: 'الأب بولس',
-      witnessContact: '01098765432',
-      photos: ['christmas_mass1.jpg', 'christmas_mass2.jpg']
-    },
-    pointsRequested: 75,
-    status: 'approved',
-    reviewedBy: '2',
-    reviewedAt: '2024-12-25T22:00:00Z',
-    reviewNotes: 'مشاركة فعالة في القداس المقدس',
-    submittedAt: '2024-12-25T20:00:00Z',
-    createdAt: '2024-12-25T20:00:00Z',
-    updatedAt: '2024-12-25T22:00:00Z'
-  },
-  {
-    id: '8',
-    deaconId: '1',
-    type: 'community_service',
-    title: 'زيارة دار المسنين',
-    description: 'زيارة دار المسنين وقضاء وقت مع كبار السن',
-    date: '2024-12-17',
-    duration: 120,
-    location: 'دار المسنين - مدينة نصر',
-    notes: 'قرأت لهم من الكتاب المقدس وغنيت ترانيم',
-    evidence: {
-      witnessName: 'الأخت مريم - مديرة الدار',
-      witnessContact: '01123456789',
-      photos: ['elderly_visit1.jpg']
-    },
-    pointsRequested: 80,
-    status: 'approved',
-    reviewedBy: '2',
-    reviewedAt: '2024-12-17T19:00:00Z',
-    reviewNotes: 'خدمة رائعة ومؤثرة',
-    submittedAt: '2024-12-17T16:00:00Z',
-    createdAt: '2024-12-17T16:00:00Z',
-    updatedAt: '2024-12-17T19:00:00Z'
-  }
-  {
     id: '4',
     deaconId: '5',
     type: 'personal_study',
@@ -183,13 +113,13 @@ const mockBalances: DeaconBalance[] = [
   {
     id: '1',
     deaconId: '1',
-    totalPoints: 1480,
-    liturgyPoints: 755,
-    prayerPoints: 425,
-    studyPoints: 200,
-    servicePoints: 180,
+    totalPoints: 1250,
+    liturgyPoints: 600,
+    prayerPoints: 400,
+    studyPoints: 150,
+    servicePoints: 100,
     bonusPoints: 0,
-    lastUpdated: '2024-12-25T22:00:00Z'
+    lastUpdated: '2024-12-21T15:00:00Z'
   }
 ];
 
@@ -203,36 +133,6 @@ const mockTransactions: PointsTransaction[] = [
     reason: 'صلاة الصبح - معتمدة',
     approvedBy: '2',
     createdAt: '2024-12-21T15:00:00Z'
-  },
-  {
-    id: '2',
-    deaconId: '1',
-    recordId: '6',
-    type: 'earned',
-    points: 50,
-    reason: 'دراسة سفر المزامير - معتمدة',
-    approvedBy: '2',
-    createdAt: '2024-12-18T20:00:00Z'
-  },
-  {
-    id: '3',
-    deaconId: '1',
-    recordId: '7',
-    type: 'earned',
-    points: 75,
-    reason: 'قداس عيد الميلاد - معتمد',
-    approvedBy: '2',
-    createdAt: '2024-12-25T22:00:00Z'
-  },
-  {
-    id: '4',
-    deaconId: '1',
-    recordId: '8',
-    type: 'earned',
-    points: 80,
-    reason: 'زيارة دار المسنين - معتمدة',
-    approvedBy: '2',
-    createdAt: '2024-12-17T19:00:00Z'
   }
 ];
 
