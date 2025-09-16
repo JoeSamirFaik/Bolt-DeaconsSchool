@@ -22,16 +22,8 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   return (
     <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
-        {/* Left side - Action icons (always visible) */}
+        {/* Left side - Action icons (always visible) except hamburger */}
         <div className="flex items-center space-x-4 space-x-reverse">
-          {/* Mobile menu button */}
-          <button
-            onClick={onToggleSidebar}
-            className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
-          >
-            <Bars3Icon className="h-6 w-6" />
-          </button>
-
           {/* Dark Mode Toggle */}
           <button className="p-3 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-200 hover:scale-110 group">
             <SunIcon className="h-6 w-6 group-hover:rotate-180 transition-transform duration-300" />
@@ -51,6 +43,17 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                 {unreadNotifications}
               </span>
             )}
+          </button>
+        </div>
+
+        {/* Center - Mobile menu button (separate from other icons) */}
+        <div className="flex items-center">
+          {/* Mobile menu button */}
+          <button
+            onClick={onToggleSidebar}
+            className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
+          >
+            <Bars3Icon className="h-6 w-6" />
           </button>
         </div>
 
