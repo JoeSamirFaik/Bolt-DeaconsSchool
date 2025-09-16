@@ -16,7 +16,6 @@ import AttendanceBoard from './deacon/AttendanceBoard';
 import NotificationLogs from './notifications/NotificationLogs';
 import RecordsApproval from './admin/RecordsApproval';
 import { useEffect } from 'react';
-import { useEffect } from 'react';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
