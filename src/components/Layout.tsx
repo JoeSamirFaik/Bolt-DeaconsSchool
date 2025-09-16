@@ -50,8 +50,6 @@ const Layout: React.FC = () => {
         );
       case 'lessons-mgmt':
         return <LMSManagement />;
-      case 'deacon-parent-mgmt':
-        return <DeaconParentManagement />;
       case 'attendance':
         return <AttendanceManagement />;
       case 'servant-mgmt':
