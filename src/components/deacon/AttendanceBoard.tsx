@@ -42,6 +42,17 @@ const AttendanceBoard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [showLiturgyForm, setShowLiturgyForm] = useState(false);
   const [showPrayerForm, setShowPrayerForm] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Mock attendance data
   const mockAttendanceRecords: AttendanceRecord[] = [
@@ -187,9 +198,9 @@ const AttendanceBoard: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-6 p-2 sm:p-0">
       {/* Header with Stats */}
-      <AttendanceStats stats={stats} />
+      <AttendanceStats stats={stats} isMobile={isMobile} />
 
       {/* Week Navigation */}
       <WeeklyTimeline
@@ -198,16 +209,17 @@ const AttendanceBoard: React.FC = () => {
         onNavigateWeek={navigateWeek}
         onAddLiturgy={() => setShowLiturgyForm(true)}
         onAddPrayer={() => setShowPrayerForm(true)}
+        isMobile={isMobile}
       />
 
       {/* Detailed Statistics */}
-      <DetailedStats stats={stats} />
+      <DetailedStats stats={stats} isMobile={isMobile} />
 
       {/* Recent Attendance History */}
-      <AttendanceHistory attendanceRecords={attendanceRecords} />
+      <AttendanceHistory attendanceRecords={attendanceRecords} isMobile={isMobile} />
 
       {/* Points Legend */}
-      <PointsLegend />
+      <PointsLegend isMobile={isMobile} />
 
       {/* Modals */}
       <LiturgyForm
