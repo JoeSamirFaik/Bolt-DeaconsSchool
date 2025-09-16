@@ -38,9 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
           { id: 'quizzes', icon: ClipboardDocumentCheckIcon, label: 'الاختبارات' },
           { id: 'calendar', icon: CalendarIcon, label: 'التقويم' },
           { id: 'attendance-board', icon: ClipboardDocumentCheckIcon, label: 'سجل الحضور' },
-          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
-          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       case 'servant':
         return [
@@ -51,18 +49,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
           { id: 'records-approval', icon: ClipboardDocumentCheckIcon, label: 'مراجعة السجلات' },
           { id: 'child-notes', icon: ChatBubbleLeftRightIcon, label: 'ملاحظات الشمامسة' },
           { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
-          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
-          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       case 'parent':
         return [
           { id: 'dashboard', icon: HomeIcon, label: 'الرئيسية' },
           ...common,
           { id: 'call-request', icon: ChatBubbleLeftRightIcon, label: 'طلب مكالمة' },
-          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
-          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       case 'admin':
         return [
@@ -76,10 +70,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileCl
           { id: 'child-notes', icon: ChatBubbleLeftRightIcon, label: 'ملاحظات الشمامسة' },
           { id: 'reports', icon: ChartBarIcon, label: 'التقارير' },
           { id: 'analytics', icon: ChartBarIcon, label: 'التحليلات المتقدمة' },
-          { id: 'profile', icon: UserIcon, label: 'الملف الشخصي' },
           { id: 'notifications', icon: BellIcon, label: 'الإشعارات' },
           { id: 'settings', icon: Cog6ToothIcon, label: 'الإعدادات' },
-          { id: 'help', icon: ChatBubbleLeftRightIcon, label: 'المساعدة' },
         ];
       default:
         return [
