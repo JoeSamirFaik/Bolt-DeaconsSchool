@@ -4,16 +4,79 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#3B82F6" />
+    <meta name="theme-color" content="#F59E0B" />
     <meta name="description" content="تطبيق ويب تقدمي لإدارة وتعلم مدرسة الشمامسة" />
+    
+    <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="مدرسة الشمامسة" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    
+    <!-- Windows PWA Support -->
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+    <meta name="msapplication-TileColor" content="#F59E0B" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Additional PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="مدرسة الشمامسة" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/logo.jpg" as="image" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <title>البوابة الإلكترونية لمدرسة الشمامسة</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- PWA Installation Script -->
+    <script>
+      // Register service worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+      
+      // Handle PWA install prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show custom install button if needed
+        const installButton = document.getElementById('pwa-install-btn');
+        if (installButton) {
+          installButton.style.display = 'block';
+          installButton.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+              }
+              deferredPrompt = null;
+            });
+          });
+        }
+      });
+    </script>
   </body>
 </html>

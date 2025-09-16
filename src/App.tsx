@@ -3,22 +3,29 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
 import Layout from './components/Layout';
+import PWAInstallPrompt from './components/common/PWAInstallPrompt';
 
 const AuthWrapper: React.FC = () => {
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    // Register service worker for PWA
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then((registration) => {
-            console.log('SW registered: ', registration);
-          })
-          .catch((registrationError) => {
-            console.log('SW registration failed: ', registrationError);
-          });
-      });
+    // Handle PWA shortcuts
+    const urlParams = new URLSearchParams(window.location.search);
+    const shortcut = urlParams.get('shortcut');
+    
+    if (shortcut && user) {
+      // Handle shortcut navigation
+      switch (shortcut) {
+        case 'lessons':
+          // Navigate to lessons page
+          break;
+        case 'attendance':
+          // Navigate to attendance page
+          break;
+        case 'calendar':
+          // Navigate to calendar page
+          break;
+      }
     }
   }, []);
 
@@ -50,7 +57,8 @@ const AuthWrapper: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-8 relative overflow-hidden">
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-8 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-200 rounded-full opacity-20 animate-pulse"></div>
@@ -64,7 +72,10 @@ const AuthWrapper: React.FC = () => {
           <LoginForm onSwitchToRegister={() => {}} />
         </div>
       </div>
-    </div>
+      
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt />
+    </>
   );
 };
 

@@ -1,25 +1,137 @@
 {
   "name": "البوابة الإلكترونية لمدرسة الشمامسة",
   "short_name": "مدرسة الشمامسة",
-  "description": "تطبيق ويب تقدمي لإدارة وتعلم مدرسة الشمامسة",
-  "theme_color": "#3B82F6",
-  "background_color": "#F8FAFC",
+  "description": "تطبيق ويب تقدمي شامل لإدارة وتعلم مدرسة الشمامسة - القديس أثناسيوس الرسولي",
+  "theme_color": "#F59E0B",
+  "background_color": "#FFFBEB",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "scope": "/",
   "start_url": "/",
-  "icons": [
+  "id": "deacons-school-app",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["education", "religion", "productivity"],
+  "screenshots": [
     {
-      "src": "/icon-192x192.png",
-      "sizes": "192x192",
+      "src": "/screenshots/desktop-1.png",
+      "sizes": "1280x720",
       "type": "image/png",
-      "purpose": "maskable any"
+      "form_factor": "wide",
+      "label": "لوحة تحكم الشماس"
     },
     {
-      "src": "/icon-512x512.png",
+      "src": "/screenshots/mobile-1.png", 
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "التطبيق على الهاتف"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96", 
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png", 
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "الدروس",
+      "short_name": "الدروس",
+      "description": "الوصول السريع للدروس التعليمية",
+      "url": "/?shortcut=lessons",
+      "icons": [
+        {
+          "src": "/icons/shortcut-lessons.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "الحضور",
+      "short_name": "الحضور", 
+      "description": "تسجيل وعرض سجل الحضور",
+      "url": "/?shortcut=attendance",
+      "icons": [
+        {
+          "src": "/icons/shortcut-attendance.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "التقويم",
+      "short_name": "التقويم",
+      "description": "عرض الجلسات والفعاليات القادمة",
+      "url": "/?shortcut=calendar",
+      "icons": [
+        {
+          "src": "/icons/shortcut-calendar.png", 
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "protocol_handlers": [
+    {
+      "protocol": "web+deacons",
+      "url": "/?handler=%s"
     }
   ]
 }
