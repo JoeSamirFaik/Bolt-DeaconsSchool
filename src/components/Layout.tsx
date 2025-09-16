@@ -7,7 +7,8 @@ import ServantDashboard from './dashboards/ServantDashboard';
 import ParentDashboard from './dashboards/ParentDashboard';
 import AdminDashboard from './dashboards/AdminDashboard';
 import LMSManagement from './admin/LMSManagement';
-import UserManagement from './admin/UserManagement';
+import DeaconParentManagement from './admin/DeaconParentManagement';
+import ServantManagement from './admin/ServantManagement';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -35,8 +36,20 @@ const Layout: React.FC = () => {
         return renderDashboard();
       case 'lessons-mgmt':
         return <LMSManagement />;
-      case 'users':
-        return <UserManagement />;
+      case 'deacon-parent-mgmt':
+        return <DeaconParentManagement />;
+      case 'servant-mgmt':
+        return user?.role === 'admin' ? <ServantManagement /> : (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚫</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
+              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين فقط</p>
+            </div>
+          </div>
+        );
       case 'lessons':
         return (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">

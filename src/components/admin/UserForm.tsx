@@ -49,11 +49,12 @@ const customSelectStyles = {
 interface UserFormProps {
   user?: User | null;
   users: User[];
+  allowedRoles?: ('deacon' | 'servant' | 'parent')[];
   onClose: () => void;
   onSave: () => void;
 }
 
-const UserForm: React.FC<UserFormProps> = ({ user, users, onClose, onSave }) => {
+const UserForm: React.FC<UserFormProps> = ({ user, users, allowedRoles = ['deacon', 'servant', 'parent'], onClose, onSave }) => {
   const [formData, setFormData] = useState<CreateUserRequest>({
     email: '',
     firstName: '',
@@ -121,11 +122,15 @@ const UserForm: React.FC<UserFormProps> = ({ user, users, onClose, onSave }) => 
     }
   };
 
-  const roleOptions = [
+  const allRoleOptions = [
     { value: 'deacon', label: 'شماس' },
     { value: 'servant', label: 'خادم' },
     { value: 'parent', label: 'ولي أمر' }
   ];
+
+  const roleOptions = allRoleOptions.filter(option => 
+    allowedRoles.includes(option.value as any)
+  );
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">

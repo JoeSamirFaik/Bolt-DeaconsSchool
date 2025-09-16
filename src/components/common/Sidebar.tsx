@@ -8,6 +8,7 @@ import {
   BellIcon,
   ChartBarIcon,
   UsersIcon,
+  UserIcon,
   Cog6ToothIcon,
   BuildingLibraryIcon,
   ChatBubbleLeftRightIcon,
@@ -60,7 +61,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
       case 'admin':
         return [
           ...common,
-          { id: 'users', icon: UsersIcon, label: 'المستخدمون' },
+          { id: 'deacon-parent-mgmt', icon: UsersIcon, label: 'الشمامسة وأولياء الأمور' },
+          { id: 'servant-mgmt', icon: UserIcon, label: 'إدارة الخدام' },
           { id: 'lessons-mgmt', icon: BookOpenIcon, label: 'إدارة المحتوى' },
           { id: 'quizzes-mgmt', icon: ClipboardDocumentCheckIcon, label: 'إدارة الاختبارات' },
           { id: 'reports', icon: ChartBarIcon, label: 'التحليلات' },
