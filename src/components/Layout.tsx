@@ -31,7 +31,7 @@ const Layout: React.FC = () => {
   // Get current page from URL - handle both root and dashboard paths
   const getCurrentPage = () => {
     const path = location.pathname.slice(1);
-    if (path === '' || path === 'dashboard') {
+    if (path === '') {
       return 'dashboard';
     }
     return path;

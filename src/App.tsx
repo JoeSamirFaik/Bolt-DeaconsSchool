@@ -79,7 +79,7 @@ const AuthWrapper: React.FC = () => {
           </>
         )
       } />
-      <Route path="*" element={
+      <Route path="/*" element={
         user ? <Layout /> : <Navigate to="/login" replace />
       } />
     </Routes>
