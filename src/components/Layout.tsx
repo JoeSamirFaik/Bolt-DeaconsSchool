@@ -17,6 +17,7 @@ import NotificationLogs from './notifications/NotificationLogs';
 import RecordsApproval from './admin/RecordsApproval';
 import ReportsManagement from './admin/ReportsManagement';
 import SystemSettings from './admin/SystemSettings';
+import CallRequestManagement from './parent/CallRequestManagement';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
