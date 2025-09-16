@@ -298,6 +298,7 @@ const CallRequestForm: React.FC<CallRequestFormProps> = ({ isOpen, onClose, onSu
                   />
                 </div>
               </div>
+            </div>
           </div>
 
           {/* Additional Notes */}
