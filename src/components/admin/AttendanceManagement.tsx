@@ -338,7 +338,7 @@ const AttendanceManagement: React.FC = () => {
         {/* Calendar Tab */}
         {activeTab === 'calendar' && (
           <div className="p-6">
-            <CalendarView onTakeAttendance={handleTakeAttendance} />
+            <CalendarView />
           </div>
         )}
 
@@ -371,13 +371,6 @@ const AttendanceManagement: React.FC = () => {
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         >
                           <TrashIcon className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => handleTakeAttendance(session)}
-                          className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                          title="تسجيل الحضور"
-                        >
-                          <UsersIcon className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
@@ -463,13 +456,6 @@ const AttendanceManagement: React.FC = () => {
                   <div key={attendanceSession.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-4 space-x-reverse">
-                        <button
-                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          title="عرض التفاصيل"
-                        >
-                          <EyeIcon className="w-4 h-4" />
-                        </button>
-                        
                         <div className="text-right">
                           <div className="flex items-center space-x-3 space-x-reverse mb-2">
                             <span className={`px-3 py-1 text-xs font-medium rounded-full ${getAttendanceStatusColor(attendanceSession.status)}`}>

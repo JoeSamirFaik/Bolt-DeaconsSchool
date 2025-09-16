@@ -19,10 +19,9 @@ import SessionForm from './SessionForm';
 import AttendanceForm from './AttendanceForm';
 
 interface CalendarViewProps {
-  onTakeAttendance?: (session: Session) => void;
 }
 
-const CalendarView: React.FC<CalendarViewProps> = ({ onTakeAttendance }) => {
+const CalendarView: React.FC<CalendarViewProps> = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [sessions, setSessions] = useState<Session[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -65,9 +64,6 @@ const CalendarView: React.FC<CalendarViewProps> = ({ onTakeAttendance }) => {
   const handleTakeAttendance = (session: Session) => {
     setSelectedSession(session);
     setShowAttendanceForm(true);
-    if (onTakeAttendance) {
-      onTakeAttendance(session);
-    }
   };
 
   const handleAddSession = (date: string) => {
