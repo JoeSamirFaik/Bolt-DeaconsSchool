@@ -47,6 +47,175 @@ const mockSessions: Session[] = [
     isActive: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
+  },
+  {
+    id: '3',
+    name: 'درس تاريخ الكنيسة',
+    description: 'درس في تاريخ الكنيسة القبطية الأرثوذكسية',
+    type: 'lesson',
+    date: '2024-12-22',
+    startTime: '14:00',
+    endTime: '15:30',
+    location: 'قاعة التاريخ',
+    instructorId: '2',
+    levelIds: ['1'],
+    isRecurring: true,
+    recurringPattern: {
+      frequency: 'weekly',
+      interval: 1,
+      daysOfWeek: [0], // Sunday
+      endDate: '2025-06-30'
+    },
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '4',
+    name: 'احتفال عيد الميلاد',
+    description: 'احتفال خاص بعيد الميلاد المجيد مع الأطفال',
+    type: 'event',
+    date: '2024-12-25',
+    startTime: '16:00',
+    endTime: '19:00',
+    location: 'القاعة الكبرى',
+    instructorId: '2',
+    levelIds: ['1', '2'],
+    isRecurring: false,
+    maxAttendees: 100,
+    notes: 'يرجى إحضار الأطفال في الزي الرسمي',
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '5',
+    name: 'اجتماع أولياء الأمور',
+    description: 'اجتماع شهري مع أولياء الأمور لمناقشة تقدم الأطفال',
+    type: 'meeting',
+    date: '2024-12-28',
+    startTime: '18:00',
+    endTime: '20:00',
+    location: 'قاعة الاجتماعات',
+    instructorId: '2',
+    levelIds: ['1', '2'],
+    isRecurring: true,
+    recurringPattern: {
+      frequency: 'monthly',
+      interval: 1,
+      dayOfMonth: 28,
+      endDate: '2025-12-31'
+    },
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '6',
+    name: 'ورشة الألحان',
+    description: 'ورشة تعليمية لتعلم الألحان القبطية',
+    type: 'lesson',
+    date: '2025-01-05',
+    startTime: '11:00',
+    endTime: '12:30',
+    location: 'قاعة الموسيقى',
+    instructorId: '2',
+    levelIds: ['2'],
+    isRecurring: true,
+    recurringPattern: {
+      frequency: 'weekly',
+      interval: 2,
+      daysOfWeek: [6], // Saturday
+      endDate: '2025-06-30'
+    },
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '7',
+    name: 'رحلة إلى المتحف القبطي',
+    description: 'رحلة تعليمية إلى المتحف القبطي بمصر القديمة',
+    type: 'trip',
+    date: '2025-01-10',
+    startTime: '09:00',
+    endTime: '16:00',
+    location: 'المتحف القبطي - مصر القديمة',
+    instructorId: '2',
+    levelIds: ['1', '2'],
+    isRecurring: false,
+    maxAttendees: 25,
+    notes: 'يرجى إحضار الغداء والماء',
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '8',
+    name: 'درس الصلاة والتأمل',
+    description: 'تعلم أساسيات الصلاة والتأمل المسيحي',
+    type: 'lesson',
+    date: '2025-01-12',
+    startTime: '15:00',
+    endTime: '16:00',
+    location: 'كنيسة صغيرة',
+    instructorId: '2',
+    levelIds: ['1'],
+    isRecurring: true,
+    recurringPattern: {
+      frequency: 'weekly',
+      interval: 1,
+      daysOfWeek: [0], // Sunday
+      endDate: '2025-06-30'
+    },
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '9',
+    name: 'مسابقة الكتاب المقدس',
+    description: 'مسابقة شهرية في معلومات الكتاب المقدس',
+    type: 'event',
+    date: '2025-01-18',
+    startTime: '17:00',
+    endTime: '19:00',
+    location: 'القاعة الكبرى',
+    instructorId: '2',
+    levelIds: ['1', '2'],
+    isRecurring: true,
+    recurringPattern: {
+      frequency: 'monthly',
+      interval: 1,
+      dayOfMonth: 18,
+      endDate: '2025-12-31'
+    },
+    maxAttendees: 50,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '10',
+    name: 'اجتماع الخدام',
+    description: 'اجتماع أسبوعي لتنسيق الأنشطة والخطط',
+    type: 'meeting',
+    date: '2025-01-15',
+    startTime: '19:00',
+    endTime: '21:00',
+    location: 'مكتب الإدارة',
+    instructorId: '2',
+    levelIds: [],
+    isRecurring: true,
+    recurringPattern: {
+      frequency: 'weekly',
+      interval: 1,
+      daysOfWeek: [3], // Wednesday
+      endDate: '2025-12-31'
+    },
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
 ];
 
