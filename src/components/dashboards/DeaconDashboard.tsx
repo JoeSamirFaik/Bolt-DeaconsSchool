@@ -18,11 +18,41 @@ import { useAuth } from '../../context/AuthContext';
 const DeaconDashboard: React.FC = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [totalXP, setTotalXP] = useState(0);
+  const [xpBreakdown, setXpBreakdown] = useState({
+    lessons: 0,
+    liturgies: 0,
+    prayers: 0,
+    achievements: 0
+  });
 
   useEffect(() => {
-    // Simulate loading
-    setTimeout(() => setLoading(false), 1000);
+    // Simulate loading and calculate XP
+    setTimeout(() => {
+      calculateTotalXP();
+      setLoading(false);
+    }, 1000);
   }, []);
+
+  const calculateTotalXP = () => {
+    // Mock data - in real app, this would come from APIs
+    const completedLessons = 12; // From lessons completed
+    const liturgyAttendance = 8; // From attendance records (liturgy type)
+    const prayerSessions = 15; // From attendance records (prayer type)
+    const unlockedAchievements = 4; // From achievements system
+    
+    const breakdown = {
+      lessons: completedLessons * 50, // 50 XP per lesson
+      liturgies: liturgyAttendance * 50, // 50 XP per liturgy
+      prayers: prayerSessions * 25, // 25 XP per prayer
+      achievements: unlockedAchievements * 100 // 100 XP per achievement
+    };
+    
+    const total = breakdown.lessons + breakdown.liturgies + breakdown.prayers + breakdown.achievements;
+    
+    setXpBreakdown(breakdown);
+    setTotalXP(total);
+  };
 
   // Mock data - in real app, this would come from APIs
   const stats = [
@@ -44,12 +74,12 @@ const DeaconDashboard: React.FC = () => {
       trend: 'ممتاز!'
     },
     { 
-      label: 'النقاط المكتسبة', 
-      value: '1,250', 
+      label: 'النقاط المكتسبة',
+      value: totalXP.toLocaleString(),
       percentage: 85, 
       color: 'from-amber-400 via-orange-500 to-red-500',
       icon: TrophyIcon,
-      trend: '+150 هذا الشهر'
+      trend: `+${(xpBreakdown.lessons + xpBreakdown.liturgies + xpBreakdown.prayers) > 0 ? Math.floor((xpBreakdown.lessons + xpBreakdown.liturgies + xpBreakdown.prayers) * 0.1) : 150} هذا الشهر`
     },
     { 
       label: 'أيام الحضور المتتالية', 
@@ -313,7 +343,7 @@ const DeaconDashboard: React.FC = () => {
                   <div className="text-gray-600 font-cairo">الحالي</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-2">
-                  <div className="font-bold text-gray-900">1,250</div>
+                  <div className="font-bold text-gray-900">{totalXP.toLocaleString()}</div>
                   <div className="text-gray-600 font-cairo">نقطة</div>
                 </div>
               </div>
@@ -321,7 +351,7 @@ const DeaconDashboard: React.FC = () => {
           </div>
 
           {/* Recent Achievements */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <button className="text-amber-600 hover:text-amber-700 font-cairo font-medium text-sm hover:scale-105 transition-transform duration-200">
                 عرض الكل →
@@ -350,6 +380,29 @@ const DeaconDashboard: React.FC = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            
+            {/* XP Breakdown */}
+            <div className="mt-6 pt-4 border-t border-gray-200">
+              <h4 className="text-md font-bold text-gray-900 mb-3 text-right font-cairo">مصادر النقاط</h4>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-blue-50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-blue-600">{xpBreakdown.lessons}</div>
+                  <div className="text-xs text-gray-600 font-cairo">دروس (50 XP لكل درس)</div>
+                </div>
+                <div className="bg-green-50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-green-600">{xpBreakdown.liturgies}</div>
+                  <div className="text-xs text-gray-600 font-cairo">قداسات (50 XP لكل قداس)</div>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-purple-600">{xpBreakdown.prayers}</div>
+                  <div className="text-xs text-gray-600 font-cairo">صلوات (25 XP لكل صلاة)</div>
+                </div>
+                <div className="bg-amber-50 rounded-lg p-3 text-center">
+                  <div className="text-lg font-bold text-amber-600">{xpBreakdown.achievements}</div>
+                  <div className="text-xs text-gray-600 font-cairo">إنجازات (100 XP لكل إنجاز)</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -474,7 +527,7 @@ const DeaconDashboard: React.FC = () => {
       </div>
 
       {/* Motivational Banner */}
-      <div className="bg-gradient-to-r from-green-100 via-emerald-100 to-teal-100 rounded-2xl p-6 border border-green-200 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-green-100 via-emerald-100 to-teal-100 rounded-2xl p-6 border border-green-200 relative overflow-hidden hover:shadow-lg transition-shadow">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-2 right-2 w-8 h-8 bg-green-400 rounded-full animate-pulse"></div>
           <div className="absolute bottom-2 left-2 w-6 h-6 bg-emerald-400 rounded-full animate-bounce"></div>
@@ -482,11 +535,35 @@ const DeaconDashboard: React.FC = () => {
         
         <div className="relative z-10 flex items-center space-x-6 space-x-reverse">
           <div className="text-right">
-            <h3 className="text-xl font-bold text-green-900 mb-2 font-cairo">استمر في التميز! 🌟</h3>
+            <h3 className="text-xl font-bold text-green-900 mb-2 font-cairo">
+              {totalXP >= 2000 ? 'أنت نجم حقيقي! 🌟' : 
+               totalXP >= 1000 ? 'استمر في التميز! 🌟' : 
+               'ابدأ رحلتك نحو التميز! 🚀'}
+            </h3>
             <p className="text-green-700 font-cairo">
-              أنت على الطريق الصحيح لإكمال {currentLevel.name}. 
-              {currentLevel.progress >= 80 ? ' أوشكت على الانتهاء!' : ' استمر في التقدم!'}
+              {totalXP >= 2000 ? 
+                `لديك ${totalXP.toLocaleString()} نقطة! أنت من أفضل الشمامسة في المدرسة.` :
+               totalXP >= 1000 ? 
+                `رائع! لديك ${totalXP.toLocaleString()} نقطة. ${currentLevel.progress >= 80 ? 'أوشكت على الانتهاء!' : 'استمر في التقدم!'}` :
+                `لديك ${totalXP.toLocaleString()} نقطة. أضف المزيد من الصلوات والقداسات لتحصل على نقاط إضافية!`
+              }
             </p>
+            
+            {/* XP Goals */}
+            <div className="mt-4 grid grid-cols-3 gap-3">
+              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-2 text-center">
+                <div className="text-sm font-bold text-green-800">+50 XP</div>
+                <div className="text-xs text-green-700 font-cairo">قداس</div>
+              </div>
+              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-2 text-center">
+                <div className="text-sm font-bold text-green-800">+25 XP</div>
+                <div className="text-xs text-green-700 font-cairo">صلاة</div>
+              </div>
+              <div className="bg-white/70 backdrop-blur-sm rounded-lg p-2 text-center">
+                <div className="text-sm font-bold text-green-800">+50 XP</div>
+                <div className="text-xs text-green-700 font-cairo">درس</div>
+              </div>
+            </div>
           </div>
           <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
             <TrophyIcon className="w-8 h-8 text-white" />
