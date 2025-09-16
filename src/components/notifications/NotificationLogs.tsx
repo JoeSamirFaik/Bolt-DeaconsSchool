@@ -229,39 +229,40 @@ const NotificationLogs: React.FC = () => {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
           {/* Left side - Actions */}
-          <div className="flex items-center space-x-3 space-x-reverse">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 sm:space-x-reverse">
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm sm:text-base"
               >
                 <CheckCircleIcon className="w-4 h-4" />
-                <span>تحديد الكل كمقروء</span>
+                <span className="hidden sm:inline">تحديد الكل كمقروء</span>
+                <span className="sm:hidden">تحديد الكل</span>
               </button>
             )}
           </div>
           
           {/* Right side - Title & Stats */}
           <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">الإشعارات</h1>
-            <p className="text-gray-600 font-cairo">
+            <h1 className="text-lg sm:text-2xl font-bold text-gray-900 font-cairo">الإشعارات</h1>
+            <p className="text-gray-600 font-cairo text-sm sm:text-base">
               {unreadCount > 0 ? `${unreadCount} إشعار غير مقروء` : 'جميع الإشعارات مقروءة'}
             </p>
           </div>
         </div>
 
         {/* Filters */}
-        <div className="flex items-center space-x-4 space-x-reverse">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
           <div className="flex items-center space-x-2 space-x-reverse">
             <FunnelIcon className="w-5 h-5 text-gray-400" />
             <span className="text-sm font-medium text-gray-700 font-cairo">تصفية:</span>
           </div>
           
           {/* Read Status Filter */}
-          <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-lg">
+          <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-lg w-full sm:w-auto">
             <button
               onClick={() => setFilter('all')}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 filter === 'all'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
@@ -271,17 +272,18 @@ const NotificationLogs: React.FC = () => {
             </button>
             <button
               onClick={() => setFilter('unread')}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 filter === 'unread'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              غير مقروء ({unreadCount})
+              <span className="hidden sm:inline">غير مقروء ({unreadCount})</span>
+              <span className="sm:hidden">غير مقروء</span>
             </button>
             <button
               onClick={() => setFilter('read')}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 filter === 'read'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
@@ -292,20 +294,21 @@ const NotificationLogs: React.FC = () => {
           </div>
 
           {/* Type Filter */}
-          <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-lg">
+          <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-lg w-full sm:w-auto">
             <button
               onClick={() => setTypeFilter('all')}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 typeFilter === 'all'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              جميع الأنواع
+              <span className="hidden sm:inline">جميع الأنواع</span>
+              <span className="sm:hidden">الكل</span>
             </button>
             <button
               onClick={() => setTypeFilter('info')}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 typeFilter === 'info'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
@@ -315,7 +318,7 @@ const NotificationLogs: React.FC = () => {
             </button>
             <button
               onClick={() => setTypeFilter('warning')}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 typeFilter === 'warning'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
@@ -325,7 +328,7 @@ const NotificationLogs: React.FC = () => {
             </button>
             <button
               onClick={() => setTypeFilter('success')}
-              className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-none px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-all ${
                 typeFilter === 'success'
                   ? 'bg-white text-amber-600 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
@@ -339,20 +342,20 @@ const NotificationLogs: React.FC = () => {
 
       {/* Notifications List */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="space-y-4">
             {filteredNotifications.map((notification) => (
               <div
                 key={notification.id}
-                className={`border-2 rounded-xl p-6 transition-all duration-200 hover:shadow-md ${
+                className={`border-2 rounded-xl p-4 sm:p-6 transition-all duration-200 hover:shadow-md ${
                   notification.isRead 
                     ? 'border-gray-200 bg-white' 
                     : `${getNotificationColor(notification.type)} border-opacity-50`
                 }`}
               >
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between space-y-3 sm:space-y-0">
                   {/* Left side - Actions */}
-                  <div className="flex items-center space-x-2 space-x-reverse">
+                  <div className="flex items-center space-x-2 space-x-reverse order-2 sm:order-1">
                     <button
                       onClick={() => deleteNotification(notification.id)}
                       className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -379,9 +382,9 @@ const NotificationLogs: React.FC = () => {
                   </div>
 
                   {/* Center - Content */}
-                  <div className="flex-1 text-right mx-4">
-                    <div className="flex items-center space-x-3 space-x-reverse mb-2">
-                      <div className="flex items-center space-x-2 space-x-reverse">
+                  <div className="flex-1 text-right order-1 sm:order-2 sm:mx-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 sm:space-x-reverse mb-2 space-y-2 sm:space-y-0">
+                      <div className="flex items-center space-x-2 space-x-reverse justify-end sm:justify-start">
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${getPriorityColor(notification.priority)}`}>
                           {getPriorityLabel(notification.priority)}
                         </span>
@@ -390,38 +393,40 @@ const NotificationLogs: React.FC = () => {
                           <span>{formatTimeAgo(notification.createdAt)}</span>
                         </span>
                       </div>
-                      <h3 className={`text-lg font-bold font-cairo ${
+                      <h3 className={`text-base sm:text-lg font-bold font-cairo ${
                         notification.isRead ? 'text-gray-700' : 'text-gray-900'
                       }`}>
                         {notification.title}
                       </h3>
                     </div>
                     
-                    <p className={`font-cairo leading-relaxed ${
+                    <p className={`font-cairo leading-relaxed text-sm sm:text-base ${
                       notification.isRead ? 'text-gray-600' : 'text-gray-800'
                     }`}>
                       {notification.message}
                     </p>
                     
                     {notification.actionUrl && (
-                      <button className="mt-3 text-amber-600 hover:text-amber-700 font-cairo font-medium text-sm hover:scale-105 transition-transform duration-200">
+                      <button className="mt-3 text-amber-600 hover:text-amber-700 font-cairo font-medium text-xs sm:text-sm hover:scale-105 transition-transform duration-200">
                         اتخاذ إجراء →
                       </button>
                     )}
                   </div>
 
                   {/* Right side - Icon and Status */}
-                  <div className="flex items-center space-x-3 space-x-reverse">
+                  <div className="flex items-center space-x-3 space-x-reverse order-3 justify-end sm:justify-start">
                     {!notification.isRead && (
-                      <div className="w-3 h-3 bg-amber-500 rounded-full animate-pulse shadow-lg"></div>
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-amber-500 rounded-full animate-pulse shadow-lg"></div>
                     )}
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg ${
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shadow-lg ${
                       notification.type === 'success' ? 'bg-green-100' :
                       notification.type === 'warning' ? 'bg-yellow-100' :
                       notification.type === 'error' ? 'bg-red-100' :
                       'bg-blue-100'
                     }`}>
-                      {getNotificationIcon(notification.type)}
+                      <div className="scale-75 sm:scale-100">
+                        {getNotificationIcon(notification.type)}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -446,45 +451,45 @@ const NotificationLogs: React.FC = () => {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <BellIcon className="w-6 h-6 text-blue-600" />
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <BellIcon className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-blue-600 mb-1">
             {notifications.length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">إجمالي الإشعارات</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">إجمالي الإشعارات</p>
         </div>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <EyeSlashIcon className="w-6 h-6 text-amber-600" />
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <EyeSlashIcon className="w-4 h-4 sm:w-6 sm:h-6 text-amber-600" />
           </div>
-          <div className="text-2xl font-bold text-amber-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-amber-600 mb-1">
             {unreadCount}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">غير مقروء</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">غير مقروء</p>
         </div>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <ExclamationTriangleIcon className="w-6 h-6 text-red-600" />
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <ExclamationTriangleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-red-600" />
           </div>
-          <div className="text-2xl font-bold text-red-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-red-600 mb-1">
             {notifications.filter(n => n.priority === 'high' && !n.isRead).length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">عاجل</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">عاجل</p>
         </div>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center">
-          <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <CheckCircleIcon className="w-6 h-6 text-green-600" />
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3">
+            <CheckCircleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-green-600" />
           </div>
-          <div className="text-2xl font-bold text-green-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-green-600 mb-1">
             {notifications.filter(n => n.isRead).length}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">مقروء</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">مقروء</p>
         </div>
       </div>
     </div>
