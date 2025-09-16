@@ -36,18 +36,35 @@ interface LiturgyForm {
   notes: string;
 }
 
+interface PrayerForm {
+  date: string;
+  prayerType: string;
+  duration: number;
+  location: string;
+  notes: string;
+}
+
 const AttendanceBoard: React.FC = () => {
   const { user } = useAuth();
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [showLiturgyForm, setShowLiturgyForm] = useState(false);
+  const [showPrayerForm, setShowPrayerForm] = useState(false);
   const [liturgyForm, setLiturgyForm] = useState<LiturgyForm>({
     date: '',
     liturgyType: '',
     location: '',
     notes: ''
   });
+  const [prayerForm, setPrayerForm] = useState<PrayerForm>({
+    date: '',
+    prayerType: '',
+    duration: 15,
+    location: '',
+    notes: ''
+  });
+  const [totalPoints, setTotalPoints] = useState(850); // Starting points
 
   // Mock attendance data
   const mockAttendanceRecords: AttendanceRecord[] = [
@@ -71,6 +88,15 @@ const AttendanceBoard: React.FC = () => {
     { id: '11', date: '2025-01-05', sessionName: 'ورشة الألحان', sessionType: 'lesson', status: 'present', arrivalTime: '11:00', location: 'قاعة الموسيقى' },
     { id: '12', date: '2025-01-04', sessionName: 'قداس السبت', sessionType: 'liturgy', status: 'late', arrivalTime: '19:00', location: 'الكنيسة الصغرى', isUserAdded: true },
     { id: '13', date: '2025-01-02', sessionName: 'صلاة رأس السنة', sessionType: 'liturgy', status: 'present', arrivalTime: '23:30', location: 'الكنيسة الكبرى', isUserAdded: true },
+    
+    // Prayer records
+    { id: '14', date: '2024-12-16', sessionName: 'صلاة الصبح', sessionType: 'prayer', status: 'present', arrivalTime: '06:00', location: 'المنزل', isUserAdded: true },
+    { id: '15', date: '2024-12-17', sessionName: 'صلاة المساء', sessionType: 'prayer', status: 'present', arrivalTime: '18:30', location: 'المنزل', isUserAdded: true },
+    { id: '16', date: '2024-12-18', sessionName: 'صلاة الساعات', sessionType: 'prayer', status: 'present', arrivalTime: '12:00', location: 'العمل', isUserAdded: true },
+    { id: '17', date: '2024-12-23', sessionName: 'صلاة التسبيح', sessionType: 'prayer', status: 'present', arrivalTime: '07:00', location: 'المنزل', isUserAdded: true },
+    { id: '18', date: '2024-12-30', sessionName: 'صلاة شخصية', sessionType: 'prayer', status: 'present', arrivalTime: '20:00', location: 'المنزل', isUserAdded: true },
+    { id: '19', date: '2025-01-03', sessionName: 'صلاة الصبح', sessionType: 'prayer', status: 'present', arrivalTime: '06:15', location: 'المنزل', isUserAdded: true },
+    { id: '20', date: '2025-01-06', sessionName: 'صلاة المساء', sessionType: 'prayer', status: 'present', arrivalTime: '19:00', location: 'المنزل', isUserAdded: true },
   ];
 
   useEffect(() => {
@@ -147,6 +173,7 @@ const AttendanceBoard: React.FC = () => {
       case 'trip': return '🚌';
       case 'meeting': return '👥';
       case 'liturgy': return '⛪';
+      case 'prayer': return '🙏';
       default: return '📅';
     }
   };
@@ -158,6 +185,7 @@ const AttendanceBoard: React.FC = () => {
       case 'trip': return 'رحلة';
       case 'meeting': return 'اجتماع';
       case 'liturgy': return 'قداس';
+      case 'prayer': return 'صلاة';
       default: return type;
     }
   };
@@ -170,6 +198,12 @@ const AttendanceBoard: React.FC = () => {
     const absentSessions = attendanceRecords.filter(r => r.status === 'absent').length;
     
     const attendanceRate = totalSessions > 0 ? Math.round(((presentSessions + lateSessions) / totalSessions) * 100) : 0;
+    
+    // Calculate points
+    const liturgyPoints = attendanceRecords.filter(r => r.sessionType === 'liturgy' && r.status === 'present').length * 50;
+    const prayerPoints = attendanceRecords.filter(r => r.sessionType === 'prayer' && r.status === 'present').length * 25;
+    const sessionPoints = attendanceRecords.filter(r => ['lesson', 'event', 'trip', 'meeting'].includes(r.sessionType) && r.status === 'present').length * 30;
+    const calculatedPoints = liturgyPoints + prayerPoints + sessionPoints;
     
     // Calculate streak
     const sortedRecords = [...attendanceRecords]
@@ -191,7 +225,8 @@ const AttendanceBoard: React.FC = () => {
       excusedSessions,
       absentSessions,
       attendanceRate,
-      currentStreak
+      currentStreak,
+      totalPoints: calculatedPoints
     };
   };
 
@@ -213,6 +248,26 @@ const AttendanceBoard: React.FC = () => {
     setAttendanceRecords(prev => [...prev, newRecord]);
     setLiturgyForm({ date: '', liturgyType: '', location: '', notes: '' });
     setShowLiturgyForm(false);
+  };
+
+  const handleAddPrayer = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const newRecord: AttendanceRecord = {
+      id: Math.random().toString(36).substr(2, 9),
+      date: prayerForm.date,
+      sessionName: `${prayerForm.prayerType}`,
+      sessionType: 'prayer',
+      status: 'present',
+      arrivalTime: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+      location: prayerForm.location,
+      notes: `${prayerForm.duration} دقيقة - ${prayerForm.notes}`,
+      isUserAdded: true
+    };
+    
+    setAttendanceRecords(prev => [...prev, newRecord]);
+    setPrayerForm({ date: '', prayerType: '', duration: 15, location: '', notes: '' });
+    setShowPrayerForm(false);
   };
 
   const weekDates = getWeekDates(currentWeek);
