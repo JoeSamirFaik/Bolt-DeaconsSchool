@@ -58,78 +58,78 @@ const ServantManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between">
           <button
             onClick={() => {
               setEditingUser(null);
               setShowUserForm(true);
             }}
-            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-8 py-4 rounded-2xl transition-all duration-200 flex items-center space-x-3 space-x-reverse font-semibold text-lg shadow-lg hover:scale-105"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-colors flex items-center space-x-2 space-x-reverse font-medium"
           >
-            <PlusIcon className="w-6 h-6" />
+            <PlusIcon className="w-5 h-5" />
             <span>إضافة خادم</span>
           </button>
           <div className="text-right">
-            <h1 className="text-3xl font-bold text-gray-900 font-cairo mb-2">إدارة الخدام</h1>
-            <p className="text-gray-600 font-cairo text-lg">إدارة الخدام والمعلمين</p>
+            <h1 className="text-2xl font-bold text-gray-900 font-cairo">إدارة الخدام</h1>
+            <p className="text-gray-600 font-cairo">إدارة الخدام والمعلمين</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {servants.map((servant) => (
-            <div key={servant.id} className="border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="flex items-start justify-between mb-6">
-                <div className="flex space-x-3 space-x-reverse">
+            <div key={servant.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex space-x-2 space-x-reverse">
                   <button
                     onClick={() => {
                       setEditingUser(servant);
                       setShowUserForm(true);
                     }}
-                    className="p-3 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200 hover:scale-110"
+                    className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                   >
-                    <PencilIcon className="w-5 h-5" />
+                    <PencilIcon className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteUser(servant.id)}
-                    className="p-3 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 hover:scale-110"
+                    className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
-                    <TrashIcon className="w-5 h-5" />
+                    <TrashIcon className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center shadow-lg">
-                  <UserIcon className="w-8 h-8 text-purple-600" />
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                  <UserIcon className="w-6 h-6 text-purple-600" />
                 </div>
               </div>
               
-              <div className="text-right mb-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 font-cairo">
+              <div className="text-right mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 font-cairo">
                   {servant.firstName} {servant.lastName}
                 </h3>
-                <p className="text-gray-600 font-cairo text-lg mb-2">
+                <p className="text-gray-600 font-cairo text-sm mb-2">
                   {servant.email}
                 </p>
-                <span className="px-4 py-2 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-800 text-sm font-semibold rounded-full">
+                <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full">
                   خادم
                 </span>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {servant.servantInfo && (
                   <>
-                    <div className="bg-purple-50 rounded-xl p-4">
+                    <div className="bg-purple-50 rounded-lg p-3">
                       <p className="text-sm text-gray-600 font-cairo mb-2">التخصص</p>
-                      <p className="font-semibold text-purple-800 font-cairo">
+                      <p className="font-medium text-purple-800 font-cairo">
                         {servant.servantInfo.specialization}
                       </p>
                     </div>
                     
-                    <div className="bg-indigo-50 rounded-xl p-4">
+                    <div className="bg-indigo-50 rounded-lg p-3">
                       <p className="text-sm text-gray-600 font-cairo mb-2">رقم الهاتف</p>
-                      <p className="font-semibold text-indigo-800 font-cairo">
+                      <p className="font-medium text-indigo-800 font-cairo">
                         {servant.servantInfo.phone}
                       </p>
                     </div>
@@ -137,12 +137,12 @@ const ServantManagement: React.FC = () => {
                 )}
                 
                 <div className="flex justify-between items-center">
-                  <span className={`px-4 py-2 text-sm font-semibold rounded-full flex items-center space-x-2 space-x-reverse ${
+                  <span className={`px-3 py-1 text-xs font-medium rounded-full flex items-center space-x-1 space-x-reverse ${
                     servant.isActive 
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-red-100 text-red-800'
                   }`}>
-                    {servant.isActive ? <EyeIcon className="w-4 h-4" /> : <EyeSlashIcon className="w-4 h-4" />}
+                    {servant.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
                     <span>{servant.isActive ? 'نشط' : 'غير نشط'}</span>
                   </span>
                 </div>
