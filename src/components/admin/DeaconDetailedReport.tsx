@@ -17,13 +17,16 @@ import {
   StarIcon,
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
+  PlusIcon,
   ChatBubbleLeftRightIcon
 } from '@heroicons/react/24/outline';
 import { User } from '../../types/user';
 import { DeaconBalance, DeaconRecord, PointsTransaction } from '../../types/approval';
 import { deaconRecordsApi, balancesApi, transactionsApi } from '../../services/approvalApi';
 import { levelsApi } from '../../services/lmsApi';
+import { childNotesApi } from '../../services/childNotesApi';
 import { Level } from '../../types/lms';
+import { ChildNote } from '../../types/childNote';
 
 interface DeaconDetailedReportProps {
   deacon: User & {
@@ -43,8 +46,10 @@ const DeaconDetailedReport: React.FC<DeaconDetailedReportProps> = ({ deacon, onC
   const [records, setRecords] = useState<DeaconRecord[]>([]);
   const [transactions, setTransactions] = useState<PointsTransaction[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
+  const [childNotes, setChildNotes] = useState<ChildNote[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'records' | 'progress' | 'attendance' | 'notes'>('overview');
+  const [showNoteForm, setShowNoteForm] = useState(false);
 
   useEffect(() => {
     loadDeaconData();
@@ -53,15 +58,17 @@ const DeaconDetailedReport: React.FC<DeaconDetailedReportProps> = ({ deacon, onC
   const loadDeaconData = async () => {
     try {
       setLoading(true);
-      const [recordsData, transactionsData, levelsData] = await Promise.all([
+      const [recordsData, transactionsData, levelsData, notesData] = await Promise.all([
         deaconRecordsApi.getByDeaconId(deacon.id),
         transactionsApi.getByDeaconId(deacon.id),
-        levelsApi.getAll()
+        levelsApi.getAll(),
+        childNotesApi.getByDeaconId(deacon.id)
       ]);
       
       setRecords(recordsData);
       setTransactions(transactionsData);
       setLevels(levelsData);
+      setChildNotes(notesData);
     } catch (error) {
       console.error('Error loading deacon data:', error);
     } finally {
@@ -577,7 +584,147 @@ const DeaconDetailedReport: React.FC<DeaconDetailedReportProps> = ({ deacon, onC
               </div>
             </div>
           )}
+
+          {/* Notes Tab */}
+          {activeTab === 'notes' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <button
+                    onClick={() => setShowNoteForm(true)}
+                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2 space-x-reverse font-medium"
+                  >
+                    <PlusIcon className="w-4 h-4" />
+                    <span>إضافة ملاحظة</span>
+                  </button>
+                  <h3 className="text-xl font-bold text-gray-900 text-right font-cairo">ملاحظات وتعليقات المعلم</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  {childNotes.map((note) => {
+                    const getCategoryIcon = (category: string) => {
+                      switch (category) {
+                        case 'academic': return '📚';
+                        case 'behavioral': return '👤';
+                        case 'spiritual': return '🙏';
+                        case 'general': return '💬';
+                        default: return '📝';
+                      }
+                    };
+
+                    const getCategoryLabel = (category: string) => {
+                      switch (category) {
+                        case 'academic': return 'أكاديمي';
+                        case 'behavioral': return 'سلوكي';
+                        case 'spiritual': return 'روحي';
+                        case 'general': return 'عام';
+                        default: return category;
+                      }
+                    };
+
+                    const getCategoryColor = (category: string) => {
+                      switch (category) {
+                        case 'academic': return 'bg-blue-100 text-blue-800';
+                        case 'behavioral': return 'bg-orange-100 text-orange-800';
+                        case 'spiritual': return 'bg-purple-100 text-purple-800';
+                        case 'general': return 'bg-gray-100 text-gray-800';
+                        default: return 'bg-gray-100 text-gray-800';
+                      }
+                    };
+
+                    const getPriorityColor = (priority: string) => {
+                      switch (priority) {
+                        case 'high': return 'bg-red-100 text-red-800';
+                        case 'medium': return 'bg-yellow-100 text-yellow-800';
+                        case 'low': return 'bg-green-100 text-green-800';
+                        default: return 'bg-gray-100 text-gray-800';
+                      }
+                    };
+
+                    const getPriorityLabel = (priority: string) => {
+                      switch (priority) {
+                        case 'high': return 'مهم';
+                        case 'medium': return 'متوسط';
+                        case 'low': return 'عادي';
+                        default: return priority;
+                      }
+                    };
+
+                    return (
+                      <div key={note.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center space-x-3 space-x-reverse">
+                            <span className={`px-3 py-1 text-xs font-medium rounded-full ${getPriorityColor(note.priority)}`}>
+                              {getPriorityLabel(note.priority)}
+                            </span>
+                            <span className={`px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(note.category)}`}>
+                              {getCategoryLabel(note.category)}
+                            </span>
+                            {note.isPrivate && (
+                              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                                ملاحظة خاصة
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex-1 text-right mx-6">
+                            <div className="flex items-center space-x-3 space-x-reverse mb-2">
+                              <span className="text-sm text-gray-500 font-cairo">
+                                {new Date(note.createdAt).toLocaleDateString('ar-EG')}
+                              </span>
+                              <h4 className="text-lg font-bold text-gray-900 font-cairo">
+                                {note.title}
+                              </h4>
+                            </div>
+                            <p className="text-gray-600 font-cairo mb-2 leading-relaxed">{note.content}</p>
+                            <div className="flex items-center space-x-2 space-x-reverse text-sm text-gray-500">
+                              <span className="font-cairo">👨‍🏫 المعلم: مريم يوسف</span>
+                              <span className="font-cairo">📝 {getCategoryLabel(note.category)}</span>
+                            </div>
+                          </div>
+
+                          <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center">
+                            <span className="text-3xl">{getCategoryIcon(note.category)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                {childNotes.length === 0 && (
+                  <div className="text-center py-12">
+                    <ChatBubbleLeftRightIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد ملاحظات</h3>
+                    <p className="text-gray-500 font-cairo">لم يتم إضافة أي ملاحظات بعد</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
+
+        {/* Note Form Modal */}
+        {showNoteForm && (
+          React.createElement(
+            React.lazy(() => import('../admin/ChildNoteForm')),
+            {
+              isOpen: showNoteForm,
+              onClose: () => setShowNoteForm(false),
+              onSubmit: async (data: any) => {
+                try {
+                  await childNotesApi.create(data);
+                  setShowNoteForm(false);
+                  loadDeaconData();
+                } catch (error) {
+                  console.error('Error creating note:', error);
+                }
+              },
+              deacons: [deacon],
+              selectedDeaconId: deacon.id
+            }
+          )
+        )}
       </div>
     </div>
   );
