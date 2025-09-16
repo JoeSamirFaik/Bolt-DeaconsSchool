@@ -22,13 +22,8 @@ const DeaconCalendar: React.FC = () => {
   const loadSessions = async () => {
     try {
       setLoading(true);
-      const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-      const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-      
-      const sessionsData = await sessionsApi.getByDateRange(
-        startOfMonth.toISOString().split('T')[0],
-        endOfMonth.toISOString().split('T')[0]
-      );
+      // Load all sessions for now - in real app would filter by date range
+      const sessionsData = await sessionsApi.getAll();
       
       setSessions(sessionsData);
     } catch (error) {
