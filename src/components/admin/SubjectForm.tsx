@@ -1,7 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { XMarkIcon, BookOpenIcon } from '@heroicons/react/24/outline';
+import Select from 'react-select';
 import { Subject, Level, CreateSubjectRequest, UpdateSubjectRequest } from '../../types/lms';
 import { subjectsApi } from '../../services/lmsApi';
+
+const customSelectStyles = {
+  control: (provided: any, state: any) => ({
+    ...provided,
+    minHeight: '48px',
+    border: state.isFocused ? '2px solid #f59e0b' : '1px solid #d1d5db',
+    borderRadius: '12px',
+    boxShadow: state.isFocused ? '0 0 0 3px rgba(245, 158, 11, 0.1)' : 'none',
+    '&:hover': {
+      borderColor: '#f59e0b'
+    }
+  }),
+  option: (provided: any, state: any) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? '#f59e0b' : state.isFocused ? '#fef3c7' : 'white',
+    color: state.isSelected ? 'white' : '#374151',
+    padding: '12px 16px',
+    textAlign: 'right' as const,
+    fontFamily: 'Cairo, sans-serif'
+  }),
+  placeholder: (provided: any) => ({
+    ...provided,
+    color: '#9ca3af',
+    textAlign: 'right' as const,
+    fontFamily: 'Cairo, sans-serif'
+  }),
+  singleValue: (provided: any) => ({
+    ...provided,
+    textAlign: 'right' as const,
+    fontFamily: 'Cairo, sans-serif'
+  })
+};
 
 interface SubjectFormProps {
   subject?: Subject | null;
