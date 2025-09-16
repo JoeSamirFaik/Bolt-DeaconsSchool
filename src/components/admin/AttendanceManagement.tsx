@@ -22,6 +22,7 @@ import { usersApi } from '../../services/userApi';
 import { levelsApi } from '../../services/lmsApi';
 import SessionForm from './SessionForm';
 import AttendanceForm from './AttendanceForm';
+import CalendarView from './CalendarView';
 
 const customSelectStyles = {
   control: (provided: any, state: any) => ({
@@ -74,7 +75,7 @@ const AttendanceManagement: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'sessions' | 'attendance'>('sessions');
+  const [activeTab, setActiveTab] = useState<'calendar' | 'sessions' | 'attendance'>('calendar');
   
   // Filters
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -232,6 +233,17 @@ const AttendanceManagement: React.FC = () => {
         {/* Tabs */}
         <div className="flex space-x-1 space-x-reverse bg-gray-100 p-1 rounded-xl">
           <button
+            onClick={() => setActiveTab('calendar')}
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
+              activeTab === 'calendar'
+                ? 'bg-white text-amber-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <CalendarIcon className="w-4 h-4" />
+            <span>التقويم</span>
+          </button>
+          <button
             onClick={() => setActiveTab('sessions')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'sessions'
@@ -323,6 +335,13 @@ const AttendanceManagement: React.FC = () => {
 
       {/* Content */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
+        {/* Calendar Tab */}
+        {activeTab === 'calendar' && (
+          <div className="p-6">
+            <CalendarView onTakeAttendance={handleTakeAttendance} />
+          </div>
+        )}
+
         {/* Sessions Tab */}
         {activeTab === 'sessions' && (
           <div className="p-6">

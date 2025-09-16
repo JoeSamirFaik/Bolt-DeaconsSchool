@@ -78,6 +78,9 @@ const SessionForm: React.FC<SessionFormProps> = ({ session, users, levels, onClo
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Get the selected date from props if creating a new session
+  const initialDate = session?.date || new Date().toISOString().split('T')[0];
+
   useEffect(() => {
     if (session) {
       setFormData({
@@ -95,8 +98,14 @@ const SessionForm: React.FC<SessionFormProps> = ({ session, users, levels, onClo
         maxAttendees: session.maxAttendees,
         notes: session.notes || ''
       });
+    } else {
+      // Set default date for new sessions
+      setFormData(prev => ({
+        ...prev,
+        date: initialDate
+      }));
     }
-  }, [session]);
+  }, [session, initialDate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
