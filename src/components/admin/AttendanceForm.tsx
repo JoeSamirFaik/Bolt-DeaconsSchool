@@ -365,10 +365,10 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
                       {/* Deacon Info */}
                       <div className="text-right">
                         <div className="flex items-center space-x-2 space-x-reverse">
-                          {getStatusIcon(record.status)}
                           <h3 className="font-semibold text-gray-900 font-cairo">
                             {deacon.firstName} {deacon.lastName}
                           </h3>
+                          {getStatusIcon(record.status)}
                         </div>
                         <p className="text-sm text-gray-600 font-cairo">
                           {currentLevel?.name || 'غير محدد'}
