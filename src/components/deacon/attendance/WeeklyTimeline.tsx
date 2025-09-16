@@ -28,7 +28,7 @@ const WeeklyTimeline: React.FC<WeeklyTimelineProps> = ({
   attendanceRecords,
   onNavigateWeek,
   onAddLiturgy,
-  onAddPrayer
+  onAddPrayer,
   isMobile = false
 }) => {
   const getWeekDates = (date: Date) => {
