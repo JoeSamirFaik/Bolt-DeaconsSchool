@@ -597,7 +597,6 @@ const AttendanceBoard: React.FC = () => {
               </div>
             </div>
 
-            <div>
             <form onSubmit={handleAddLiturgy} className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
@@ -647,6 +646,7 @@ const AttendanceBoard: React.FC = () => {
                 />
               </div>
 
+              <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
                   ملاحظات
                 </label>
