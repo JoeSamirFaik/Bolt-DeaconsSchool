@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { 
   Bars3Icon, 
-  MagnifyingGlassIcon, 
   BellIcon, 
   Cog6ToothIcon,
   SunIcon,
@@ -30,18 +29,6 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
         >
           <Bars3Icon className="h-6 w-6" />
         </button>
-
-        {/* Center - Search */}
-        <div className="flex-1 max-w-2xl mx-8">
-          <div className="relative">
-            <MagnifyingGlassIcon className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="البحث..."
-              className="w-full pl-4 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-right font-cairo transition-all duration-200 hover:bg-white"
-            />
-          </div>
-        </div>
 
         {/* Right side - Actions and Profile */}
         <div className="flex items-center space-x-4 space-x-reverse">
