@@ -91,8 +91,10 @@ const QuizCard: React.FC<QuizCardProps> = ({
           <span className="hidden sm:inline">عدد الأسئلة: {quiz.questions.length}</span>
           <span className="sm:hidden">{quiz.questions.length} سؤال</span>
           {isCompleted && (
-            <span className="hidden sm:inline">المحاولات: {attempts}/{quiz.maxAttempts}</span>
-            <span className="sm:hidden">{attempts}/{quiz.maxAttempts}</span>
+            <>
+              <span className="hidden sm:inline">المحاولات: {attempts}/{quiz.maxAttempts}</span>
+              <span className="sm:hidden">{attempts}/{quiz.maxAttempts}</span>
+            </>
           )}
         </div>
       </div>
