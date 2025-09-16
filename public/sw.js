@@ -1,226 +1,198 @@
-const CACHE_NAME = 'deacons-school-v2.0';
-const STATIC_CACHE = 'deacons-static-v2.0';
-const DYNAMIC_CACHE = 'deacons-dynamic-v2.0';
+import React, { useState, useEffect } from 'react';
+import { 
+  PlusIcon, 
+  UsersIcon,
+  AcademicCapIcon,
+  CalendarIcon
+} from '@heroicons/react/24/outline';
+import { User, LevelAssignment, AcademicYear } from '../../types/user';
+import { usersApi, levelAssignmentsApi, academicYearsApi } from '../../services/userApi';
+import { levelsApi } from '../../services/lmsApi';
+import { Level } from '../../types/lms';
+import UserForm from './UserForm';
+import LevelAssignmentForm from './LevelAssignmentForm';
+import UserManagementHeader from './user-management/UserManagementHeader';
+import UserManagementTabs from './user-management/UserManagementTabs';
+import UserManagementFilters from './user-management/UserManagementFilters';
+import UsersTab from './user-management/UsersTab';
+import AssignmentsTab from './user-management/AssignmentsTab';
 
-// Files to cache immediately
-const STATIC_ASSETS = [
-  '/',
-  '/manifest.json',
-  '/logo.jpg',
-  '/browserconfig.xml'
-];
-
-// Install event - cache static assets
-self.addEventListener('install', (event) => {
-  console.log('Service Worker: Installing...');
-  event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then((cache) => {
-        console.log('Service Worker: Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
-      })
-      .then(() => {
-        console.log('Service Worker: Static assets cached');
-        return self.skipWaiting();
-      })
-      .catch((error) => {
-        console.error('Service Worker: Error caching static assets', error);
-      })
-  );
-});
-
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-  console.log('Service Worker: Activating...');
-  event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-              console.log('Service Worker: Deleting old cache', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
-      .then(() => {
-        console.log('Service Worker: Activated');
-        return self.clients.claim();
-      })
-  );
-});
-
-// Fetch event - serve from cache with network fallback
-self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  // Skip non-GET requests
-  if (request.method !== 'GET') {
-    return;
-  }
-
-  // Skip external requests
-  if (!url.origin.includes(self.location.origin)) {
-    return;
-  }
-
-  event.respondWith(
-    caches.match(request)
-      .then((cachedResponse) => {
-        // Return cached version if available
-        if (cachedResponse) {
-          console.log('Service Worker: Serving from cache', request.url);
-          return cachedResponse;
-        }
-
-        // Fetch from network and cache dynamic content
-        return fetch(request)
-          .then((networkResponse) => {
-            // Don't cache if not a valid response
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-              return networkResponse;
-            }
-
-            // Clone the response
-            const responseToCache = networkResponse.clone();
-
-            // Cache dynamic content
-            caches.open(DYNAMIC_CACHE)
-              .then((cache) => {
-                console.log('Service Worker: Caching dynamic content', request.url);
-                cache.put(request, responseToCache);
-              });
-
-            return networkResponse;
-          })
-          .catch((error) => {
-            console.error('Service Worker: Fetch failed', error);
-            
-            // Return offline page for navigation requests
-            if (request.destination === 'document') {
-              return caches.match('/');
-            }
-            
-            throw error;
-          });
-      })
-  );
-});
-
-// Background sync for offline actions
-self.addEventListener('sync', (event) => {
-  console.log('Service Worker: Background sync', event.tag);
+const UserManagement: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [levels, setLevels] = useState<Level[]>([]);
+  const [assignments, setAssignments] = useState<LevelAssignment[]>([]);
+  const [academicYears, setAcademicYears] = useState<AcademicYear[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'users' | 'assignments'>('users');
+  const [selectedRole, setSelectedRole] = useState<string>('');
+  const [selectedYear, setSelectedYear] = useState<string>('');
   
-  if (event.tag === 'attendance-sync') {
-    event.waitUntil(syncAttendanceData());
-  }
-  
-  if (event.tag === 'records-sync') {
-    event.waitUntil(syncRecordsData());
-  }
-});
+  // Modal states
+  const [showUserForm, setShowUserForm] = useState(false);
+  const [showAssignmentForm, setShowAssignmentForm] = useState(false);
+  const [editingItem, setEditingItem] = useState<any>(null);
 
-// Push notifications
-self.addEventListener('push', (event) => {
-  console.log('Service Worker: Push received');
-  
-  const options = {
-    body: event.data ? event.data.text() : 'إشعار جديد من مدرسة الشمامسة',
-    icon: '/logo.jpg',
-    badge: '/logo.jpg',
-    vibrate: [200, 100, 200],
-    dir: 'rtl',
-    lang: 'ar',
-    tag: 'deacons-notification',
-    requireInteraction: true,
-    actions: [
-      {
-        action: 'view',
-        title: 'عرض',
-        icon: '/logo.jpg'
-      },
-      {
-        action: 'dismiss',
-        title: 'إغلاق',
-        icon: '/logo.jpg'
-      }
-    ]
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [usersData, levelsData, assignmentsData, yearsData] = await Promise.all([
+        usersApi.getAll(),
+        levelsApi.getAll(),
+        levelAssignmentsApi.getAll(),
+        academicYearsApi.getAll()
+      ]);
+      setUsers(usersData);
+      setLevels(levelsData);
+      setAssignments(assignmentsData);
+      setAcademicYears(yearsData);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  event.waitUntil(
-    self.registration.showNotification('مدرسة الشمامسة', options)
+  const handleDeleteUser = async (id: string) => {
+    if (window.confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
+      try {
+        await usersApi.delete(id);
+        loadData();
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    }
+  };
+
+  const handleDeleteAssignment = async (id: string) => {
+    if (window.confirm('هل أنت متأكد من حذف هذا التكليف؟')) {
+      try {
+        await levelAssignmentsApi.delete(id);
+        loadData();
+      } catch (error) {
+        console.error('Error deleting assignment:', error);
+      }
+    }
+  };
+
+  const handleAddNew = () => {
+    setEditingItem(null);
+    if (activeTab === 'users') setShowUserForm(true);
+    else setShowAssignmentForm(true);
+  };
+
+  const filteredUsers = users.filter(user => 
+    !selectedRole || user.role === selectedRole
   );
-});
 
-// Notification click handling
-self.addEventListener('notificationclick', (event) => {
-  console.log('Service Worker: Notification clicked', event.action);
-  
-  event.notification.close();
+  const filteredAssignments = assignments.filter(assignment => 
+    !selectedYear || assignment.academicYear === selectedYear
+  );
 
-  if (event.action === 'view') {
-    event.waitUntil(
-      clients.openWindow('/')
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="w-8 h-8 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-gray-600 font-cairo">جاري تحميل إدارة المستخدمين...</p>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
-});
 
-// Helper functions for background sync
-async function syncAttendanceData() {
-  try {
-    // Sync offline attendance data
-    const offlineData = await getOfflineAttendanceData();
-    if (offlineData.length > 0) {
-      await uploadAttendanceData(offlineData);
-      await clearOfflineAttendanceData();
-    }
-  } catch (error) {
-    console.error('Failed to sync attendance data:', error);
-  }
-}
+  return (
+    <div className="space-y-4 sm:space-y-6">
+      {/* Header */}
+      <UserManagementHeader 
+        activeTab={activeTab}
+        onAddNew={handleAddNew}
+      />
 
-async function syncRecordsData() {
-  try {
-    // Sync offline records data
-    const offlineRecords = await getOfflineRecordsData();
-    if (offlineRecords.length > 0) {
-      await uploadRecordsData(offlineRecords);
-      await clearOfflineRecordsData();
-    }
-  } catch (error) {
-    console.error('Failed to sync records data:', error);
-  }
-}
+      {/* Tabs */}
+      <UserManagementTabs 
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
 
-// Placeholder functions for offline data management
-async function getOfflineAttendanceData() {
-  // Implementation would retrieve data from IndexedDB
-  return [];
-}
+      {/* Filters */}
+      <UserManagementFilters
+        activeTab={activeTab}
+        selectedRole={selectedRole}
+        selectedYear={selectedYear}
+        academicYears={academicYears}
+        onRoleChange={setSelectedRole}
+        onYearChange={setSelectedYear}
+      />
 
-async function uploadAttendanceData(data) {
-  // Implementation would upload to server
-  console.log('Uploading attendance data:', data);
-}
+      {/* Content */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+        {activeTab === 'users' ? (
+          <UsersTab
+            users={filteredUsers}
+            levels={levels}
+            onEdit={(user) => {
+              setEditingItem(user);
+              setShowUserForm(true);
+            }}
+            onDelete={handleDeleteUser}
+          />
+        ) : (
+          <AssignmentsTab
+            assignments={filteredAssignments}
+            users={users}
+            levels={levels}
+            onEdit={(assignment) => {
+              setEditingItem(assignment);
+              setShowAssignmentForm(true);
+            }}
+            onDelete={handleDeleteAssignment}
+          />
+        )}
+      </div>
 
-async function clearOfflineAttendanceData() {
-  // Implementation would clear IndexedDB
-  console.log('Clearing offline attendance data');
-}
+      {/* Modals */}
+      {showUserForm && (
+        <UserForm
+          user={editingItem}
+          users={users}
+          onClose={() => {
+            setShowUserForm(false);
+            setEditingItem(null);
+          }}
+          onSave={() => {
+            setShowUserForm(false);
+            setEditingItem(null);
+            loadData();
+          }}
+        />
+      )}
 
-async function getOfflineRecordsData() {
-  // Implementation would retrieve data from IndexedDB
-  return [];
-}
+      {showAssignmentForm && (
+        <LevelAssignmentForm
+          assignment={editingItem}
+          users={users.filter(u => u.role === 'deacon')}
+          levels={levels}
+          academicYears={academicYears}
+          onClose={() => {
+            setShowAssignmentForm(false);
+            setEditingItem(null);
+          }}
+          onSave={() => {
+            setShowAssignmentForm(false);
+            setEditingItem(null);
+            loadData();
+          }}
+        />
+      )}
+    </div>
+  );
+};
 
-async function uploadRecordsData(data) {
-  // Implementation would upload to server
-  console.log('Uploading records data:', data);
-}
-
-async function clearOfflineRecordsData() {
-  // Implementation would clear IndexedDB
-  console.log('Clearing offline records data');
-}
+export default UserManagement;
