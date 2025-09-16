@@ -23,14 +23,12 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
     <header className="bg-white border-b border-gray-100 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Left side - Mobile menu button */}
-        <div className="flex items-center space-x-4 space-x-reverse">
-          <button
-            onClick={onToggleSidebar}
-            className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
-          >
-            <Bars3Icon className="h-6 w-6" />
-          </button>
-        </div>
+        <button
+          onClick={onToggleSidebar}
+          className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
+        >
+          <Bars3Icon className="h-6 w-6" />
+        </button>
 
         {/* Center - Search */}
         <div className="flex-1 max-w-2xl mx-8">
