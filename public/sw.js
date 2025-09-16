@@ -7,8 +7,7 @@ const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/logo.jpg',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '/browserconfig.xml'
 ];
 
 // Install event - cache static assets
@@ -129,8 +128,8 @@ self.addEventListener('push', (event) => {
   
   const options = {
     body: event.data ? event.data.text() : 'إشعار جديد من مدرسة الشمامسة',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-72x72.png',
+    icon: '/logo.jpg',
+    badge: '/logo.jpg',
     vibrate: [200, 100, 200],
     dir: 'rtl',
     lang: 'ar',
@@ -140,12 +139,12 @@ self.addEventListener('push', (event) => {
       {
         action: 'view',
         title: 'عرض',
-        icon: '/icons/action-view.png'
+        icon: '/logo.jpg'
       },
       {
         action: 'dismiss',
         title: 'إغلاق',
-        icon: '/icons/action-dismiss.png'
+        icon: '/logo.jpg'
       }
     ]
   };
