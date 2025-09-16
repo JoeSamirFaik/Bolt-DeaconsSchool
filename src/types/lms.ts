@@ -83,3 +83,48 @@ export interface UpdateLessonRequest extends Partial<CreateLessonRequest> {
   id: string;
   isActive?: boolean;
 }
+
+export interface Quiz {
+  id: string;
+  subjectId: string;
+  title: string;
+  description: string;
+  type: 'lesson_quiz' | 'final_exam';
+  lessonId?: string; // For lesson quizzes
+  order: number;
+  timeLimit: number; // in minutes
+  passingScore: number; // percentage
+  maxAttempts: number;
+  questions: Question[];
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Question {
+  id: string;
+  text: string;
+  type: 'multiple_choice' | 'true_false' | 'short_answer';
+  options?: string[]; // For multiple choice
+  correctAnswer: string | number; // Answer index for MC, text for short answer
+  points: number;
+  explanation?: string;
+}
+
+export interface CreateQuizRequest {
+  subjectId: string;
+  title: string;
+  description: string;
+  type: 'lesson_quiz' | 'final_exam';
+  lessonId?: string;
+  order: number;
+  timeLimit: number;
+  passingScore: number;
+  maxAttempts: number;
+  questions: Omit<Question, 'id'>[];
+}
+
+export interface UpdateQuizRequest extends Partial<CreateQuizRequest> {
+  id: string;
+  isActive?: boolean;
+}

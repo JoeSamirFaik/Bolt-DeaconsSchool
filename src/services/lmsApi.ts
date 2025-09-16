@@ -2,12 +2,15 @@ import {
   Level, 
   Subject, 
   Lesson, 
+  Quiz,
   CreateLevelRequest, 
   CreateSubjectRequest, 
   CreateLessonRequest,
+  CreateQuizRequest,
   UpdateLevelRequest,
   UpdateSubjectRequest,
-  UpdateLessonRequest
+  UpdateLessonRequest,
+  UpdateQuizRequest
 } from '../types/lms';
 
 const API_BASE_URL = 'http://localhost:3000/api';
@@ -76,6 +79,58 @@ const mockLessons: Lesson[] = [
       text: 'محتوى الدرس النصي...'
     },
     duration: 30,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }
+];
+
+const mockQuizzes: Quiz[] = [
+  {
+    id: '1',
+    subjectId: '1',
+    title: 'اختبار سريع - تاريخ الكنيسة',
+    description: 'اختبار قصير بعد الدرس الأول',
+    type: 'lesson_quiz',
+    lessonId: '1',
+    order: 1,
+    timeLimit: 10,
+    passingScore: 70,
+    maxAttempts: 3,
+    questions: [
+      {
+        id: '1',
+        text: 'متى تأسست الكنيسة القبطية؟',
+        type: 'multiple_choice',
+        options: ['القرن الأول الميلادي', 'القرن الثاني الميلادي', 'القرن الثالث الميلادي'],
+        correctAnswer: 0,
+        points: 10,
+        explanation: 'تأسست الكنيسة القبطية في القرن الأول الميلادي على يد القديس مرقس'
+      }
+    ],
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: '2',
+    subjectId: '1',
+    title: 'الامتحان النهائي - تاريخ الكنيسة',
+    description: 'الامتحان النهائي لمقرر تاريخ الكنيسة',
+    type: 'final_exam',
+    order: 999,
+    timeLimit: 60,
+    passingScore: 80,
+    maxAttempts: 1,
+    questions: [
+      {
+        id: '2',
+        text: 'اذكر أهم أحداث تاريخ الكنيسة القبطية',
+        type: 'short_answer',
+        correctAnswer: 'تأسيس الكنيسة، عصر الاستشهاد، المجامع المسكونية',
+        points: 20
+      }
+    ],
     isActive: true,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
@@ -286,6 +341,91 @@ export const lessonsApi = {
           resolve();
         } else {
           reject(new Error('Lesson not found'));
+        }
+      }, 500);
+    });
+  }
+};
+
+// Quizzes API
+export const quizzesApi = {
+  getAll: async (): Promise<Quiz[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(mockQuizzes), 500);
+    });
+  },
+
+  getBySubjectId: async (subjectId: string): Promise<Quiz[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const quizzes = mockQuizzes.filter(q => q.subjectId === subjectId);
+        resolve(quizzes);
+      }, 500);
+    });
+  },
+
+  getByLessonId: async (lessonId: string): Promise<Quiz[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const quizzes = mockQuizzes.filter(q => q.lessonId === lessonId);
+        resolve(quizzes);
+      }, 500);
+    });
+  },
+
+  getById: async (id: string): Promise<Quiz> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const quiz = mockQuizzes.find(q => q.id === id);
+        if (quiz) resolve(quiz);
+        else reject(new Error('Quiz not found'));
+      }, 500);
+    });
+  },
+
+  create: async (data: CreateQuizRequest): Promise<Quiz> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const newQuiz: Quiz = {
+          id: Math.random().toString(36).substr(2, 9),
+          ...data,
+          questions: data.questions.map(q => ({
+            ...q,
+            id: Math.random().toString(36).substr(2, 9)
+          })),
+          isActive: true,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        mockQuizzes.push(newQuiz);
+        resolve(newQuiz);
+      }, 500);
+    });
+  },
+
+  update: async (data: UpdateQuizRequest): Promise<Quiz> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = mockQuizzes.findIndex(q => q.id === data.id);
+        if (index !== -1) {
+          mockQuizzes[index] = { ...mockQuizzes[index], ...data, updatedAt: new Date().toISOString() };
+          resolve(mockQuizzes[index]);
+        } else {
+          reject(new Error('Quiz not found'));
+        }
+      }, 500);
+    });
+  },
+
+  delete: async (id: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = mockQuizzes.findIndex(q => q.id === id);
+        if (index !== -1) {
+          mockQuizzes.splice(index, 1);
+          resolve();
+        } else {
+          reject(new Error('Quiz not found'));
         }
       }, 500);
     });
