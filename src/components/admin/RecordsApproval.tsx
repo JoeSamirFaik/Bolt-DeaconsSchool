@@ -216,21 +216,21 @@ const RecordsApproval: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="text-right">
-          <h1 className="text-2xl font-bold text-gray-900 font-cairo">مراجعة سجلات الشمامسة</h1>
-          <p className="text-gray-600 font-cairo">مراجعة واعتماد أنشطة الشمامسة لإضافة النقاط</p>
+          <h1 className="text-lg sm:text-2xl font-bold text-gray-900 font-cairo">مراجعة سجلات الشمامسة</h1>
+          <p className="text-gray-600 font-cairo text-sm sm:text-base hidden sm:block">مراجعة واعتماد أنشطة الشمامسة لإضافة النقاط</p>
         </div>
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div className="flex items-center justify-between">
             <div className="text-right">
-              <p className="text-2xl font-bold text-yellow-600 mb-1">{stats.pending}</p>
-              <p className="text-sm text-gray-600 font-cairo">في الانتظار</p>
+              <p className="text-lg sm:text-2xl font-bold text-yellow-600 mb-1">{stats.pending}</p>
+              <p className="text-xs sm:text-sm text-gray-600 font-cairo">في الانتظار</p>
             </div>
-            <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-              <ClockIcon className="w-6 h-6 text-yellow-600" />
+            <div className="w-8 h-8 sm:w-12 sm:h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+              <ClockIcon className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-600" />
             </div>
           </div>
         </div>
@@ -238,23 +238,11 @@ const RecordsApproval: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div className="flex items-center justify-between">
             <div className="text-right">
-              <p className="text-2xl font-bold text-green-600 mb-1">{stats.approved}</p>
-              <p className="text-sm text-gray-600 font-cairo">معتمد</p>
+              <p className="text-lg sm:text-2xl font-bold text-green-600 mb-1">{stats.approved}</p>
+              <p className="text-xs sm:text-sm text-gray-600 font-cairo">معتمد</p>
             </div>
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-              <CheckCircleIcon className="w-6 h-6 text-green-600" />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-          <div className="flex items-center justify-between">
-            <div className="text-right">
-              <p className="text-2xl font-bold text-red-600 mb-1">{stats.rejected}</p>
-              <p className="text-sm text-gray-600 font-cairo">مرفوض</p>
-            </div>
-            <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-              <XCircleIcon className="w-6 h-6 text-red-600" />
+            <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-xl flex items-center justify-center">
+              <CheckCircleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-green-600" />
             </div>
           </div>
         </div>
@@ -262,11 +250,23 @@ const RecordsApproval: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow">
           <div className="flex items-center justify-between">
             <div className="text-right">
-              <p className="text-2xl font-bold text-blue-600 mb-1">{stats.needsRevision}</p>
-              <p className="text-sm text-gray-600 font-cairo">يحتاج مراجعة</p>
+              <p className="text-lg sm:text-2xl font-bold text-red-600 mb-1">{stats.rejected}</p>
+              <p className="text-xs sm:text-sm text-gray-600 font-cairo">مرفوض</p>
             </div>
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-              <ExclamationTriangleIcon className="w-6 h-6 text-blue-600" />
+            <div className="w-8 h-8 sm:w-12 sm:h-12 bg-red-100 rounded-xl flex items-center justify-center">
+              <XCircleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-red-600" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div className="flex items-center justify-between">
+            <div className="text-right">
+              <p className="text-lg sm:text-2xl font-bold text-blue-600 mb-1">{stats.needsRevision}</p>
+              <p className="text-xs sm:text-sm text-gray-600 font-cairo">يحتاج مراجعة</p>
+            </div>
+            <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+              <ExclamationTriangleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
             </div>
           </div>
         </div>
@@ -274,11 +274,11 @@ const RecordsApproval: React.FC = () => {
 
       {/* Filters */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center space-x-3 space-x-reverse mb-4">
-          <FunnelIcon className="w-5 h-5 text-gray-400" />
-          <h3 className="text-lg font-semibold text-gray-900 font-cairo">تصفية السجلات</h3>
+        <div className="flex items-center space-x-2 sm:space-x-3 space-x-reverse mb-4">
+          <FunnelIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 font-cairo">تصفية السجلات</h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
               الحالة
@@ -348,26 +348,27 @@ const RecordsApproval: React.FC = () => {
 
       {/* Records List */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="space-y-6">
             {filteredRecords.map((record) => {
               const deacon = deacons.find(d => d.id === record.deaconId);
               const balance = getDeaconBalance(record.deaconId);
               
               return (
-                <div key={record.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                  <div className="flex items-start justify-between">
+                <div key={record.id} className="border border-gray-200 rounded-xl p-4 sm:p-6 hover:shadow-md transition-shadow">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between space-y-4 sm:space-y-0">
                     {/* Left side - Actions */}
-                    <div className="flex items-center space-x-3 space-x-reverse">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 sm:space-x-reverse order-3 sm:order-1">
                       <button
                         onClick={() => {
                           setSelectedRecord(record);
                           setShowReviewModal(true);
                         }}
-                        className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2 space-x-reverse font-medium"
+                        className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors flex items-center justify-center space-x-2 space-x-reverse font-medium text-sm sm:text-base"
                       >
                         <EyeIcon className="w-4 h-4" />
-                        <span>مراجعة</span>
+                        <span className="hidden sm:inline">مراجعة</span>
+                        <span className="sm:hidden">مراجعة</span>
                       </button>
                       
                       <span className={`px-3 py-1 text-xs font-medium rounded-full border ${getStatusColor(record.status)}`}>
@@ -376,57 +377,57 @@ const RecordsApproval: React.FC = () => {
                     </div>
 
                     {/* Center - Record Details */}
-                    <div className="flex-1 text-right mx-6">
-                      <div className="flex items-center space-x-4 space-x-reverse mb-3">
-                        <div className="flex items-center space-x-2 space-x-reverse">
+                    <div className="flex-1 text-right order-1 sm:order-2 sm:mx-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 sm:space-x-reverse mb-3">
+                        <div className="flex items-center space-x-2 space-x-reverse justify-end sm:justify-start">
                           <span className="bg-amber-100 text-amber-800 px-2 py-1 text-xs rounded-full font-medium">
                             +{record.pointsRequested} نقطة
                           </span>
-                          <span className="text-sm text-gray-500 font-cairo">
+                          <span className="text-xs sm:text-sm text-gray-500 font-cairo">
                             {new Date(record.date).toLocaleDateString('ar-EG')}
                           </span>
                         </div>
-                        <h3 className="text-lg font-bold text-gray-900 font-cairo">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 font-cairo">
                           {record.title}
                         </h3>
                       </div>
                       
-                      <p className="text-gray-600 font-cairo mb-3 leading-relaxed">
+                      <p className="text-gray-600 font-cairo mb-3 leading-relaxed text-sm sm:text-base">
                         {record.description}
                       </p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                        <div className="flex items-center space-x-2 space-x-reverse">
-                          <span className="text-gray-600 font-cairo">{record.location}</span>
-                          <MapPinIcon className="w-4 h-4 text-gray-400" />
+                      <div className="grid grid-cols-1 gap-2 sm:gap-4 text-xs sm:text-sm">
+                        <div className="flex items-center space-x-2 space-x-reverse justify-end sm:justify-start">
+                          <span className="text-gray-600 font-cairo truncate">{record.location}</span>
+                          <MapPinIcon className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                         </div>
                         
                         {record.duration && (
-                          <div className="flex items-center space-x-2 space-x-reverse">
+                          <div className="flex items-center space-x-2 space-x-reverse justify-end sm:justify-start">
                             <span className="text-gray-600 font-cairo">{record.duration} دقيقة</span>
-                            <ClockIcon className="w-4 h-4 text-gray-400" />
+                            <ClockIcon className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" />
                           </div>
                         )}
                         
-                        <div className="flex items-center space-x-2 space-x-reverse">
+                        <div className="flex items-center space-x-2 space-x-reverse justify-end sm:justify-start">
                           <span className="text-gray-600 font-cairo">
                             {new Date(record.submittedAt).toLocaleDateString('ar-EG')}
                           </span>
-                          <CalendarIcon className="w-4 h-4 text-gray-400" />
+                          <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" />
                         </div>
                       </div>
 
                       {/* Evidence */}
                       {record.evidence && (
-                        <div className="mt-4 bg-gray-50 rounded-lg p-3">
-                          <h4 className="font-semibold text-gray-900 font-cairo mb-2 text-sm">الأدلة:</h4>
-                          <div className="space-y-2 text-sm">
+                        <div className="mt-4 bg-gray-50 rounded-lg p-2 sm:p-3">
+                          <h4 className="font-semibold text-gray-900 font-cairo mb-2 text-xs sm:text-sm">الأدلة:</h4>
+                          <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
                             {record.evidence.witnessName && (
                               <div className="flex items-center space-x-2 space-x-reverse">
-                                <span className="text-gray-600 font-cairo">
+                                <span className="text-gray-600 font-cairo truncate">
                                   {record.evidence.witnessName} - {record.evidence.witnessContact}
                                 </span>
-                                <UserIcon className="w-4 h-4 text-gray-400" />
+                                <UserIcon className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
                               </div>
                             )}
                             {record.evidence.photos && record.evidence.photos.length > 0 && (
@@ -434,7 +435,7 @@ const RecordsApproval: React.FC = () => {
                                 <span className="text-gray-600 font-cairo">
                                   {record.evidence.photos.length} صورة مرفقة
                                 </span>
-                                <PhotoIcon className="w-4 h-4 text-gray-400" />
+                                <PhotoIcon className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" />
                               </div>
                             )}
                             {record.evidence.documents && record.evidence.documents.length > 0 && (
@@ -442,7 +443,7 @@ const RecordsApproval: React.FC = () => {
                                 <span className="text-gray-600 font-cairo">
                                   {record.evidence.documents.length} مستند مرفق
                                 </span>
-                                <DocumentTextIcon className="w-4 h-4 text-gray-400" />
+                                <DocumentTextIcon className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" />
                               </div>
                             )}
                           </div>
@@ -451,9 +452,9 @@ const RecordsApproval: React.FC = () => {
 
                       {/* Review Notes */}
                       {record.reviewNotes && (
-                        <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3">
-                          <h4 className="font-semibold text-blue-900 font-cairo mb-1 text-sm">ملاحظات المراجعة:</h4>
-                          <p className="text-blue-800 font-cairo text-sm">{record.reviewNotes}</p>
+                        <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-2 sm:p-3">
+                          <h4 className="font-semibold text-blue-900 font-cairo mb-1 text-xs sm:text-sm">ملاحظات المراجعة:</h4>
+                          <p className="text-blue-800 font-cairo text-xs sm:text-sm">{record.reviewNotes}</p>
                           {record.reviewedAt && (
                             <p className="text-xs text-blue-600 font-cairo mt-1">
                               تمت المراجعة في {new Date(record.reviewedAt).toLocaleDateString('ar-EG')}
@@ -464,41 +465,41 @@ const RecordsApproval: React.FC = () => {
                     </div>
 
                     {/* Right side - Deacon Info & Balance */}
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-3 shadow-lg">
+                    <div className="text-center order-2 sm:order-3">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-3 shadow-lg mx-auto sm:mx-0">
                         {getTypeIcon(record.type)}
                       </div>
                       
-                      <div className="text-right mb-4">
-                        <h4 className="font-bold text-gray-900 font-cairo">
+                      <div className="text-center sm:text-right mb-4">
+                        <h4 className="font-bold text-gray-900 font-cairo text-sm sm:text-base">
                           {deacon?.firstName} {deacon?.lastName}
                         </h4>
-                        <p className="text-sm text-gray-600 font-cairo">{getTypeLabel(record.type)}</p>
+                        <p className="text-xs sm:text-sm text-gray-600 font-cairo">{getTypeLabel(record.type)}</p>
                       </div>
 
                       {/* Deacon Balance */}
                       {balance && (
-                        <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg p-3 border border-purple-200">
+                        <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg p-2 sm:p-3 border border-purple-200">
                           <div className="text-center mb-2">
-                            <div className="text-lg font-bold text-purple-600">{balance.totalPoints}</div>
+                            <div className="text-base sm:text-lg font-bold text-purple-600">{balance.totalPoints}</div>
                             <div className="text-xs text-gray-600 font-cairo">إجمالي النقاط</div>
                           </div>
                           
-                          <div className="grid grid-cols-2 gap-2 text-xs">
-                            <div className="bg-white/70 rounded p-1 text-center">
-                              <div className="font-bold text-green-600">{balance.liturgyPoints}</div>
+                          <div className="grid grid-cols-2 gap-1 sm:gap-2 text-xs">
+                            <div className="bg-white/70 rounded p-1 sm:p-1 text-center">
+                              <div className="font-bold text-green-600 text-xs sm:text-sm">{balance.liturgyPoints}</div>
                               <div className="text-gray-600 font-cairo">قداسات</div>
                             </div>
-                            <div className="bg-white/70 rounded p-1 text-center">
-                              <div className="font-bold text-blue-600">{balance.prayerPoints}</div>
+                            <div className="bg-white/70 rounded p-1 sm:p-1 text-center">
+                              <div className="font-bold text-blue-600 text-xs sm:text-sm">{balance.prayerPoints}</div>
                               <div className="text-gray-600 font-cairo">صلوات</div>
                             </div>
-                            <div className="bg-white/70 rounded p-1 text-center">
-                              <div className="font-bold text-purple-600">{balance.studyPoints}</div>
+                            <div className="bg-white/70 rounded p-1 sm:p-1 text-center">
+                              <div className="font-bold text-purple-600 text-xs sm:text-sm">{balance.studyPoints}</div>
                               <div className="text-gray-600 font-cairo">دراسة</div>
                             </div>
-                            <div className="bg-white/70 rounded p-1 text-center">
-                              <div className="font-bold text-red-600">{balance.servicePoints}</div>
+                            <div className="bg-white/70 rounded p-1 sm:p-1 text-center">
+                              <div className="font-bold text-red-600 text-xs sm:text-sm">{balance.servicePoints}</div>
                               <div className="text-gray-600 font-cairo">خدمة</div>
                             </div>
                           </div>
@@ -513,9 +514,9 @@ const RecordsApproval: React.FC = () => {
 
           {filteredRecords.length === 0 && (
             <div className="text-center py-12">
-              <ClipboardDocumentCheckIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد سجلات</h3>
-              <p className="text-gray-500 font-cairo">
+              <ClipboardDocumentCheckIcon className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد سجلات</h3>
+              <p className="text-gray-500 font-cairo text-sm sm:text-base">
                 {statusFilter === 'pending' 
                   ? 'لا توجد سجلات في انتظار المراجعة' 
                   : 'لا توجد سجلات تطابق المرشحات المحددة'
