@@ -6,7 +6,6 @@ import Layout from './components/Layout';
 
 const AuthWrapper: React.FC = () => {
   const { user, loading } = useAuth();
-  const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
     // Register service worker for PWA
@@ -62,11 +61,7 @@ const AuthWrapper: React.FC = () => {
       
       <div className="w-full max-w-2xl relative z-10">
         <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-12 border border-white/50">
-          {isLogin ? (
-            <LoginForm onSwitchToRegister={() => setIsLogin(false)} />
-          ) : (
-            <RegisterForm onSwitchToLogin={() => setIsLogin(true)} />
-          )}
+          <LoginForm onSwitchToRegister={() => {}} />
         </div>
       </div>
     </div>

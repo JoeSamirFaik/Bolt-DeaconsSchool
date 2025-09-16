@@ -110,13 +110,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister }) => {
 
       <div className="text-center">
         <p className="text-sm text-gray-600 mb-4 font-cairo">
-          جديد هنا؟{' '}
-          <button
-            onClick={onSwitchToRegister}
-            className="font-semibold text-amber-600 hover:text-amber-500 transition-colors"
-          >
-            إنشاء حساب جديد
-          </button>
+          استخدم أحد الحسابات التجريبية أدناه للدخول
         </p>
       </div>
 
