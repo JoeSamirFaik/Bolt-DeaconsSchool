@@ -20,7 +20,6 @@ import SystemSettings from './admin/SystemSettings';
 import CallRequestManagement from './parent/CallRequestManagement';
 import ChildNotesManagement from './admin/ChildNotesManagement';
 import PWAInstallPrompt from './common/PWAInstallPrompt';
-import PWAInstallPrompt from './common/PWAInstallPrompt';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
