@@ -125,4 +125,4 @@ const BackupSettings: React.FC<BackupSettingsProps> = ({ config, onChange }) => 
   );
 };
 
-export default SystemSecuritySettings;
+export default BackupSettings;
