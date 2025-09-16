@@ -47,15 +47,15 @@ const AssignmentsTab: React.FC<AssignmentsTabProps> = ({
   return (
     <div className="p-4 sm:p-6">
       {/* Mobile: Card View */}
-      <div className="block sm:hidden space-y-4">
+      <div className="block lg:hidden space-y-3">
         {assignments.map((assignment) => {
           const deacon = users.find(u => u.id === assignment.deaconId);
           const level = levels.find(l => l.id === assignment.levelId);
           
           return (
             <div key={assignment.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-all duration-300">
-              {/* Header */}
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
+                {/* Quick Actions */}
                 <div className="flex space-x-2 space-x-reverse">
                   <button
                     onClick={() => onEdit(assignment)}
@@ -72,43 +72,46 @@ const AssignmentsTab: React.FC<AssignmentsTabProps> = ({
                     <TrashIcon className="w-4 h-4" />
                   </button>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center shadow-lg">
-                  <AcademicCapIcon className="w-6 h-6 text-purple-600" />
+                
+                {/* Assignment Icon */}
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center">
+                  <AcademicCapIcon className="w-5 h-5 text-purple-600" />
                 </div>
               </div>
               
-              {/* Assignment Info */}
-              <div className="text-right mb-4">
-                <h3 className="text-lg font-bold text-gray-900 mb-1 font-cairo">
+              {/* Main Info */}
+              <div className="text-right mb-3">
+                <h3 className="text-base font-bold text-gray-900 mb-1 font-cairo">
                   {deacon?.firstName} {deacon?.lastName}
                 </h3>
                 <p className="text-gray-600 font-cairo text-sm mb-2">
                   {level?.name}
                 </p>
-                <div className="flex items-center space-x-2 space-x-reverse">
-                  <span className={`px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(assignment.status)}`}>
+                <div className="flex items-center space-x-2 space-x-reverse flex-wrap gap-1">
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(assignment.status)}`}>
                     {getStatusLabel(assignment.status)}
                   </span>
-                  <span className="text-xs text-gray-500 font-cairo">{assignment.academicYear}</span>
+                  <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full font-cairo">
+                    {assignment.academicYear}
+                  </span>
                 </div>
               </div>
               
-              {/* Progress */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
+              {/* Progress Section */}
+              <div className="bg-gray-50 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
                   <span className="text-lg font-bold text-purple-600">{assignment.progress}%</span>
                   <span className="text-sm text-gray-600 font-cairo">التقدم</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-3">
+                <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
                   <div
-                    className="h-3 rounded-full bg-gradient-to-r from-purple-400 via-indigo-500 to-blue-500 transition-all duration-700 shadow-sm"
+                    className="h-2 rounded-full bg-gradient-to-r from-purple-400 via-indigo-500 to-blue-500 transition-all duration-700"
                     style={{ width: `${assignment.progress}%` }}
                   ></div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-500 font-cairo">
-                  <span>{new Date(assignment.expectedEndDate).toLocaleDateString('ar-EG')}</span>
-                  <span>•</span>
-                  <span>{new Date(assignment.startDate).toLocaleDateString('ar-EG')}</span>
+                  <span>انتهاء: {new Date(assignment.expectedEndDate).toLocaleDateString('ar-EG')}</span>
+                  <span>بداية: {new Date(assignment.startDate).toLocaleDateString('ar-EG')}</span>
                 </div>
               </div>
             </div>
@@ -117,7 +120,7 @@ const AssignmentsTab: React.FC<AssignmentsTabProps> = ({
       </div>
       
       {/* Desktop: Assignments by Level */}
-      <div className="hidden sm:block space-y-6">
+      <div className="hidden lg:block space-y-6">
         {levels.map((level) => {
           const levelAssignments = assignments.filter(a => a.levelId === level.id);
           const averageProgress = levelAssignments.length > 0 

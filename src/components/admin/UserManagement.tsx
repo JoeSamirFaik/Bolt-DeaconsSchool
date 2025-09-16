@@ -26,6 +26,7 @@ const UserManagement: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'users' | 'assignments'>('users');
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [selectedYear, setSelectedYear] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   
   // Modal states
   const [showUserForm, setShowUserForm] = useState(false);
@@ -85,7 +86,12 @@ const UserManagement: React.FC = () => {
   };
 
   const filteredUsers = users.filter(user => 
-    !selectedRole || user.role === selectedRole
+    (!selectedRole || user.role === selectedRole) &&
+    (!searchTerm || 
+      user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
 
   const filteredAssignments = assignments.filter(assignment => 
@@ -126,9 +132,11 @@ const UserManagement: React.FC = () => {
         activeTab={activeTab}
         selectedRole={selectedRole}
         selectedYear={selectedYear}
+        searchTerm={searchTerm}
         academicYears={academicYears}
         onRoleChange={setSelectedRole}
         onYearChange={setSelectedYear}
+        onSearchChange={setSearchTerm}
       />
 
       {/* Content */}

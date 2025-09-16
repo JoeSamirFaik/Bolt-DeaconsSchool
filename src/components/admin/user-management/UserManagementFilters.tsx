@@ -52,18 +52,22 @@ interface UserManagementFiltersProps {
   activeTab: 'users' | 'assignments';
   selectedRole: string;
   selectedYear: string;
+  searchTerm: string;
   academicYears: AcademicYear[];
   onRoleChange: (role: string) => void;
   onYearChange: (year: string) => void;
+  onSearchChange: (search: string) => void;
 }
 
 const UserManagementFilters: React.FC<UserManagementFiltersProps> = ({
   activeTab,
   selectedRole,
   selectedYear,
+  searchTerm,
   academicYears,
   onRoleChange,
-  onYearChange
+  onYearChange,
+  onSearchChange
 }) => {
   const getRoleLabel = (role: string) => {
     switch (role) {
@@ -82,7 +86,21 @@ const UserManagementFilters: React.FC<UserManagementFiltersProps> = ({
         <h3 className="text-base sm:text-lg font-semibold text-gray-900 font-cairo">تصفية البيانات</h3>
       </div>
       
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 gap-4">
+        {/* Search Bar */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
+            البحث
+          </label>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="البحث بالاسم أو البريد الإلكتروني..."
+            className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-right font-cairo text-sm sm:text-base"
+          />
+        </div>
+        
         {activeTab === 'users' ? (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
@@ -122,7 +140,6 @@ const UserManagementFilters: React.FC<UserManagementFiltersProps> = ({
             />
           </div>
         )}
-      </div>
     </div>
   );
 };
