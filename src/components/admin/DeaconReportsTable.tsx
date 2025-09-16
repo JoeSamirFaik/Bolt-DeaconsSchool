@@ -255,34 +255,34 @@ const DeaconReportsTable: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="text-right">
-          <h1 className="text-2xl font-bold text-gray-900 font-cairo">تقارير الشمامسة التفصيلية</h1>
-          <p className="text-gray-600 font-cairo">عرض شامل لأداء جميع الشمامسة مرتبين حسب النقاط</p>
+          <h1 className="text-lg sm:text-2xl font-bold text-gray-900 font-cairo">تقارير الشمامسة التفصيلية</h1>
+          <p className="text-gray-600 font-cairo text-sm sm:text-base hidden sm:block">عرض شامل لأداء جميع الشمامسة مرتبين حسب النقاط</p>
         </div>
       </div>
 
       {/* Top Performers Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:gap-6">
         {filteredAndSortedDeacons.slice(0, 3).map((deacon, index) => (
-          <div key={deacon.id} className={`bg-gradient-to-br ${getRankColor(index + 1)} rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`}>
-            <div className="flex items-center justify-between mb-4">
+          <div key={deacon.id} className={`bg-gradient-to-br ${getRankColor(index + 1)} rounded-2xl p-4 sm:p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`}>
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
               <div className="text-right">
-                <h3 className="text-xl font-bold font-cairo mb-1">
+                <h3 className="text-lg sm:text-xl font-bold font-cairo mb-1">
                   {deacon.firstName} {deacon.lastName}
                 </h3>
-                <p className="text-sm opacity-90 font-cairo">
+                <p className="text-xs sm:text-sm opacity-90 font-cairo">
                   {levels.find(l => l.id === deacon.deaconInfo?.currentLevel)?.name || 'غير محدد'}
                 </p>
               </div>
-              <div className="text-4xl">{getRankIcon(index + 1)}</div>
+              <div className="text-2xl sm:text-4xl">{getRankIcon(index + 1)}</div>
             </div>
             
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 text-center">
-                <div className="text-lg font-bold">{deacon.balance?.totalPoints || 0}</div>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2 sm:p-3 text-center">
+                <div className="text-base sm:text-lg font-bold">{deacon.balance?.totalPoints || 0}</div>
                 <div className="text-xs opacity-75 font-cairo">نقطة</div>
               </div>
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 text-center">
-                <div className="text-lg font-bold">{deacon.attendanceRate}%</div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2 sm:p-3 text-center">
+                <div className="text-base sm:text-lg font-bold">{deacon.attendanceRate}%</div>
                 <div className="text-xs opacity-75 font-cairo">حضور</div>
               </div>
             </div>
@@ -291,13 +291,13 @@ const DeaconReportsTable: React.FC = () => {
       </div>
 
       {/* Filters and Search */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center space-x-3 space-x-reverse mb-4">
-          <FunnelIcon className="w-5 h-5 text-gray-400" />
-          <h3 className="text-lg font-semibold text-gray-900 font-cairo">تصفية وترتيب البيانات</h3>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6">
+        <div className="flex items-center space-x-2 sm:space-x-3 space-x-reverse mb-4">
+          <FunnelIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 font-cairo">تصفية وترتيب البيانات</h3>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 text-right font-cairo">
               البحث
@@ -307,7 +307,7 @@ const DeaconReportsTable: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="البحث بالاسم أو البريد الإلكتروني..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-right font-cairo"
+              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-right font-cairo text-sm sm:text-base"
             />
           </div>
           
@@ -358,16 +358,16 @@ const DeaconReportsTable: React.FC = () => {
             </label>
             <button
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2 space-x-reverse"
+              className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2 space-x-reverse text-sm sm:text-base"
             >
               {sortOrder === 'desc' ? (
                 <>
-                  <ArrowDownIcon className="w-4 h-4" />
+                  <ArrowDownIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="font-cairo">تنازلي (الأعلى أولاً)</span>
                 </>
               ) : (
                 <>
-                  <ArrowUpIcon className="w-4 h-4" />
+                  <ArrowUpIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="font-cairo">تصاعدي (الأقل أولاً)</span>
                 </>
               )}
@@ -378,7 +378,105 @@ const DeaconReportsTable: React.FC = () => {
 
       {/* Deacons Table */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="overflow-x-auto">
+        {/* Mobile: Card View */}
+        <div className="block sm:hidden p-4">
+          <div className="space-y-4">
+            {filteredAndSortedDeacons.map((deacon, index) => {
+              const currentLevel = levels.find(l => l.id === deacon.deaconInfo?.currentLevel);
+              
+              return (
+                <div key={deacon.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-all duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <button
+                      onClick={() => handleViewReport(deacon)}
+                      className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-3 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105 text-sm"
+                    >
+                      <EyeIcon className="w-4 h-4" />
+                      <span>عرض</span>
+                    </button>
+                    <div className="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center">
+                      <span className="text-sm font-bold text-amber-600">
+                        {deacon.firstName.charAt(0)}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="text-right mb-4">
+                    <div className="flex items-center space-x-2 space-x-reverse mb-2">
+                      <span className="text-2xl">{getRankIcon(deacon.rank)}</span>
+                      <h3 className="text-lg font-bold text-gray-900 font-cairo">
+                        {deacon.firstName} {deacon.lastName}
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 font-cairo text-sm mb-2">
+                      {deacon.email}
+                    </p>
+                    <span className="bg-indigo-100 text-indigo-800 px-2 py-1 text-xs rounded-full font-medium">
+                      {currentLevel?.name || 'غير محدد'}
+                    </span>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {/* Points Breakdown */}
+                    <div className="bg-purple-50 rounded-lg p-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-lg font-bold text-purple-600">{deacon.balance?.totalPoints || 0}</span>
+                        <span className="text-xs text-gray-600 font-cairo">إجمالي النقاط</span>
+                      </div>
+                      <div className="grid grid-cols-4 gap-1 text-xs">
+                        <div className="bg-green-100 text-green-800 px-1 py-1 rounded text-center font-medium">
+                          {deacon.balance?.liturgyPoints || 0}
+                        </div>
+                        <div className="bg-blue-100 text-blue-800 px-1 py-1 rounded text-center font-medium">
+                          {deacon.balance?.prayerPoints || 0}
+                        </div>
+                        <div className="bg-purple-100 text-purple-800 px-1 py-1 rounded text-center font-medium">
+                          {deacon.balance?.studyPoints || 0}
+                        </div>
+                        <div className="bg-red-100 text-red-800 px-1 py-1 rounded text-center font-medium">
+                          {deacon.balance?.servicePoints || 0}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="bg-green-50 rounded-lg p-2 text-center">
+                        <div className="text-sm font-bold text-green-600">{deacon.attendanceRate}%</div>
+                        <div className="text-xs text-gray-600 font-cairo">حضور</div>
+                      </div>
+                      <div className="bg-blue-50 rounded-lg p-2 text-center">
+                        <div className="text-sm font-bold text-blue-600">{deacon.completedLessons}/{deacon.totalLessons}</div>
+                        <div className="text-xs text-gray-600 font-cairo">دروس</div>
+                      </div>
+                      <div className="bg-orange-50 rounded-lg p-2 text-center">
+                        <div className="text-sm font-bold text-orange-600">{deacon.currentStreak}</div>
+                        <div className="text-xs text-gray-600 font-cairo">يوم</div>
+                      </div>
+                    </div>
+                    
+                    <div className="text-xs text-gray-500 font-cairo">
+                      آخر نشاط: {new Date(deacon.lastActivity).toLocaleDateString('ar-EG')}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          
+          {filteredAndSortedDeacons.length === 0 && (
+            <div className="text-center py-12">
+              <ChartBarIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2 font-cairo">لا توجد نتائج</h3>
+              <p className="text-gray-500 font-cairo">
+                {searchTerm ? `لا يوجد شمامسة تطابق البحث "${searchTerm}"` : 'لا يوجد شمامسة في هذا المستوى'}
+              </p>
+            </div>
+          )}
+        </div>
+        
+        {/* Desktop: Table View */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gradient-to-r from-amber-50 to-orange-50">
               <tr>
@@ -580,43 +678,43 @@ const DeaconReportsTable: React.FC = () => {
       </div>
 
       {/* Statistics Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <UserIcon className="w-6 h-6 text-blue-600" />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+            <UserIcon className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-600 mb-1">{filteredAndSortedDeacons.length}</div>
-          <p className="text-sm text-gray-600 font-cairo">إجمالي الشمامسة</p>
+          <div className="text-lg sm:text-2xl font-bold text-blue-600 mb-1">{filteredAndSortedDeacons.length}</div>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">إجمالي الشمامسة</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <TrophyIcon className="w-6 h-6 text-green-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+            <TrophyIcon className="w-4 h-4 sm:w-6 sm:h-6 text-green-600" />
           </div>
-          <div className="text-2xl font-bold text-green-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-green-600 mb-1">
             {Math.round(filteredAndSortedDeacons.reduce((sum, d) => sum + (d.balance?.totalPoints || 0), 0) / filteredAndSortedDeacons.length) || 0}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">متوسط النقاط</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">متوسط النقاط</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <CheckCircleIcon className="w-6 h-6 text-purple-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+            <CheckCircleIcon className="w-4 h-4 sm:w-6 sm:h-6 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-purple-600 mb-1">
             {Math.round(filteredAndSortedDeacons.reduce((sum, d) => sum + d.attendanceRate, 0) / filteredAndSortedDeacons.length) || 0}%
           </div>
-          <p className="text-sm text-gray-600 font-cairo">متوسط الحضور</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">متوسط الحضور</p>
         </div>
         
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 text-center">
-          <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <FireIcon className="w-6 h-6 text-orange-600" />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+            <FireIcon className="w-4 h-4 sm:w-6 sm:h-6 text-orange-600" />
           </div>
-          <div className="text-2xl font-bold text-orange-600 mb-1">
+          <div className="text-lg sm:text-2xl font-bold text-orange-600 mb-1">
             {Math.max(...filteredAndSortedDeacons.map(d => d.currentStreak), 0)}
           </div>
-          <p className="text-sm text-gray-600 font-cairo">أطول سلسلة حضور</p>
+          <p className="text-xs sm:text-sm text-gray-600 font-cairo">أطول سلسلة حضور</p>
         </div>
       </div>
 
