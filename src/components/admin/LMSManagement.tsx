@@ -223,7 +223,7 @@ const LMSManagement: React.FC = () => {
               else if (activeTab === 'subjects') setShowSubjectForm(true);
               else setShowLessonForm(true);
             }}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-colors flex items-center space-x-2 space-x-reverse font-medium"
+            className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:via-orange-600 hover:to-red-600 text-white px-6 py-3 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
           >
             <PlusIcon className="w-5 h-5" />
             <span>
@@ -243,7 +243,7 @@ const LMSManagement: React.FC = () => {
             onClick={() => setActiveTab('levels')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'levels'
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-white text-amber-600 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -254,7 +254,7 @@ const LMSManagement: React.FC = () => {
             onClick={() => setActiveTab('subjects')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'subjects'
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-white text-amber-600 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -265,7 +265,7 @@ const LMSManagement: React.FC = () => {
             onClick={() => setActiveTab('lessons')}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-2 space-x-reverse ${
               activeTab === 'lessons'
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-white text-amber-600 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'
             }`}
           >
@@ -343,7 +343,7 @@ const LMSManagement: React.FC = () => {
                           setEditingItem(level);
                           setShowLevelForm(true);
                         }}
-                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                       >
                         <PencilIcon className="w-4 h-4" />
                       </button>
@@ -355,7 +355,7 @@ const LMSManagement: React.FC = () => {
                       </button>
                     </div>
                     <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <AcademicCapIcon className="w-6 h-6 text-blue-600" />
+                      <AcademicCapIcon className="w-6 h-6 text-amber-600" />
                     </div>
                   </div>
                   
@@ -370,12 +370,12 @@ const LMSManagement: React.FC = () => {
                   
                   <div className="space-y-3">
                     <div className="flex justify-between items-center text-sm">
-                      <span className="font-medium text-blue-600">{level.passPercentage}%</span>
+                      <span className="font-medium text-amber-600">{level.passPercentage}%</span>
                       <span className="text-gray-600">نسبة النجاح</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div 
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                        className="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 h-2 rounded-full transition-all duration-300"
                         style={{ width: `${level.passPercentage}%` }}
                       ></div>
                     </div>
@@ -417,7 +417,7 @@ const LMSManagement: React.FC = () => {
                             setEditingItem(subject);
                             setShowSubjectForm(true);
                           }}
-                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                         >
                           <PencilIcon className="w-4 h-4" />
                         </button>
@@ -429,7 +429,7 @@ const LMSManagement: React.FC = () => {
                         </button>
                       </div>
                       <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                        <BookOpenIcon className="w-6 h-6 text-green-600" />
+                        <BookOpenIcon className="w-6 h-6 text-orange-600" />
                       </div>
                     </div>
                     
@@ -444,12 +444,12 @@ const LMSManagement: React.FC = () => {
                     
                     <div className="space-y-3">
                       <div className="flex justify-between items-center text-sm">
-                        <span className="font-medium text-green-600">{subject.passPercentage}%</span>
+                        <span className="font-medium text-orange-600">{subject.passPercentage}%</span>
                         <span className="text-gray-600">نسبة النجاح</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div 
-                          className="bg-green-600 h-2 rounded-full transition-all duration-300"
+                          className="bg-gradient-to-r from-orange-400 to-red-500 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${subject.passPercentage}%` }}
                         ></div>
                       </div>
@@ -493,7 +493,7 @@ const LMSManagement: React.FC = () => {
                               setEditingItem(lesson);
                               setShowLessonForm(true);
                             }}
-                            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                           >
                             <PencilIcon className="w-4 h-4" />
                           </button>
@@ -538,7 +538,7 @@ const LMSManagement: React.FC = () => {
                           {lesson.isActive ? <EyeIcon className="w-3 h-3" /> : <EyeSlashIcon className="w-3 h-3" />}
                           <span>{lesson.isActive ? 'نشط' : 'غير نشط'}</span>
                         </span>
-                        <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                        <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
                           {getContentTypeIcon(lesson.contentType)}
                         </div>
                       </div>
