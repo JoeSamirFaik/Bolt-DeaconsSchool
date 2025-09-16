@@ -248,79 +248,79 @@ const LearningJourney: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-50 p-6">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Gamified Header Dashboard */}
-        <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-3xl shadow-2xl border border-purple-300 p-8 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-2xl shadow-lg border border-purple-300 p-6 text-white relative overflow-hidden">
           {/* Animated Background Elements */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-4 right-4 w-32 h-32 bg-white rounded-full animate-pulse"></div>
-            <div className="absolute bottom-4 left-4 w-24 h-24 bg-white rounded-full animate-bounce"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white rounded-full animate-pulse"></div>
+            <div className="absolute top-4 right-4 w-16 h-16 bg-white rounded-full animate-pulse"></div>
+            <div className="absolute bottom-4 left-4 w-12 h-12 bg-white rounded-full animate-bounce"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-white rounded-full animate-pulse"></div>
           </div>
           
           <div className="relative z-10">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6">
               {/* Player Stats */}
-              <div className="flex items-center space-x-6 space-x-reverse">
+              <div className="flex items-center space-x-4 space-x-reverse">
                 {/* Streak Counter */}
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/30 hover:scale-105 transition-transform duration-300">
-                  <div className="flex items-center space-x-2 space-x-reverse mb-2">
-                    <FireIcon className="w-6 h-6 text-orange-300" />
-                    <span className="text-3xl font-bold">{gameStats.streak}</span>
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center border border-white/30 hover:scale-105 transition-transform duration-300">
+                  <div className="flex items-center space-x-2 space-x-reverse mb-1">
+                    <FireIcon className="w-4 h-4 text-orange-300" />
+                    <span className="text-xl font-bold">{gameStats.streak}</span>
                   </div>
-                  <p className="text-sm opacity-90 font-cairo">يوم متتالي</p>
+                  <p className="text-xs opacity-90 font-cairo">يوم متتالي</p>
                 </div>
                 
                 {/* Badges Count */}
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/30 hover:scale-105 transition-transform duration-300">
-                  <div className="flex items-center space-x-2 space-x-reverse mb-2">
-                    <TrophyIcon className="w-6 h-6 text-yellow-300" />
-                    <span className="text-3xl font-bold">{gameStats.badges}</span>
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center border border-white/30 hover:scale-105 transition-transform duration-300">
+                  <div className="flex items-center space-x-2 space-x-reverse mb-1">
+                    <TrophyIcon className="w-4 h-4 text-yellow-300" />
+                    <span className="text-xl font-bold">{gameStats.badges}</span>
                   </div>
-                  <p className="text-sm opacity-90 font-cairo">شارة</p>
+                  <p className="text-xs opacity-90 font-cairo">شارة</p>
                 </div>
 
                 {/* Current Level */}
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/30 hover:scale-105 transition-transform duration-300">
-                  <div className="flex items-center space-x-2 space-x-reverse mb-2">
-                    <BoltIcon className="w-6 h-6 text-yellow-300" />
-                    <span className="text-3xl font-bold">{gameStats.level}</span>
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center border border-white/30 hover:scale-105 transition-transform duration-300">
+                  <div className="flex items-center space-x-2 space-x-reverse mb-1">
+                    <BoltIcon className="w-4 h-4 text-yellow-300" />
+                    <span className="text-xl font-bold">{gameStats.level}</span>
                   </div>
-                  <p className="text-sm opacity-90 font-cairo">المستوى</p>
+                  <p className="text-xs opacity-90 font-cairo">المستوى</p>
                 </div>
               </div>
               
               {/* Player Info */}
               <div className="text-right">
-                <h1 className="text-4xl font-bold mb-3 font-cairo">رحلتي التعليمية</h1>
-                <p className="text-xl opacity-90 font-cairo mb-2">{gameStats.rank}</p>
-                <p className="text-lg opacity-75 font-cairo">{user?.firstName} {user?.lastName}</p>
+                <h1 className="text-2xl font-bold mb-2 font-cairo">رحلتي التعليمية</h1>
+                <p className="text-lg opacity-90 font-cairo mb-1">{gameStats.rank}</p>
+                <p className="text-sm opacity-75 font-cairo">{user?.firstName} {user?.lastName}</p>
               </div>
               
               {/* Player Avatar */}
-              <div className="w-24 h-24 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl border-4 border-white hover:scale-110 transition-transform duration-300">
-                <span className="text-3xl font-bold text-white">
+              <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white hover:scale-110 transition-transform duration-300">
+                <span className="text-xl font-bold text-white">
                   {user?.firstName?.charAt(0)}
                 </span>
               </div>
             </div>
             
             {/* XP Progress System */}
-            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm opacity-90 font-cairo">{getXPForNextLevel()} XP للمستوى التالي</span>
+            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs opacity-90 font-cairo">{getXPForNextLevel()} XP للمستوى التالي</span>
                 <div className="flex items-center space-x-3 space-x-reverse">
-                  <span className="text-2xl font-bold font-cairo">المستوى {gameStats.level}</span>
-                  <BoltIcon className="w-6 h-6 text-yellow-300" />
+                  <span className="text-lg font-bold font-cairo">المستوى {gameStats.level}</span>
+                  <BoltIcon className="w-5 h-5 text-yellow-300" />
                 </div>
               </div>
-              <div className="w-full bg-white/30 rounded-full h-6 shadow-inner">
+              <div className="w-full bg-white/30 rounded-full h-4 shadow-inner">
                 <div
-                  className="h-6 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 transition-all duration-1000 shadow-lg relative overflow-hidden"
+                  className="h-4 rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 transition-all duration-1000 shadow-lg relative overflow-hidden"
                   style={{ width: `${getProgressToNextLevel()}%` }}
                 >
                   <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
                 </div>
               </div>
-              <div className="flex items-center justify-between mt-3 text-sm opacity-90">
+              <div className="flex items-center justify-between mt-2 text-xs opacity-90">
                 <span className="font-cairo">{gameStats.totalXP} XP</span>
                 <span className="font-cairo">{gameStats.level * 200} XP</span>
               </div>
@@ -329,38 +329,38 @@ const LearningJourney: React.FC = () => {
         </div>
 
         {/* Achievements Showcase */}
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
-          <div className="flex items-center justify-between mb-8">
-            <button className="text-amber-600 hover:text-amber-700 font-cairo font-medium text-lg hover:scale-105 transition-transform duration-200">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+          <div className="flex items-center justify-between mb-6">
+            <button className="text-amber-600 hover:text-amber-700 font-cairo font-medium text-sm hover:scale-105 transition-transform duration-200">
               عرض الكل →
             </button>
             <div className="flex items-center space-x-4 space-x-reverse">
-              <h2 className="text-3xl font-bold text-gray-900 font-cairo">الإنجازات</h2>
-              <SparklesIcon className="w-8 h-8 text-amber-600" />
+              <h2 className="text-xl font-bold text-gray-900 font-cairo">الإنجازات</h2>
+              <SparklesIcon className="w-6 h-6 text-amber-600" />
             </div>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {achievements.map((achievement) => (
               <div
                 key={achievement.id}
-                className={`relative p-6 rounded-3xl border-2 transition-all duration-300 hover:scale-110 cursor-pointer ${
+                className={`relative p-4 rounded-xl border-2 transition-all duration-300 hover:scale-110 cursor-pointer ${
                   achievement.unlocked
                     ? `bg-gradient-to-br ${achievement.color} text-white shadow-xl border-transparent`
                     : 'bg-gray-100 border-gray-200 text-gray-400 hover:bg-gray-200'
                 }`}
               >
                 {achievement.unlocked && (
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg animate-bounce">
-                    <CheckCircleIcon className="w-5 h-5 text-white" />
+                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shadow-lg animate-bounce">
+                    <CheckCircleIcon className="w-4 h-4 text-white" />
                   </div>
                 )}
                 <div className="text-center">
-                  <div className="text-4xl mb-3">{achievement.icon}</div>
-                  <h4 className="font-bold text-sm font-cairo mb-2">{achievement.title}</h4>
-                  <p className="text-xs opacity-80 font-cairo leading-relaxed">{achievement.description}</p>
+                  <div className="text-2xl mb-2">{achievement.icon}</div>
+                  <h4 className="font-bold text-xs font-cairo mb-1">{achievement.title}</h4>
+                  <p className="text-xs opacity-80 font-cairo leading-tight">{achievement.description}</p>
                   {achievement.unlocked && achievement.unlockedAt && (
-                    <p className="text-xs opacity-60 font-cairo mt-2">
+                    <p className="text-xs opacity-60 font-cairo mt-1">
                       {new Date(achievement.unlockedAt).toLocaleDateString('ar-EG')}
                     </p>
                   )}
@@ -372,11 +372,11 @@ const LearningJourney: React.FC = () => {
 
         {/* Level Selection Path */}
         {assignments.length > 1 && (
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
-            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-right font-cairo">مسار المستويات</h3>
+          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo">مسار المستويات</h3>
             <div className="relative">
               {/* Progress Path Line */}
-              <div className="absolute top-1/2 left-12 right-12 h-2 bg-gradient-to-r from-gray-300 via-amber-400 to-green-500 rounded-full transform -translate-y-1/2 shadow-lg"></div>
+              <div className="absolute top-1/2 left-8 right-8 h-1 bg-gradient-to-r from-gray-300 via-amber-400 to-green-500 rounded-full transform -translate-y-1/2 shadow-sm"></div>
               
               <div className="flex items-center justify-between relative z-10">
                 {assignments.map((assignment, index) => {
@@ -395,7 +395,7 @@ const LearningJourney: React.FC = () => {
                       }`}
                     >
                       {/* Level Node */}
-                      <div className={`w-24 h-24 rounded-full border-4 flex items-center justify-center shadow-2xl transition-all duration-300 ${
+                      <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center shadow-lg transition-all duration-300 ${
                         isCompleted 
                           ? 'bg-gradient-to-br from-green-400 to-emerald-500 border-green-300 animate-pulse' :
                         isInProgress 
@@ -403,20 +403,20 @@ const LearningJourney: React.FC = () => {
                         'bg-gradient-to-br from-gray-300 to-gray-400 border-gray-200'
                       }`}>
                         {isCompleted ? (
-                          <TrophyIcon className="w-10 h-10 text-white" />
+                          <TrophyIcon className="w-6 h-6 text-white" />
                         ) : isInProgress ? (
-                          <span className="text-xl font-bold text-white">{progress}%</span>
+                          <span className="text-sm font-bold text-white">{progress}%</span>
                         ) : (
-                          <ClockIcon className="w-10 h-10 text-white" />
+                          <ClockIcon className="w-6 h-6 text-white" />
                         )}
                       </div>
                       
                       {/* Level Info */}
-                      <div className="absolute top-28 left-1/2 transform -translate-x-1/2 text-center min-w-max">
-                        <h4 className="font-bold text-gray-900 font-cairo text-lg mb-2">
+                      <div className="absolute top-20 left-1/2 transform -translate-x-1/2 text-center min-w-max">
+                        <h4 className="font-bold text-gray-900 font-cairo text-sm mb-1">
                           {level?.name}
                         </h4>
-                        <span className={`px-4 py-2 text-sm font-medium rounded-full shadow-lg ${
+                        <span className={`px-3 py-1 text-xs font-medium rounded-full shadow-sm ${
                           isCompleted ? 'bg-green-100 text-green-800' :
                           isInProgress ? 'bg-amber-100 text-amber-800' :
                           'bg-gray-100 text-gray-600'
@@ -432,8 +432,8 @@ const LearningJourney: React.FC = () => {
                       
                       {/* Completion Celebration */}
                       {isCompleted && (
-                        <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce shadow-lg">
-                          <StarIcon className="w-6 h-6 text-white" />
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce shadow-lg">
+                          <StarIcon className="w-4 h-4 text-white" />
                         </div>
                       )}
                     </button>
@@ -446,61 +446,61 @@ const LearningJourney: React.FC = () => {
 
         {/* Current Level Content */}
         {selectedLevel && (
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Level Overview */}
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl shadow-xl border border-amber-200 p-8">
-              <div className="flex items-center justify-between mb-8">
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl shadow-lg border border-amber-200 p-6">
+              <div className="flex items-center justify-between mb-6">
                 {/* Certificate Generation */}
-                <div className="flex items-center space-x-6 space-x-reverse">
+                <div className="flex items-center space-x-4 space-x-reverse">
                   {canGenerateCertificate(selectedLevel) && (
                     <button
                       onClick={() => handleGenerateCertificate(levels.find(l => l.id === selectedLevel)!)}
-                      className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 py-4 rounded-2xl transition-all duration-200 flex items-center space-x-3 space-x-reverse font-bold shadow-xl hover:scale-110"
+                      className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-4 py-2 rounded-xl transition-all duration-200 flex items-center space-x-2 space-x-reverse font-medium shadow-lg hover:scale-105"
                     >
-                      <GiftIcon className="w-6 h-6" />
-                      <span className="text-lg">تحميل الشهادة</span>
-                      <DocumentArrowDownIcon className="w-6 h-6" />
+                      <GiftIcon className="w-4 h-4" />
+                      <span className="text-sm">تحميل الشهادة</span>
+                      <DocumentArrowDownIcon className="w-4 h-4" />
                     </button>
                   )}
                   
                   {/* Level Stats */}
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-lg">
-                      <div className="text-3xl font-bold text-amber-600 mb-1">{getLevelProgress(selectedLevel)}%</div>
-                      <p className="text-sm text-gray-700 font-cairo">التقدم</p>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 text-center shadow-sm">
+                      <div className="text-xl font-bold text-amber-600 mb-1">{getLevelProgress(selectedLevel)}%</div>
+                      <p className="text-xs text-gray-700 font-cairo">التقدم</p>
                     </div>
-                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-lg">
-                      <div className="text-3xl font-bold text-orange-600 mb-1">{subjects.length}</div>
-                      <p className="text-sm text-gray-700 font-cairo">مقرر</p>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 text-center shadow-sm">
+                      <div className="text-xl font-bold text-orange-600 mb-1">{subjects.length}</div>
+                      <p className="text-xs text-gray-700 font-cairo">مقرر</p>
                     </div>
-                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-lg">
-                      <div className="text-3xl font-bold text-red-600 mb-1">{lessons.length}</div>
-                      <p className="text-sm text-gray-700 font-cairo">درس</p>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-xl p-3 text-center shadow-sm">
+                      <div className="text-xl font-bold text-red-600 mb-1">{lessons.length}</div>
+                      <p className="text-xs text-gray-700 font-cairo">درس</p>
                     </div>
                   </div>
                 </div>
                 
                 {/* Level Header */}
                 <div className="text-right">
-                  <div className="flex items-center space-x-4 space-x-reverse mb-4">
-                    <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center shadow-xl">
-                      <AcademicCapIcon className="w-10 h-10 text-white" />
+                  <div className="flex items-center space-x-3 space-x-reverse mb-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                      <AcademicCapIcon className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h2 className="text-4xl font-bold text-gray-900 font-cairo">
+                      <h2 className="text-2xl font-bold text-gray-900 font-cairo">
                         {levels.find(l => l.id === selectedLevel)?.name}
                       </h2>
-                      <p className="text-gray-600 font-cairo text-xl">
+                      <p className="text-gray-600 font-cairo text-sm">
                         {levels.find(l => l.id === selectedLevel)?.description}
                       </p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4 space-x-reverse">
-                    <span className="bg-amber-100 text-amber-800 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
+                  <div className="flex items-center space-x-3 space-x-reverse">
+                    <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-medium text-sm shadow-sm">
                       نسبة النجاح: {levels.find(l => l.id === selectedLevel)?.passPercentage}%
                     </span>
-                    <span className="bg-orange-100 text-orange-800 px-6 py-3 rounded-full font-bold text-lg shadow-lg">
+                    <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-medium text-sm shadow-sm">
                       +50 XP لكل درس
                     </span>
                   </div>
@@ -509,28 +509,28 @@ const LearningJourney: React.FC = () => {
               
               {/* Animated Progress Bar */}
               <div className="relative">
-                <div className="w-full bg-white/50 rounded-full h-8 shadow-inner">
+                <div className="w-full bg-white/50 rounded-full h-6 shadow-inner">
                   <div
-                    className="h-8 rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-1000 shadow-lg relative overflow-hidden"
+                    className="h-6 rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 transition-all duration-1000 shadow-lg relative overflow-hidden"
                     style={{ width: `${getLevelProgress(selectedLevel)}%` }}
                   >
                     <div className="absolute inset-0 bg-white/30 animate-pulse"></div>
                   </div>
                 </div>
-                <div className="absolute top-1/2 right-6 transform -translate-y-1/2 text-lg font-bold text-gray-700 font-cairo">
+                <div className="absolute top-1/2 right-4 transform -translate-y-1/2 text-sm font-bold text-gray-700 font-cairo">
                   {getLevelProgress(selectedLevel)}% مكتمل
                 </div>
               </div>
             </div>
 
             {/* Subjects Journey Path */}
-            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
-              <h3 className="text-3xl font-bold text-gray-900 mb-8 text-right font-cairo flex items-center space-x-3 space-x-reverse">
-                <BookOpenIcon className="w-8 h-8 text-blue-600" />
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-6 text-right font-cairo flex items-center space-x-3 space-x-reverse">
+                <BookOpenIcon className="w-6 h-6 text-blue-600" />
                 <span>مسار المقررات</span>
               </h3>
               
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {subjects.map((subject, subjectIndex) => {
                   const subjectLessons = lessons.filter(l => l.subjectId === subject.id);
                   const subjectQuizzes = quizzes.filter(q => q.subjectId === subject.id);
@@ -543,7 +543,7 @@ const LearningJourney: React.FC = () => {
                     <div key={subject.id} className="relative">
                       {/* Connection Line to Next Subject */}
                       {subjectIndex < subjects.length - 1 && (
-                        <div className="absolute top-24 right-20 w-2 h-20 bg-gradient-to-b from-amber-300 to-orange-400 rounded-full shadow-lg"></div>
+                        <div className="absolute top-16 right-12 w-1 h-12 bg-gradient-to-b from-amber-300 to-orange-400 rounded-full shadow-sm"></div>
                       )}
                       
                       <div className={`relative transition-all duration-500 ${
@@ -555,9 +555,9 @@ const LearningJourney: React.FC = () => {
                           disabled={!isUnlocked}
                           className="w-full"
                         >
-                          <div className="flex items-center space-x-8 space-x-reverse mb-6 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                          <div className="flex items-center space-x-6 space-x-reverse mb-4 p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-102">
                             {/* Subject Node */}
-                            <div className={`w-32 h-32 rounded-3xl border-4 flex flex-col items-center justify-center shadow-xl transition-all duration-300 ${
+                            <div className={`w-20 h-20 rounded-2xl border-2 flex flex-col items-center justify-center shadow-lg transition-all duration-300 ${
                               isCompleted 
                                 ? 'bg-gradient-to-br from-green-400 to-emerald-500 border-green-300' :
                               isUnlocked 
@@ -565,39 +565,39 @@ const LearningJourney: React.FC = () => {
                               'bg-gradient-to-br from-gray-300 to-gray-400 border-gray-200'
                             }`}>
                               {!isUnlocked ? (
-                                <LockClosedIcon className="w-12 h-12 text-white" />
+                                <LockClosedIcon className="w-8 h-8 text-white" />
                               ) : isCompleted ? (
-                                <TrophyIcon className="w-12 h-12 text-white" />
+                                <TrophyIcon className="w-8 h-8 text-white" />
                               ) : (
-                                <BookOpenIcon className="w-12 h-12 text-white" />
+                                <BookOpenIcon className="w-8 h-8 text-white" />
                               )}
-                              <span className="text-white font-bold text-lg mt-2">{progress}%</span>
+                              <span className="text-white font-bold text-sm mt-1">{progress}%</span>
                             </div>
                             
                             {/* Subject Info */}
                             <div className="flex-1 text-right">
-                              <div className="flex items-center space-x-4 space-x-reverse mb-4">
+                              <div className="flex items-center space-x-3 space-x-reverse mb-3">
                                 <div className="flex space-x-3 space-x-reverse">
-                                  <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium shadow-sm">
                                     {subjectLessons.length} درس
                                   </span>
-                                  <span className="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-medium shadow-sm">
                                     {subjectQuizzes.length} اختبار
                                   </span>
                                   {isCompleted && (
-                                    <span className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+                                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium shadow-sm animate-pulse">
                                       +100 XP
                                     </span>
                                   )}
                                 </div>
-                                <h3 className="text-2xl font-bold text-gray-900 font-cairo">{subject.name}</h3>
+                                <h3 className="text-lg font-bold text-gray-900 font-cairo">{subject.name}</h3>
                               </div>
-                              <p className="text-gray-600 font-cairo text-lg mb-4 leading-relaxed">{subject.description}</p>
+                              <p className="text-gray-600 font-cairo text-sm mb-3 leading-relaxed">{subject.description}</p>
                               
                               {/* Subject Progress Bar */}
-                              <div className="w-full bg-gray-200 rounded-full h-6 shadow-inner">
+                              <div className="w-full bg-gray-200 rounded-full h-4 shadow-inner">
                                 <div
-                                  className={`h-6 rounded-full transition-all duration-700 shadow-lg ${
+                                  className={`h-4 rounded-full transition-all duration-700 shadow-sm ${
                                     isCompleted 
                                       ? 'bg-gradient-to-r from-green-400 to-emerald-500' :
                                     isUnlocked 
@@ -608,13 +608,13 @@ const LearningJourney: React.FC = () => {
                                 ></div>
                               </div>
                               
-                              <div className="flex items-center justify-between mt-3">
+                              <div className="flex items-center justify-between mt-2">
                                 <span className="text-sm text-gray-500 font-cairo">
                                   نسبة النجاح المطلوبة: {subject.passPercentage}%
                                 </span>
                                 <div className="flex items-center space-x-2 space-x-reverse">
-                                  <span className="text-lg font-bold text-gray-700 font-cairo">{progress}%</span>
-                                  <ChevronRightIcon className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${
+                                  <span className="text-sm font-bold text-gray-700 font-cairo">{progress}%</span>
+                                  <ChevronRightIcon className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
                                     isExpanded ? 'rotate-90' : ''
                                   }`} />
                                 </div>
@@ -625,15 +625,15 @@ const LearningJourney: React.FC = () => {
 
                         {/* Expanded Content - Lessons and Quizzes */}
                         {isUnlocked && isExpanded && (
-                          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 ml-20 shadow-inner border border-gray-200">
+                          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 ml-12 shadow-inner border border-gray-200">
                             {/* Lessons Section */}
                             {subjectLessons.length > 0 && (
-                              <div className="mb-10">
-                                <h4 className="text-2xl font-bold text-gray-900 mb-6 text-right font-cairo flex items-center space-x-3 space-x-reverse">
-                                  <BookOpenIcon className="w-7 h-7 text-blue-600" />
+                              <div className="mb-6">
+                                <h4 className="text-lg font-bold text-gray-900 mb-4 text-right font-cairo flex items-center space-x-2 space-x-reverse">
+                                  <BookOpenIcon className="w-5 h-5 text-blue-600" />
                                   <span>الدروس ({subjectLessons.length})</span>
                                 </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                   {subjectLessons.map((lesson, lessonIndex) => {
                                     const isLessonCompleted = Math.random() > 0.4; // Mock completion
                                     const score = isLessonCompleted ? Math.floor(Math.random() * 30) + 70 : null;
@@ -642,14 +642,14 @@ const LearningJourney: React.FC = () => {
                                     return (
                                       <div
                                         key={lesson.id}
-                                        className={`relative border-2 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl ${
+                                        className={`relative border-2 rounded-xl p-4 transition-all duration-300 hover:shadow-lg ${
                                           !isLessonUnlocked ? 'opacity-50 cursor-not-allowed' :
                                           isLessonCompleted ? 'border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 hover:scale-105' : 
                                           'border-blue-300 bg-gradient-to-br from-blue-50 to-indigo-50 hover:scale-105 cursor-pointer'
                                         }`}
                                       >
                                         {/* Lesson Number Badge */}
-                                        <div className={`absolute -top-3 -right-3 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-xl ${
+                                        <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg ${
                                           isLessonCompleted ? 'bg-green-500 animate-pulse' : 
                                           isLessonUnlocked ? 'bg-blue-500' : 'bg-gray-400'
                                         }`}>
@@ -658,21 +658,21 @@ const LearningJourney: React.FC = () => {
                                         
                                         {/* Lock Indicator */}
                                         {!isLessonUnlocked && (
-                                          <div className="absolute top-4 left-4 w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center shadow-lg">
-                                            <LockClosedIcon className="w-5 h-5 text-white" />
+                                          <div className="absolute top-2 left-2 w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center shadow-lg">
+                                            <LockClosedIcon className="w-4 h-4 text-white" />
                                           </div>
                                         )}
                                         
-                                        <div className="text-right mb-6">
-                                          <div className="flex items-center justify-between mb-3">
+                                        <div className="text-right mb-4">
+                                          <div className="flex items-center justify-between mb-2">
                                             <div className="flex items-center space-x-2 space-x-reverse">
                                               {isLessonCompleted && (
-                                                <span className="bg-green-100 text-green-800 px-3 py-1 text-xs rounded-full font-bold shadow-lg animate-bounce">
+                                                <span className="bg-green-100 text-green-800 px-2 py-1 text-xs rounded-full font-medium shadow-sm animate-bounce">
                                                   +50 XP
                                                 </span>
                                               )}
                                               {score && (
-                                                <span className={`px-3 py-1 text-xs rounded-full font-bold shadow-lg ${
+                                                <span className={`px-2 py-1 text-xs rounded-full font-medium shadow-sm ${
                                                   score >= 80 ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                                                 }`}>
                                                   {score}%
@@ -681,20 +681,20 @@ const LearningJourney: React.FC = () => {
                                             </div>
                                             <div className="flex items-center space-x-2 space-x-reverse">
                                               {isLessonCompleted ? (
-                                                <CheckCircleIcon className="w-6 h-6 text-green-600" />
+                                                <CheckCircleIcon className="w-4 h-4 text-green-600" />
                                               ) : isLessonUnlocked ? (
-                                                <PlayIcon className="w-6 h-6 text-blue-600" />
+                                                <PlayIcon className="w-4 h-4 text-blue-600" />
                                               ) : (
-                                                <ClockIcon className="w-6 h-6 text-gray-400" />
+                                                <ClockIcon className="w-4 h-4 text-gray-400" />
                                               )}
-                                              <span className="text-sm text-gray-500 font-cairo">{lesson.duration} دقيقة</span>
+                                              <span className="text-xs text-gray-500 font-cairo">{lesson.duration} دقيقة</span>
                                             </div>
                                           </div>
                                           
-                                          <h5 className="font-bold text-gray-900 font-cairo text-xl mb-3">
+                                          <h5 className="font-bold text-gray-900 font-cairo text-sm mb-2">
                                             {lesson.title}
                                           </h5>
-                                          <p className="text-gray-600 font-cairo leading-relaxed">
+                                          <p className="text-gray-600 font-cairo text-xs leading-relaxed">
                                             {lesson.description}
                                           </p>
                                         </div>
@@ -702,7 +702,7 @@ const LearningJourney: React.FC = () => {
                                         <button
                                           onClick={() => isLessonUnlocked && handleStartLesson(lesson)}
                                           disabled={!isLessonUnlocked}
-                                          className={`w-full py-4 px-6 rounded-xl transition-all duration-200 font-bold text-lg ${
+                                          className={`w-full py-3 px-4 rounded-lg transition-all duration-200 font-medium text-sm ${
                                             !isLessonUnlocked
                                               ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                                               : isLessonCompleted
@@ -723,11 +723,11 @@ const LearningJourney: React.FC = () => {
                             {/* Quizzes Section */}
                             {subjectQuizzes.length > 0 && (
                               <div>
-                                <h4 className="text-2xl font-bold text-gray-900 mb-6 text-right font-cairo flex items-center space-x-3 space-x-reverse">
-                                  <ClipboardDocumentCheckIcon className="w-7 h-7 text-purple-600" />
+                                <h4 className="text-lg font-bold text-gray-900 mb-4 text-right font-cairo flex items-center space-x-2 space-x-reverse">
+                                  <ClipboardDocumentCheckIcon className="w-5 h-5 text-purple-600" />
                                   <span>الاختبارات ({subjectQuizzes.length})</span>
                                 </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                   {subjectQuizzes.map((quiz) => {
                                     const isQuizCompleted = Math.random() > 0.5; // Mock completion
                                     const score = isQuizCompleted ? Math.floor(Math.random() * 30) + 70 : null;
@@ -737,14 +737,14 @@ const LearningJourney: React.FC = () => {
                                     return (
                                       <div
                                         key={quiz.id}
-                                        className={`relative border-2 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl ${
+                                        className={`relative border-2 rounded-xl p-4 transition-all duration-300 hover:shadow-lg ${
                                           !isQuizUnlocked ? 'opacity-50 cursor-not-allowed' :
                                           isQuizCompleted ? 'border-purple-300 bg-gradient-to-br from-purple-50 to-indigo-50 hover:scale-105' : 
                                           'border-purple-300 bg-gradient-to-br from-purple-50 to-indigo-50 hover:scale-105 cursor-pointer'
                                         }`}
                                       >
                                         {/* Quiz Type Badge */}
-                                        <div className={`absolute -top-3 -right-3 px-4 py-2 rounded-full text-sm font-bold text-white shadow-xl ${
+                                        <div className={`absolute -top-2 -right-2 px-3 py-1 rounded-full text-xs font-medium text-white shadow-lg ${
                                           quiz.type === 'lesson_quiz' ? 'bg-blue-500' : 'bg-red-500'
                                         }`}>
                                           {quiz.type === 'lesson_quiz' ? '📝 اختبار' : '🎓 امتحان'}
@@ -752,21 +752,21 @@ const LearningJourney: React.FC = () => {
                                         
                                         {/* Lock Indicator */}
                                         {!isQuizUnlocked && (
-                                          <div className="absolute top-4 left-4 w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center shadow-lg">
-                                            <LockClosedIcon className="w-5 h-5 text-white" />
+                                          <div className="absolute top-2 left-2 w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center shadow-lg">
+                                            <LockClosedIcon className="w-4 h-4 text-white" />
                                           </div>
                                         )}
                                         
-                                        <div className="text-right mb-6">
-                                          <div className="flex items-center justify-between mb-4">
+                                        <div className="text-right mb-4">
+                                          <div className="flex items-center justify-between mb-2">
                                             <div className="flex items-center space-x-2 space-x-reverse">
                                               {isQuizCompleted && (
-                                                <span className="bg-purple-100 text-purple-800 px-3 py-1 text-xs rounded-full font-bold shadow-lg">
+                                                <span className="bg-purple-100 text-purple-800 px-2 py-1 text-xs rounded-full font-medium shadow-sm">
                                                   +{quiz.type === 'final_exam' ? '200' : '100'} XP
                                                 </span>
                                               )}
                                               {score && (
-                                                <span className={`px-3 py-1 text-xs rounded-full font-bold shadow-lg ${
+                                                <span className={`px-2 py-1 text-xs rounded-full font-medium shadow-sm ${
                                                   score >= quiz.passingScore ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                                                 }`}>
                                                   {score}%
@@ -775,24 +775,24 @@ const LearningJourney: React.FC = () => {
                                             </div>
                                             <div className="flex items-center space-x-2 space-x-reverse">
                                               {isQuizCompleted ? (
-                                                <CheckCircleIcon className="w-6 h-6 text-purple-600" />
+                                                <CheckCircleIcon className="w-4 h-4 text-purple-600" />
                                               ) : isQuizUnlocked ? (
-                                                <ClipboardDocumentCheckIcon className="w-6 h-6 text-purple-600" />
+                                                <ClipboardDocumentCheckIcon className="w-4 h-4 text-purple-600" />
                                               ) : (
-                                                <ClockIcon className="w-6 h-6 text-gray-400" />
+                                                <ClockIcon className="w-4 h-4 text-gray-400" />
                                               )}
-                                              <span className="text-sm text-gray-500 font-cairo">{quiz.timeLimit} دقيقة</span>
+                                              <span className="text-xs text-gray-500 font-cairo">{quiz.timeLimit} دقيقة</span>
                                             </div>
                                           </div>
                                           
-                                          <h5 className="font-bold text-gray-900 font-cairo text-xl mb-3">
+                                          <h5 className="font-bold text-gray-900 font-cairo text-sm mb-2">
                                             {quiz.title}
                                           </h5>
-                                          <p className="text-gray-600 font-cairo leading-relaxed mb-4">
+                                          <p className="text-gray-600 font-cairo text-xs leading-relaxed mb-3">
                                             {quiz.description}
                                           </p>
                                           
-                                          <div className="flex items-center justify-between text-sm text-gray-500 font-cairo">
+                                          <div className="flex items-center justify-between text-xs text-gray-500 font-cairo">
                                             <span>درجة النجاح: {quiz.passingScore}%</span>
                                             <span>عدد الأسئلة: {quiz.questions.length}</span>
                                             {isQuizCompleted && (
@@ -807,7 +807,7 @@ const LearningJourney: React.FC = () => {
                                             if (isQuizUnlocked) handleStartQuiz(quiz);
                                           }}
                                           disabled={!isQuizUnlocked || (isQuizCompleted && attempts >= quiz.maxAttempts)}
-                                          className={`w-full py-4 px-6 rounded-xl transition-all duration-200 font-bold text-lg ${
+                                          className={`w-full py-3 px-4 rounded-lg transition-all duration-200 font-medium text-sm ${
                                             !isQuizUnlocked
                                               ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                                               : isQuizCompleted && attempts >= quiz.maxAttempts
