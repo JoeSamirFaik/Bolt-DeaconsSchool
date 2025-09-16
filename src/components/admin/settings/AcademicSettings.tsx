@@ -22,14 +22,14 @@ interface AcademicSettingsProps {
 const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, onNestedChange }) => {
   return (
     <div className="space-y-6">
-      <div className="flex items-center space-x-3 space-x-reverse mb-6">
-        <AcademicCapIcon className="w-6 h-6 text-blue-600" />
-        <h2 className="text-xl font-bold text-gray-900 font-cairo">الإعدادات الأكاديمية</h2>
+      <div className="flex items-center space-x-2 sm:space-x-3 space-x-reverse mb-4 sm:mb-6">
+        <AcademicCapIcon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 font-cairo">الإعدادات الأكاديمية</h2>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
-          <h3 className="text-lg font-bold text-blue-900 mb-4 font-cairo">السنة الأكاديمية الحالية</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="bg-blue-50 rounded-xl p-4 sm:p-6 border border-blue-200">
+          <h3 className="text-base sm:text-lg font-bold text-blue-900 mb-3 sm:mb-4 font-cairo">السنة الأكاديمية الحالية</h3>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-blue-700 mb-2 text-right font-cairo">
@@ -39,10 +39,10 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
                 type="text"
                 value={config.currentAcademicYear}
                 onChange={(e) => onChange('currentAcademicYear', e.target.value)}
-                className="w-full px-4 py-3 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-right font-cairo"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-right font-cairo text-sm sm:text-base"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-blue-700 mb-2 text-right font-cairo">
                   تاريخ البداية
@@ -51,7 +51,7 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
                   type="date"
                   value={config.termStartDate}
                   onChange={(e) => onChange('termStartDate', e.target.value)}
-                  className="w-full px-4 py-3 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-right font-cairo"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-right font-cairo text-sm sm:text-base"
                 />
               </div>
               <div>
@@ -62,17 +62,17 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
                   type="date"
                   value={config.termEndDate}
                   onChange={(e) => onChange('termEndDate', e.target.value)}
-                  className="w-full px-4 py-3 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-right font-cairo"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-blue-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-right font-cairo text-sm sm:text-base"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-indigo-50 rounded-xl p-6 border border-indigo-200">
-          <h3 className="text-lg font-bold text-indigo-900 mb-4 font-cairo">فترة التسجيل</h3>
+        <div className="bg-indigo-50 rounded-xl p-4 sm:p-6 border border-indigo-200">
+          <h3 className="text-base sm:text-lg font-bold text-indigo-900 mb-3 sm:mb-4 font-cairo">فترة التسجيل</h3>
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-indigo-700 mb-2 text-right font-cairo">
                   بداية التسجيل
@@ -81,7 +81,7 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
                   type="date"
                   value={config.registrationPeriod.start}
                   onChange={(e) => onNestedChange('registrationPeriod', 'start', e.target.value)}
-                  className="w-full px-4 py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo text-sm sm:text-base"
                 />
               </div>
               <div>
@@ -92,11 +92,11 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
                   type="date"
                   value={config.registrationPeriod.end}
                   onChange={(e) => onNestedChange('registrationPeriod', 'end', e.target.value)}
-                  className="w-full px-4 py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo text-sm sm:text-base"
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-indigo-700 mb-2 text-right font-cairo">
                   نسبة النجاح الافتراضية (%)
@@ -107,7 +107,7 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
                   max="100"
                   value={config.defaultPassPercentage}
                   onChange={(e) => onChange('defaultPassPercentage', parseInt(e.target.value))}
-                  className="w-full px-4 py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo text-sm sm:text-base"
                 />
               </div>
               <div>
@@ -120,7 +120,7 @@ const AcademicSettings: React.FC<AcademicSettingsProps> = ({ config, onChange, o
                   max="10"
                   value={config.maxRetakeAttempts}
                   onChange={(e) => onChange('maxRetakeAttempts', parseInt(e.target.value))}
-                  className="w-full px-4 py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-right font-cairo text-sm sm:text-base"
                 />
               </div>
             </div>
