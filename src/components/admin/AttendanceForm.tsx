@@ -318,8 +318,7 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
                           type="button"
                           onClick={() => updateAttendanceRecord(deacon.id, 'status', 'excused')}
                           className={`p-2 rounded-lg transition-colors ${
-                      {/* Action Buttons - Left Side */}
-                      <div className="flex items-center space-x-4 space-x-reverse">
+                            record.status === 'excused' 
                               ? 'bg-blue-600 text-white' 
                               : 'bg-gray-100 text-gray-600 hover:bg-blue-100'
                           }`}
@@ -354,27 +353,22 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
                     </div>
 
                     <div className="flex items-center space-x-4 space-x-reverse">
+                      <div className="text-right">
+                        <h4 className="font-semibold text-gray-900 font-cairo">
+                          {deacon.firstName} {deacon.lastName}
+                        </h4>
+                        <p className="text-sm text-gray-600 font-cairo">
+                          {currentLevel?.name || 'غير محدد'}
+                        </p>
+                      </div>
                       {/* Notes */}
                       <input
                         type="text"
                         value={record.notes || ''}
                         onChange={(e) => updateAttendanceRecord(deacon.id, 'notes', e.target.value)}
                         placeholder="ملاحظات..."
-                      {/* Deacon Info - Right Side */}
-                      <div className="flex items-center space-x-4 space-x-reverse">
-                        </div>
-                        <p className="text-sm text-gray-600 font-cairo">
-                          {currentLevel?.name || 'غير محدد'}
-                        </p>
-                        {/* Notes */}
-                        <input
-                          type="text"
-                          value={record.notes || ''}
-                          onChange={(e) => updateAttendanceRecord(deacon.id, 'notes', e.target.value)}
-                          placeholder="ملاحظات..."
-                          className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm font-cairo w-32"
-                        />
-                      </div>
+                        className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm font-cairo w-32"
+                      />
 
                       {/* Avatar */}
                       <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
