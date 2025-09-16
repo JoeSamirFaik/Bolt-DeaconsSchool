@@ -31,10 +31,7 @@ const Layout: React.FC = () => {
   // Get current page from URL - handle both root and dashboard paths
   const getCurrentPage = () => {
     const path = location.pathname.slice(1);
-    if (path === '') {
-      return 'dashboard';
-    }
-    return path;
+    return path || 'dashboard';
   };
   
   const currentPage = getCurrentPage();
@@ -91,11 +88,7 @@ const Layout: React.FC = () => {
   );
 
   const handlePageChange = (page: string) => {
-    if (page === 'dashboard') {
-      navigate('/');
-    } else {
-      navigate(`/${page}`);
-    }
+    navigate(page === 'dashboard' ? '/' : `/${page}`);
   };
 
   return (
