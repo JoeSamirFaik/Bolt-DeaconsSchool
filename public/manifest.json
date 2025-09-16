@@ -1,0 +1,25 @@
+{
+  "name": "البوابة الإلكترونية لمدرسة الشمامسة",
+  "short_name": "مدرسة الشمامسة",
+  "description": "تطبيق ويب تقدمي لإدارة وتعلم مدرسة الشمامسة",
+  "theme_color": "#3B82F6",
+  "background_color": "#F8FAFC",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}
