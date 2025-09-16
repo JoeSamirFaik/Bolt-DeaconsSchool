@@ -315,14 +315,16 @@ const UserManagement: React.FC = () => {
                 <span>
                   {activeTab === 'deacons' ? 'إضافة شماس' : 
                    activeTab === 'parents' ? 'إضافة ولي أمر' : 
-                   activeTab === 'servants' ? 'إضافة خادم' : 'إضافة مستخدم'}
+           'إضافة مستخدم'}
                 </span>
               </button>
             </div>
           )}
 
           {/* Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 bg-gray-100 p-1 rounded-xl">
+          <div className={`grid gap-1 bg-gray-100 p-1 rounded-xl ${
+            user?.role === 'servant' ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-2 sm:grid-cols-4'
+          }`}>
             <button
               onClick={() => setActiveTab('deacons')}
               className={`py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
@@ -345,17 +347,19 @@ const UserManagement: React.FC = () => {
               <UsersIcon className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>أولياء الأمور</span>
             </button>
-            <button
-              onClick={() => setActiveTab('servants')}
-              className={`py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
-                activeTab === 'servants'
-                  ? 'bg-white text-amber-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              <UserIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span>الخدام</span>
-            </button>
+            {user?.role === 'admin' && (
+              <button
+                onClick={() => setActiveTab('servants')}
+                className={`py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
+                  activeTab === 'servants'
+                    ? 'bg-white text-amber-600 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                <UserIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span>الخدام</span>
+              </button>
+            )}
             <button
               onClick={() => setActiveTab('assignments')}
               className={`py-2 px-2 sm:py-3 sm:px-4 rounded-lg font-medium transition-all flex items-center justify-center space-x-1 sm:space-x-2 space-x-reverse text-xs sm:text-base ${
@@ -1018,7 +1022,9 @@ const UserManagement: React.FC = () => {
         <UserForm
           user={editingItem}
           users={users}
-          allowedRoles={activeTab === 'servants' ? ['servant'] : ['deacon', 'parent']}
+          allowedRoles={activeTab === 'servants' ? ['servant'] : 
+                       user?.role === 'servant' ? ['deacon', 'parent'] : 
+                       ['deacon', 'parent']}
           onClose={() => {
             setShowUserForm(false);
             setEditingItem(null);
