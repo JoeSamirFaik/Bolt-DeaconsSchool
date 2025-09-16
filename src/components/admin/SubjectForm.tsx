@@ -118,21 +118,18 @@ const SubjectForm: React.FC<SubjectFormProps> = ({ subject, levelId, levels, onC
               <label htmlFor="levelId" className="block text-sm font-medium text-gray-700 mb-2 text-right">
                 المستوى الأكاديمي *
               </label>
-              <select
-                id="levelId"
-                name="levelId"
+              <Select
                 value={formData.levelId}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo bg-white"
-              >
-                <option value="">-- اختر المستوى --</option>
-                {levels.map((level) => (
-                  <option key={level.id} value={level.id}>
-                    {level.name}
-                  </option>
-                ))}
-              </select>
+                onChange={(selectedOption) => {
+                  if (selectedOption) {
+                    setFormData({ ...formData, levelId: selectedOption.value });
+                  }
+                }}
+                options={levels.map(level => ({ value: level.id, label: level.name }))}
+                styles={customSelectStyles}
+                placeholder="-- اختر المستوى --"
+                isSearchable={false}
+              />
             </div>
 
             <div>

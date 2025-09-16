@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import { XMarkIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
 import { Level, CreateLevelRequest, UpdateLevelRequest } from '../../types/lms';
 import { levelsApi } from '../../services/lmsApi';
@@ -19,6 +20,42 @@ const LevelForm: React.FC<LevelFormProps> = ({ level, onClose, onSave }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const customSelectStyles = {
+    control: (provided: any) => ({
+      ...provided,
+      minHeight: '48px',
+      border: '1px solid #d1d5db',
+      borderRadius: '8px',
+      fontSize: '16px',
+      fontFamily: 'Cairo, sans-serif',
+      '&:hover': {
+        borderColor: '#9ca3af'
+      },
+      '&:focus-within': {
+        borderColor: '#3b82f6',
+        boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.1)'
+      }
+    }),
+    option: (provided: any, state: any) => ({
+      ...provided,
+      fontFamily: 'Cairo, sans-serif',
+      textAlign: 'right',
+      backgroundColor: state.isSelected ? '#3b82f6' : state.isFocused ? '#f3f4f6' : 'white',
+      color: state.isSelected ? 'white' : '#374151'
+    }),
+    singleValue: (provided: any) => ({
+      ...provided,
+      fontFamily: 'Cairo, sans-serif',
+      textAlign: 'right'
+    }),
+    placeholder: (provided: any) => ({
+      ...provided,
+      fontFamily: 'Cairo, sans-serif',
+      textAlign: 'right',
+      color: '#9ca3af'
+    })
+  };
 
   useEffect(() => {
     if (level) {

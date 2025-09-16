@@ -236,21 +236,18 @@ const LessonForm: React.FC<LessonFormProps> = ({ lesson, subjectId, subjects, on
                 <label htmlFor="subjectId" className="block text-sm font-medium text-gray-700 mb-2 text-right">
                   المقرر الدراسي *
                 </label>
-                <select
-                  id="subjectId"
-                  name="subjectId"
+                <Select
                   value={formData.subjectId}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right font-cairo bg-white"
-                >
-                  <option value="">-- اختر المقرر --</option>
-                  {subjects.map((subject) => (
-                    <option key={subject.id} value={subject.id}>
-                      {subject.name}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(selectedOption) => {
+                    if (selectedOption) {
+                      setFormData({ ...formData, subjectId: selectedOption.value });
+                    }
+                  }}
+                  options={subjects.map(subject => ({ value: subject.id, label: subject.name }))}
+                  styles={customSelectStyles}
+                  placeholder="-- اختر المقرر --"
+                  isSearchable={false}
+                />
               </div>
 
               <div>
