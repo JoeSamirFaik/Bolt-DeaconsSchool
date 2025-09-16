@@ -82,6 +82,18 @@ const Layout: React.FC = () => {
         return <LMSManagement />;
       case 'attendance':
         return <AttendanceManagement />;
+      case 'records-approval':
+        return user?.role === 'admin' || user?.role === 'servant' ? <RecordsApproval /> : (
+          <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl">🚫</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 font-cairo">غير مسموح</h3>
+              <p className="text-gray-500 font-cairo">هذه الصفحة متاحة للمديرين والخدام فقط</p>
+            </div>
+          </div>
+        );
       case 'servant-mgmt':
         return user?.role === 'admin' ? <ServantManagement /> : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
