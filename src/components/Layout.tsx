@@ -13,7 +13,6 @@ import DeaconParentManagement from './admin/DeaconParentManagement';
 import AttendanceManagement from './admin/AttendanceManagement';
 import LearningJourney from './deacon/LearningJourney';
 import DeaconCalendar from './deacon/DeaconCalendar';
-import AttendanceBoard from './deacon/AttendanceBoard';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -50,8 +49,6 @@ const Layout: React.FC = () => {
         return user.role === 'deacon' ? <LearningJourney /> : <div>Access denied</div>;
       case 'calendar':
         return user.role === 'deacon' ? <DeaconCalendar /> : <div>Access denied</div>;
-      case 'attendance-board':
-        return user.role === 'deacon' ? <AttendanceBoard /> : <div>Access denied</div>;
       default:
         return <div>Page not found</div>;
     }
