@@ -481,7 +481,6 @@ const LearningJourney: React.FC = () => {
                     <div className={`relative transition-all duration-500 ${
                       !isUnlocked ? 'opacity-50 pointer-events-none' : ''
                     }`}>
-                      <>
                       {/* Subject Header */}
                       <div className="flex items-center space-x-6 space-x-reverse mb-6">
                         {/* Subject Node */}
@@ -748,7 +747,6 @@ const LearningJourney: React.FC = () => {
                             </div>
                           )}
                         </div>
-                      </>
                       )}
                     </div>
                   );
