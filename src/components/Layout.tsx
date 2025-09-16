@@ -9,6 +9,7 @@ import AdminDashboard from './dashboards/AdminDashboard';
 import LMSManagement from './admin/LMSManagement';
 import DeaconParentManagement from './admin/DeaconParentManagement';
 import ServantManagement from './admin/ServantManagement';
+import AttendanceManagement from './admin/AttendanceManagement';
 
 const Layout: React.FC = () => {
   const { user } = useAuth();
@@ -38,6 +39,8 @@ const Layout: React.FC = () => {
         return <LMSManagement />;
       case 'deacon-parent-mgmt':
         return <DeaconParentManagement />;
+      case 'attendance':
+        return <AttendanceManagement />;
       case 'servant-mgmt':
         return user?.role === 'admin' ? <ServantManagement /> : (
           <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
