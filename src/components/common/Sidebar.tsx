@@ -20,9 +20,10 @@ import {
 interface SidebarProps {
   currentPage: string;
   onPageChange: (page: string) => void;
+  onMobileClose?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
+const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, onMobileClose }) => {
   const { user, logout } = useAuth();
 
   const common: any[] = [];
@@ -103,7 +104,10 @@ const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange }) => {
             return (
               <button
                 key={item.id}
-                onClick={() => onPageChange(item.id)}
+                onClick={() => {
+                  onPageChange(item.id);
+                  onMobileClose?.();
+                }}
                 className={`w-full group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                   isActive
                     ? 'bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white shadow-lg transform scale-105'
