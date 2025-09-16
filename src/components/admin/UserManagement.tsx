@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import { 
   PlusIcon, 
   UsersIcon,
@@ -67,6 +68,7 @@ const customSelectStyles = {
 };
 
 const UserManagement: React.FC = () => {
+  const { user } = useAuth();
   const [users, setUsers] = useState<User[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
   const [assignments, setAssignments] = useState<LevelAssignment[]>([]);
