@@ -148,6 +148,12 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
       {/* Header */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between">
+          {/* Right side - Title & Description */}
+          <div className="text-right">
+            <h1 className="text-2xl font-bold text-gray-900 font-cairo">تسجيل الحضور</h1>
+            <p className="text-gray-600 font-cairo">{session.name}</p>
+          </div>
+          
           {/* Left side - Back Button */}
           <button
             onClick={onClose}
@@ -156,12 +162,6 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
             <XMarkIcon className="w-5 h-5" />
             <span>العودة</span>
           </button>
-          
-          {/* Right side - Title & Description */}
-          <div className="text-right">
-            <h1 className="text-2xl font-bold text-gray-900 font-cairo">تسجيل الحضور</h1>
-            <p className="text-gray-600 font-cairo">{session.name}</p>
-          </div>
         </div>
       </div>
 
@@ -174,7 +174,7 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
 
         {/* Session Info & Date Selection */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-right">
             <div className="text-right">
               <h3 className="text-sm font-medium text-gray-700 font-cairo">الجلسة</h3>
               <p className="text-lg font-semibold text-gray-900 font-cairo">{session.name}</p>
@@ -240,6 +240,20 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
         {/* Quick Actions */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center justify-between">
+            {/* Right side - Search and Count */}
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <span className="text-sm text-gray-600 font-cairo">
+                {filteredDeacons.length} من {eligibleDeacons.length} شماس
+              </span>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="البحث عن شماس..."
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right font-cairo"
+              />
+            </div>
+            
             {/* Left side - Quick Actions */}
             <div className="flex space-x-2 space-x-reverse">
               <button
@@ -256,20 +270,6 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
               >
                 تحديد الكل غائب
               </button>
-            </div>
-            
-            {/* Right side - Search and Count */}
-            <div className="flex items-center space-x-3 space-x-reverse">
-              <span className="text-sm text-gray-600 font-cairo">
-                {filteredDeacons.length} من {eligibleDeacons.length} شماس
-              </span>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="البحث عن شماس..."
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-right font-cairo"
-              />
             </div>
           </div>
         </div>
@@ -289,8 +289,47 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
                   className={`border-2 rounded-xl p-4 transition-all ${getStatusColor(record.status)}`}
                 >
                   <div className="flex items-center justify-between">
+                    {/* Right side - Deacon Info */}
+                    <div className="flex items-center space-x-4 space-x-reverse">
+                      <div className="text-right">
+                        <h4 className="font-semibold text-gray-900 font-cairo">
+                          {deacon.firstName} {deacon.lastName}
+                        </h4>
+                        <p className="text-sm text-gray-600 font-cairo">
+                          {currentLevel?.name || 'غير محدد'}
+                        </p>
+                      </div>
+
+                      {/* Avatar */}
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
+                        <span className="text-sm font-bold text-blue-600">
+                          {deacon.firstName.charAt(0)}
+                        </span>
+                      </div>
+                    </div>
+
                     {/* Left side - Action Buttons */}
                     <div className="flex items-center space-x-4 space-x-reverse">
+                      {/* Notes */}
+                      <input
+                        type="text"
+                        value={record.notes || ''}
+                        onChange={(e) => updateAttendanceRecord(deacon.id, 'notes', e.target.value)}
+                        placeholder="ملاحظات..."
+                        className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm font-cairo w-32"
+                      />
+
+                      {/* Arrival Time (for present/late) */}
+                      {(record.status === 'present' || record.status === 'late') && (
+                        <input
+                          type="time"
+                          value={record.arrivalTime || ''}
+                          onChange={(e) => updateAttendanceRecord(deacon.id, 'arrivalTime', e.target.value)}
+                          className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm font-cairo"
+                          placeholder="وقت الوصول"
+                        />
+                      )}
+
                       {/* Status Buttons */}
                       <div className="flex space-x-1 space-x-reverse">
                         <button
@@ -341,45 +380,6 @@ const AttendanceForm: React.FC<AttendanceFormProps> = ({ session, deacons, level
                         >
                           <XCircleIcon className="w-4 h-4" />
                         </button>
-                      </div>
-
-                      {/* Arrival Time (for present/late) */}
-                      {(record.status === 'present' || record.status === 'late') && (
-                        <input
-                          type="time"
-                          value={record.arrivalTime || ''}
-                          onChange={(e) => updateAttendanceRecord(deacon.id, 'arrivalTime', e.target.value)}
-                          className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm font-cairo"
-                          placeholder="وقت الوصول"
-                        />
-                      )}
-
-                      {/* Notes */}
-                      <input
-                        type="text"
-                        value={record.notes || ''}
-                        onChange={(e) => updateAttendanceRecord(deacon.id, 'notes', e.target.value)}
-                        placeholder="ملاحظات..."
-                        className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm font-cairo w-32"
-                      />
-                    </div>
-
-                    {/* Right side - Deacon Info */}
-                    <div className="flex items-center space-x-4 space-x-reverse">
-                      <div className="text-right">
-                        <h4 className="font-semibold text-gray-900 font-cairo">
-                          {deacon.firstName} {deacon.lastName}
-                        </h4>
-                        <p className="text-sm text-gray-600 font-cairo">
-                          {currentLevel?.name || 'غير محدد'}
-                        </p>
-                      </div>
-
-                      {/* Avatar */}
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center">
-                        <span className="text-sm font-bold text-blue-600">
-                          {deacon.firstName.charAt(0)}
-                        </span>
                       </div>
                     </div>
                   </div>
